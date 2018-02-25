@@ -6,7 +6,7 @@
 	<groupId>com.plagsafe</groupId>
 	<artifactId>plag-safe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>plagsafe</name>
 	<description>PlagSafe - Plagarism Detector by Team 109</description>
