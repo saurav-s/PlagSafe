@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.plagsafe</groupId>
-	<artifactId>plag-safe</artifactId>
+	<groupId>com.phasec</groupId>
+	<artifactId>plagsafe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>plagsafe</name>
-	<description>PlagSafe - Plagarism Detector by Team 109</description>
+	<description>Plagiarism Detector by Team 109</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -38,6 +38,10 @@
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derby</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
