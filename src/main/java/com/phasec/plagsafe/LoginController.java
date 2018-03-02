@@ -1,5 +1,7 @@
 package com.phasec.plagsafe;
-
+/**
+ * Controller for login functionality
+ */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,11 +18,23 @@ public class LoginController {
     @Autowired
     LoginService service;
 
+    /**
+     * default login page mapping
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLoginPage(ModelMap model){
         return "login";
     }
 
+    /**
+     * api for login credential checks
+     * @param model
+     * @param name
+     * @param password
+     * @return
+     */
     @RequestMapping(value="/logincheck", method = RequestMethod.POST)
     public String showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
 
