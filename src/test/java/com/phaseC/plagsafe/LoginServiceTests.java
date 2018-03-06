@@ -21,6 +21,13 @@ public class LoginServiceTests {
 	
 	// member variable
 	private LoginService service;
+
+	//valid login
+    private static final String VALID_USER_NAME = "team109";
+    private static final String VALID_PASSWORD = "max123";
+
+    private static final String INVALID_USER_NAME = "wrong_amin";
+    private static final String INVALID_PASSWORD = "wrong_password";
 	
 	/**
 	 * Method responsible for setting up the test suite
@@ -39,7 +46,7 @@ public class LoginServiceTests {
 	public void testValidateUserPoistiveScenario(){
 		
 		
-		boolean expectedResponse = service.validateUser("admin", "test-password");
+		boolean expectedResponse = service.validateUser(VALID_USER_NAME, VALID_PASSWORD);
 		assertEquals(true, expectedResponse);
 		
 	}
@@ -50,7 +57,7 @@ public class LoginServiceTests {
 	@Test
 	public void testValidateUserNegativeScenarioWrongUsername(){
 		
-		boolean expectedResponse = service.validateUser("wrong_admin", "test-password");
+		boolean expectedResponse = service.validateUser(INVALID_USER_NAME, VALID_PASSWORD);
 		assertEquals(false, expectedResponse);
 		
 		
@@ -62,7 +69,7 @@ public class LoginServiceTests {
 	@Test
 	public void testValidateUserNegativeScenarioWrongPassword(){
 		
-		boolean expectedResponse = service.validateUser("admin", "wrong_password");
+		boolean expectedResponse = service.validateUser(VALID_USER_NAME, INVALID_PASSWORD);
 		assertEquals(false, expectedResponse);
 		
 		
@@ -74,28 +81,9 @@ public class LoginServiceTests {
 	@Test
 	public void testValidateUserNegativeScenarioWrongUsernameAndPassword(){
 		
-		boolean expectedResponse = service.validateUser("wrong_admin", "wrong_password");
+		boolean expectedResponse = service.validateUser(INVALID_PASSWORD, INVALID_PASSWORD);
 		assertEquals(false, expectedResponse);
 		
 		
-	}
-
-    /**
-     * Test for scenario where both username and password are correct
-     */
-    @Test
-    public void testValidateExistingUserFromDB() {
-        boolean expectedResponse = service.validateUserFromDB("team109", "max123");
-        assertEquals(false, expectedResponse);
-    }
-
-
-	/**
-	 * Test for scenario where both username and password are incorrect
-	 */
-	@Test
-	public void testValidateFromDB() {
-		boolean expectedResponse = service.validateUserFromDB("wrong_admin", "wrong_password");
-		assertEquals(false, expectedResponse);
 	}
 }
