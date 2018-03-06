@@ -1,4 +1,4 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.application;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

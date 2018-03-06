@@ -8,7 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserObject, Integer> {
-    //Query to check if a user with this username and password is present in the database
-    @Query("SELECT count(user_name) FROM registered_user WHERE user_name=?1 AND secret=?2")
-    public int find(String user_name, String secret);
+
 }

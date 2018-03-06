@@ -1,4 +1,4 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.login;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
