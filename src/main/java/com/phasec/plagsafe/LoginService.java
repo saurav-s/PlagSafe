@@ -1,8 +1,12 @@
 package com.phasec.plagsafe;
+
 /**
  * Login service
  */
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LoginService {
@@ -18,4 +22,15 @@ public class LoginService {
                 && password.equalsIgnoreCase("test-password");
     }
 
+    public boolean validateUserFromDB(String username, String Password) {
+        return false;
+    }
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public boolean validateUsersFromDB(String userName, String secret) {
+        int recordsCount = userRepository.find(userName, secret);
+        return (recordsCount == 1);
+    }
 }

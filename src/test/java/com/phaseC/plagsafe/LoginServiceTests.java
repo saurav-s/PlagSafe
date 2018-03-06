@@ -79,4 +79,23 @@ public class LoginServiceTests {
 		
 		
 	}
+
+    /**
+     * Test for scenario where both username and password are correct
+     */
+    @Test
+    public void testValidateExistingUserFromDB() {
+        boolean expectedResponse = service.validateUserFromDB("team109", "max123");
+        assertEquals(false, expectedResponse);
+    }
+
+
+	/**
+	 * Test for scenario where both username and password are incorrect
+	 */
+	@Test
+	public void testValidateFromDB() {
+		boolean expectedResponse = service.validateUserFromDB("wrong_admin", "wrong_password");
+		assertEquals(false, expectedResponse);
+	}
 }

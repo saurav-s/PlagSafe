@@ -1,17 +1,17 @@
-package objects;
+package com.phasec.plagsafe.objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name="registered_user")
 public class UserObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name="user_name")
     private String userName;
+    @Column(name="secret")
     private String secret;
+    @Column(name="status_id")
     private String statusId;
 
 

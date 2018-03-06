@@ -16,12 +16,12 @@ public class PlagsafeApplication {
 	}
 	
 	@Bean
-	  public EmbeddedServletContainerFactory embeddedServletContainerFactory() {
+	public EmbeddedServletContainerFactory embeddedServletContainerFactory() {
 	    return new TomcatEmbeddedServletContainerFactory() {
-	      @Override
-	      protected void postProcessContext(Context context) {
-	        ((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
-	      }
+	    	@Override
+			protected void postProcessContext(Context context) {
+	    		((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
+	    	}
 	    };
-	  }
+	}
 }
