@@ -8,27 +8,32 @@ app.config(function($routeProvider) {
         .when('/dashboard', {
             resolve:{
                 "check": function($location, $rootScope) {
-                    if(!$rootscope.loggedIn) {
+                    if(!$rootScope.loggedIn) {
                         $location.path('/');
-                    } else {
-                        templateUrl: 'dashboard.html'
                     }
                 }
-            }
+            },
+            templateUrl: 'views/dashboard.html'
         })
         .otherwise({
             redirectTo: '/'
         });
 });
 
-app.controller('LoginController', function($scope) {
+app.controller('LoginController', function($scope, $location, $rootScope, LoginService) {
     $scope.submit = function () {
         var username = $scope.username;
         var password = $scope.password;
+        $rootScope.loggedIn = false;
 
-        if(username == 'admin' && password == 'admin') {
-            $rootScope.loggedIn = true;
-            $location.path('/dashboard');
-        }
+        LoginService.findUser(username, password)
+            .then(function(value) {
+                var user = value.data;
+                if(user != undefined && user.userName !== undefined) {
+                    $rootScope.loggedIn = true;
+                    $location.path('/dashboard');
+                }
+            });
     };
 });
+

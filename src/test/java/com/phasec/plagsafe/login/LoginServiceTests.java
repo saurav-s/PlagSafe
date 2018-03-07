@@ -38,47 +38,47 @@ public class LoginServiceTests {
 	/**
 	 * Test for positive scenario where both username and password are correct
 	 */
-	@Test
-	public void testValidateUserPoistiveScenario(){
-	    boolean expectedResponse = service.validateUser(VALID_USER_NAME, VALID_PASSWORD);
-	    String message = "Login test for a valid admin user";
+    @Test
+    public void testValidateUserPoistiveScenario(){
+        boolean expectedResponse = service.validateUser(VALID_USER_NAME, VALID_PASSWORD) != null;
+        String message = "Login test for a valid admin user";
         Assert.assertTrue(message, expectedResponse);
-	}
+    }
 
     @Test
     public void testLoginTestUserPositive() {
-        boolean expectedResponse = service.validateUser(VALID_TEST_USER_NAME, VALID_TEST_USER_PASSWORD);
+        boolean expectedResponse = service.validateUser(VALID_TEST_USER_NAME, VALID_TEST_USER_PASSWORD) != null;
         String message = "Login test for a valid admin test user";
         Assert.assertTrue(message, expectedResponse);
     }
 
-	/**
-	 * Test for negative scenario where the username is incorrect
-	 */
-	@Test
-	public void testValidateUserNegativeScenarioWrongUsername(){
-	    boolean expectedResponse = service.validateUser(INVALID_USER_NAME, VALID_PASSWORD);
+    /**
+     * Test for negative scenario where the username is incorrect
+     */
+    @Test
+    public void testValidateUserNegativeScenarioWrongUsername(){
+        boolean expectedResponse = service.validateUser(INVALID_USER_NAME, VALID_PASSWORD) != null;
         String message = "Login test for a invalid user";
         Assert.assertFalse(message, expectedResponse);
-	}
-	
-	/**
-	 * Test for negative scenario where the password is incorrect
-	 */
-	@Test
-	public void testValidateUserNegativeScenarioWrongPassword(){
-	    boolean expectedResponse = service.validateUser(VALID_USER_NAME, INVALID_PASSWORD);
+    }
+
+    /**
+     * Test for negative scenario where the password is incorrect
+     */
+    @Test
+    public void testValidateUserNegativeScenarioWrongPassword(){
+        boolean expectedResponse = service.validateUser(VALID_USER_NAME, INVALID_PASSWORD) != null;
         String message = "Login test for a valid admin user, but invalid password";
         Assert.assertFalse(message, expectedResponse);
-	}
-	
-	/**
-	 * Test for scenario where both username and password are incorrect
-	 */
-	@Test
-	public void testValidateUserNegativeScenarioWrongUsernameAndPassword(){
-	    boolean expectedResponse = service.validateUser(INVALID_PASSWORD, INVALID_PASSWORD);
+    }
+
+    /**
+     * Test for scenario where both username and password are incorrect
+     */
+    @Test
+    public void testValidateUserNegativeScenarioWrongUsernameAndPassword(){
+        boolean expectedResponse = service.validateUser(INVALID_PASSWORD, INVALID_PASSWORD) != null;
         String message = "Login test for credentials not present in db";
         Assert.assertFalse(message, expectedResponse);
-	}
+    }
 }

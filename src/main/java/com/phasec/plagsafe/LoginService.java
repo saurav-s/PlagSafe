@@ -21,14 +21,18 @@ public class LoginService {
      * @param secret password
      * @return true iff a matching record exists in the database
      */
-    public boolean validateUser(String userName, String secret) {
+    public UserObject validateUser(String userName, String secret) {
         List<UserObject> records = userRepository.findAll();
+        UserObject match = null;
+
         for(UserObject user : records) {
             //user found, successful validation
-            if(user.getUserName().equals(userName) && user.getSecret().equals(secret))
-                return true;
+            if(user.getUserName().equals(userName) && user.getSecret().equals(secret)) {
+                match = user;
+                break;
+            }
         }
         // no user exists with the given credentials, validation failed
-        return false;
+        return match;
     }
 }
