@@ -48,7 +48,7 @@ public class LoginServiceTests {
     @Test
     public void testLoginTestUserPositive() {
         boolean expectedResponse = service.validateUser(VALID_TEST_USER_NAME, VALID_TEST_USER_PASSWORD) != null;
-        String message = "Login test for a valid admin test user";
+        String message = "Login test for a valid admin test user with a valid password";
         Assert.assertTrue(message, expectedResponse);
     }
 
