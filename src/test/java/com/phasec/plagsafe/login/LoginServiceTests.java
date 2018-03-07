@@ -68,7 +68,7 @@ public class LoginServiceTests {
     @Test
     public void testValidateUserNegativeScenarioWrongPassword(){
         boolean expectedResponse = service.validateUser(VALID_USER_NAME, INVALID_PASSWORD) != null;
-        String message = "Login test for a valid admin user, but invalid password";
+        String message = "Login test for a valid admin user with invalid password";
         Assert.assertFalse(message, expectedResponse);
     }
 
