@@ -28,7 +28,7 @@ public class LoginService {
             if(user.getUserName().equals(userName) && user.getSecret().equals(secret))
                 return true;
         }
-        // no user exists with the given credentials, validation failed
+        // no user exists with the given credentials, validation failed, return false
         return false;
     }
 }
