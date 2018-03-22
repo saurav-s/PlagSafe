@@ -73,4 +73,50 @@ public class SubmissionUtility {
 
         return ast;
     }
+
+    /**
+     * this method calculates the edit distance from a source string to a target String
+     *
+     * @param source
+     * @param target
+     * @return count of changes to be made on the source string to get the target string
+     */
+    public int editDistance(String source, String target) {
+        int [][]dp = new int [source.length()+1][target.length()+1];
+
+        dp[0][0]=0;
+        for(int i=1; i<dp.length; i++){
+            dp[i][0]=i;
+        }
+
+        for(int j=1; j<dp[0].length; j++){
+            dp[0][j]=j;
+        }
+
+        for(int i=1; i<dp.length; i++){
+            for(int j=1; j<dp[0].length; j++){
+                if(source.charAt(i-1)==target.charAt(j-1)){
+                    dp[i][j]=dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j] = Math.min(dp[i-1][j-1], Math.min(dp[i-1][j], dp[i][j-1])) + 1;
+                }
+            }
+        }
+        return dp[dp.length-1][dp[0].length-1];
+    }
+
+    /**
+     *
+     * @param source
+     * @param target
+     * @return
+     */
+    public int getAverageSubmissionFileLength(String source, String target) {
+        return (source.length() + target.length()) / 2;
+    }
+
+    public int getMatchPercentage(int diff, int total) {
+        return 100 - ((diff/total) * 100);
+    }
 }
