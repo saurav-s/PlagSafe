@@ -30,7 +30,7 @@ public class SubmissionUtility {
             text = scanner.useDelimiter("\\A").next();
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         }
         finally{
             if(scanner != null){
