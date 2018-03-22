@@ -73,4 +73,18 @@ public class SubmissionUtility {
 
         return ast;
     }
+    
+    /**
+    *
+    * @param source
+    * @param target
+    * @return
+    */
+   public static int getAverageSubmissionFileLength(String source, String target) {
+       return (source.length() + target.length()) / 2;
+   }
+
+   public static int getMatchPercentage(int diff, int total) {
+       return 100 - ((diff/total) * 100);
+   }
 }
