@@ -1,11 +1,11 @@
-var app=angular.module('PlagsafeApp', ['ngRoute']);
+var app=angular.module('PlagsafeApp', ['ngRoute', 'ngFileUpload']);
 
 app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
         templateUrl: 'views/login.html'
         })
-        .when('/dashboard', {
+        .when('/upload', {
             resolve:{
                 "check": function($location, $rootScope) {
                     if(!$rootScope.loggedIn) {
@@ -13,7 +13,7 @@ app.config(function($routeProvider) {
                     }
                 }
             },
-            templateUrl: 'views/dashboard.html'
+            templateUrl: 'views/upload.html'
         })
         .otherwise({
             redirectTo: '/'
@@ -31,9 +31,89 @@ app.controller('LoginController', function($scope, $location, $rootScope, LoginS
                 var user = value.data;
                 if(user != undefined && user.userName !== undefined) {
                     $rootScope.loggedIn = true;
-                    $location.path('/dashboard');
+                    $location.path('/upload');
                 }
             });
     };
 });
+
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+          
+          element.bind('change', function(){
+             scope.$apply(function(){
+                modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+}]); 
+
+app.controller('uploadFileController', ['$scope', '$http', function($scope, $http){
+    $scope.doUploadFile = function(){
+       var file = $scope.uploadedFile;
+       var url = "/api/uploadfile";
+       
+       var data = new FormData();
+       data.append('uploadfile', file);
+    
+       var config = {
+    	   	transformRequest: angular.identity,
+    	   	transformResponse: angular.identity,
+	   		headers : {
+	   			'Content-Type': undefined
+	   	    }
+       }
+       
+       $http.post(url, data, config).then(function (response) {
+			$scope.uploadResult=response.data;
+		}, function (response) {
+			$scope.uploadResult=response.data;
+		});
+    };
+}]);
+
+app.controller('getFilesController', ['$scope', '$http', function($scope, $http){
+    $scope.doGetFiles = function(){
+       var url = "/api/getallfiles";
+       $http.get(url).then(function (response) {
+			$scope.lstFiles = response.data;
+		}, function (response) {
+			alert(response.data);
+		});
+    };
+}]);
+
+
+app.controller('betaUploadFileController', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
+  $scope.onFileSelect = function($files) {
+	  Upload.upload({
+	    url: '/api/uploadfile',
+	    file: $files, 
+	    data: {
+	    		uploadfile: $files[0]
+        }
+	  }).then(function (response) {
+          $timeout(function () {
+              $scope.result = response.data;
+          });
+      }, function (response) {
+          if (response.status > 0) {
+              $scope.errorMsg = response.status + ': ' + response.data;
+          }
+      }, function (evt) {
+          $scope.progress = 
+              Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+//	  }).progress(function(e) {
+//	  }).then(function(data, status, headers, config) {
+//	    console.log(data);
+//	  });
+  };
+
+}]);
 

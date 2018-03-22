@@ -1,0 +1,54 @@
+
+
+	<div>Welcome User<br><br>
+	</div>
+	
+	<div  ng-controller="uploadFileController">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="uploadfile">Upload File:</label>
+				<div class="col-sm-5">
+					<input class="form-control" type="file" file-model = "uploadedFile" placeholder="Upload File" multiple></input>
+				</div>
+			</div>
+			<div class="form-group"> 
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button type="submit" class="btn btn-default" ng-click = "doUploadFile()">Upload</button>
+			    </div>
+			</div>
+		</form>
+		<hr/>
+		<div class="col-sm-offset-2">
+			<p ng-bind="uploadResult"></p>
+		</div>
+	</div>
+	
+	
+	
+	<div ng-controller="getFilesController">
+		<div class="col-sm-offset-2">
+			<button type="button" class="btn btn-primary btn-block" ng-click="doGetFiles()">Get Files</button>
+		</div>
+		<hr/>
+		<div class="col-sm-offset-2" ng-model="lstFiles">
+			<ul>
+				<li ng-repeat="file in lstFiles"><a href='{{file}}'>{{file}}</a></li>
+			</ul>
+		</div>			
+	</div>
+	
+	
+	<div ng-controller="betaUploadFileController">
+  		<input type="file" ngf-select="onFileSelect($files)" multiple>
+  		<span class="progress" ng-show="progress >= 0">
+  				test
+       		 <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+       		 
+    		</span>
+    		 {{errorMsg}}
+	</div>
+	
+	
+	
+
+
