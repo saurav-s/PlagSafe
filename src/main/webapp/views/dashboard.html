@@ -1,1 +1,8 @@
-<div> Welcome user! </div>
+<div ng-controller="FileUploadController">
+    <h2>Welcome to Plagsafe!</h2>
+    <h3>Select submission 1 path</h3>
+    <input type="file" class="file" name="submission1" id="submission1" ng-model="submission1"/><br>
+    <h3>Select submission 2 path</h3>
+    <input type="file" class="file" name="submission2" id="submission2" ng-model="submission2"/><br>
+    <button type="button" ng-click="compare()">Compare</button><br>
+</div>
