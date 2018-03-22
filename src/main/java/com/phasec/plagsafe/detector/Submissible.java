@@ -1,5 +1,7 @@
 package com.phasec.plagsafe.detector;
 
+import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
+
 import java.io.File;
 
 /**
@@ -7,10 +9,6 @@ import java.io.File;
  * @author rohit
  */
 public interface Submissible {
-    /**
-     * @param codeFile  Code file for which the AST is to be generated
-     */
-    public void generateAST(File codeFile);
 
     public String getName();
 
@@ -19,4 +17,8 @@ public interface Submissible {
     public String getCode();
 
     public void setCode(String code);
+
+    public File_inputContext getAst();
+
+    public void setAst(File_inputContext ast);
 }

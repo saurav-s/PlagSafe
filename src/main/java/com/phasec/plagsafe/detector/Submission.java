@@ -1,19 +1,14 @@
 package com.phasec.plagsafe.detector;
 
+import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
+
 import java.io.File;
 
 public class Submission implements Submissible {
 
     private String name;
     private String code;
-    //add AST filed: ToDo
-    /**
-     * @param codeFile :  Code file for which the AST is to be generated
-     */
-    @Override
-    public void generateAST(File codeFile) {
-        //ToDo: implement AST generation
-    }
+    private File_inputContext ast;
 
     public String getName() {
         return name;
@@ -29,5 +24,13 @@ public class Submission implements Submissible {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public File_inputContext getAst() {
+        return ast;
+    }
+
+    public void setAst(File_inputContext ast) {
+        this.ast = ast;
     }
 }

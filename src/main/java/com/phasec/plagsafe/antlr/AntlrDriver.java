@@ -39,7 +39,7 @@ public class AntlrDriver {
 			astPrinter.print(fileInputContext);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+
 		}
 
 	}
