@@ -61,31 +61,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
     };
 }]); 
 
-app.controller('uploadFileController', ['$scope', '$http', function($scope, $http){
-    $scope.doUploadFile = function(){
-       var fileList1 = $scope.uploadedFile1;
-       var fileList2 = $scope.uploadedFile2;
-       var url = "/api/uploadfile";
-       
-       var data = new FormData();
-       data.append('uploadfile1', fileList1);
-       data.append('uploadfile2', fileList2);
-    
-       var config = {
-    	   	transformRequest: angular.identity,
-    	   	transformResponse: angular.identity,
-	   		headers : {
-	   			'Content-Type': undefined
-	   	    }
-       }
-       
-       $http.post(url, data, config).then(function (response) {
-			$scope.uploadResult=response.data;
-		}, function (response) {
-			$scope.uploadResult=response.data;
-		});
-    };
-}]);
 
 app.controller('getFilesController', ['$scope', '$http', function($scope, $http){
     $scope.doGetFiles = function(){
@@ -99,29 +74,10 @@ app.controller('getFilesController', ['$scope', '$http', function($scope, $http)
 }]);
 
 
-app.controller('betaUploadFileController', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-  $scope.onFileSelect = function($fileList1, $fileList2) {
-	  Upload.upload({
-	    url: '/api/uploadfile',
-	    data: {
-	    		uploadfile1: $fileList1,
-	    		uploadfile2: $fileList2
-        }
-	  }).then(function (response) {
-          $timeout(function () {
-              $scope.result = response.data;
-          });
-      }, function (response) {
-          if (response.status > 0) {
-              $scope.errorMsg = response.status + ': ' + response.data;
-          }
-      }, function (evt) {
-          $scope.progress = 
-              Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      });
-  };
+app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
+
   
-  $scope.doBetaUploadFile = function($fileList1, $fileList2){
+  $scope.uploadFile = function($fileList1, $fileList2){
 	  Upload.upload({
 		    url: '/api/uploadfile',
 		    data: {

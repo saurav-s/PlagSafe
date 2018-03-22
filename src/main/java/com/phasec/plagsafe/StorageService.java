@@ -26,7 +26,8 @@ public class StorageService {
 		try {
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
         } catch (Exception e) {
-        	throw new RuntimeException("FAIL!");
+        		e.printStackTrace();
+        		throw new RuntimeException("FAIL!");
         }
 	}
  
