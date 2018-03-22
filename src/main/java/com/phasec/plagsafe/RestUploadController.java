@@ -30,20 +30,36 @@ public class RestUploadController {
 	
 	List<String> files = new ArrayList<String>();
  
-    // Multiple file upload
+    /**
+     * 
+     * @param fileList1
+     * @param fileList2
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/uploadfile")
-    public String uploadFileMulti(@RequestParam("uploadfile") MultipartFile file) throws Exception {
-    	try {
-    			System.out.println("Inside RestUploadController.uploadFileMulti()");
-			storageService.store(file);
-			files.add(file.getOriginalFilename());
-			String response = "You successfully uploaded - " + file.getOriginalFilename();
+    public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") MultipartFile[] fileList2) throws Exception {
+    		try {
+    			for(MultipartFile file: fileList1) {
+				storageService.store(file);
+				files.add(file.getOriginalFilename());
+			}
+    			for(MultipartFile file: fileList2) {
+    				storageService.store(file);
+    				files.add(file.getOriginalFilename());
+    				
+    			}
+    			//TODO:create submission and start detection procedure
+			String response = "You successfully uploaded all the files.";
 			Gson gson = new Gson();
 			String jsonResponse = gson.toJson(response);
 			return jsonResponse;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("FAIL! Maybe You had uploaded the file before or the file's size > 500KB");
+			Gson gson = new Gson();
+			String jsonResponse = gson.toJson("Error occured while uploading the files");
+			return jsonResponse;
+			
 		}
     }
     

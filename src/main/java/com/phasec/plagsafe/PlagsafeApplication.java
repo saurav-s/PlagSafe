@@ -21,10 +21,11 @@ public class PlagsafeApplication  implements CommandLineRunner{
 		SpringApplication.run(PlagsafeApplication.class, args);
 	}
 	
-	
+	/**
+	 * this method deletes all the existing file in the upload directory
+	 */
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Inside PlagsafeApplication.run() method");
 		storageService.deleteAll();
 		storageService.init();
 	}

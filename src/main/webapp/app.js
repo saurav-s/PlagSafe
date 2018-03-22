@@ -45,9 +45,17 @@ app.directive('fileModel', ['$parse', function ($parse) {
           var modelSetter = model.assign;
           
           element.bind('change', function(){
-             scope.$apply(function(){
-                modelSetter(scope, element[0].files[0]);
-             });
+//             scope.$apply(function(){
+//                modelSetter(scope, element[0].files[0]);
+//             });
+        	  	  scope.$apply(function(){
+                  if (element[0].files.length > 1) {
+                    modelSetter(scope, element[0].files);
+                  }
+                  else {
+                    modelSetter(scope, element[0].files[0]);
+                  }
+                });
           });
        }
     };
@@ -55,11 +63,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 app.controller('uploadFileController', ['$scope', '$http', function($scope, $http){
     $scope.doUploadFile = function(){
-       var file = $scope.uploadedFile;
+       var fileList1 = $scope.uploadedFile1;
+       var fileList2 = $scope.uploadedFile2;
        var url = "/api/uploadfile";
        
        var data = new FormData();
-       data.append('uploadfile', file);
+       data.append('uploadfile1', fileList1);
+       data.append('uploadfile2', fileList2);
     
        var config = {
     	   	transformRequest: angular.identity,
@@ -90,12 +100,12 @@ app.controller('getFilesController', ['$scope', '$http', function($scope, $http)
 
 
 app.controller('betaUploadFileController', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
-  $scope.onFileSelect = function($files) {
+  $scope.onFileSelect = function($fileList1, $fileList2) {
 	  Upload.upload({
 	    url: '/api/uploadfile',
-	    file: $files, 
 	    data: {
-	    		uploadfile: $files[0]
+	    		uploadfile1: $fileList1,
+	    		uploadfile2: $fileList2
         }
 	  }).then(function (response) {
           $timeout(function () {
@@ -109,11 +119,30 @@ app.controller('betaUploadFileController', ['$scope', '$http', 'Upload', '$timeo
           $scope.progress = 
               Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
       });
-//	  }).progress(function(e) {
-//	  }).then(function(data, status, headers, config) {
-//	    console.log(data);
-//	  });
   };
+  
+  $scope.doBetaUploadFile = function($fileList1, $fileList2){
+	  Upload.upload({
+		    url: '/api/uploadfile',
+		    data: {
+		    		uploadfile1: $fileList1,
+		    		uploadfile2: $fileList2
+	        },
+	        arrayKey: ''
+		  }).then(function (response) {
+	          $timeout(function () {
+	              $scope.result = response.data;
+	          });
+	      }, function (response) {
+	          if (response.status > 0) {
+	              $scope.errorMsg = response.status + ': ' + response.data;
+	          }
+	      }, function (evt) {
+	          $scope.progress = 
+	              Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+	      });
+	  };
+  
 
 }]);
 
