@@ -69,6 +69,7 @@ public class LogicalSimilarityDetectorTests {
         Assert.assertEquals(expected, actual.toString());
     }
 
+    //test for no plagiarism on different files
     @Test
     public void testLogicalDetectionVeryDifferentFiles() {
         List<List<FileMap>> submissions = new ArrayList<List<FileMap>>();
