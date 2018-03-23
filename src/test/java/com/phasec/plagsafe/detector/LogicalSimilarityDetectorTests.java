@@ -3,6 +3,7 @@ package com.phasec.plagsafe.detector;
 
 import com.phasec.plagsafe.ComparisonController;
 import com.phasec.plagsafe.objects.FileMap;
+import com.phasec.plagsafe.objects.Report;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,8 +31,14 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(file2List);
 
         ComparisonController controllerForTest = new ComparisonController();
-        controllerForTest.submissionStub(submissions);
-        Assert.assertEquals(true, true);
+
+        List<Report> reports = controllerForTest.submissionStub(submissions);
+        StringBuilder actual = new StringBuilder();
+        for(Report r : reports)
+            actual.append(r.toString());
+        String expected = "Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Logical similarities detected.]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Refactoring Similarity Measure ]";
+
+        Assert.assertEquals(expected, actual.toString());
     }
 
     @Test
@@ -53,8 +60,13 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(file2List);
 
         ComparisonController controllerForTest = new ComparisonController();
-        controllerForTest.submissionStub(submissions);
-        Assert.assertEquals(true, true);
+        List<Report> reports = controllerForTest.submissionStub(submissions);
+        StringBuilder actual = new StringBuilder();
+        for(Report r : reports)
+            actual.append(r.toString());
+        String expected = "Report [sourceFile=simple.py, targetFile=simple1.py, matchPercentage=77, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple.py, targetFile=simple1.py, matchPercentage=84, matchRemark=Logical similarities detected.]Report [sourceFile=simple.py, targetFile=simple1.py, matchPercentage=32, matchRemark=Refactoring Similarity Measure ]";
+
+        Assert.assertEquals(expected, actual.toString());
     }
 
     @Test
@@ -76,8 +88,13 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(file2List);
 
         ComparisonController controllerForTest = new ComparisonController();
-        controllerForTest.submissionStub(submissions);
-        Assert.assertEquals(true, true);
+        List<Report> reports = controllerForTest.submissionStub(submissions);
+        StringBuilder actual = new StringBuilder();
+        for(Report r : reports)
+            actual.append(r.toString());
+
+        String expected = "Report [sourceFile=simple1.py, targetFile=single_variant.py, matchPercentage=17, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple1.py, targetFile=single_variant.py, matchPercentage=28, matchRemark=Logical similarities detected.]Report [sourceFile=simple1.py, targetFile=single_variant.py, matchPercentage=2, matchRemark=Refactoring Similarity Measure ]";
+        Assert.assertEquals(expected, actual.toString());
     }
 
 }
