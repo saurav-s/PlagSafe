@@ -1,8 +1,7 @@
 package com.phasec.plagsafe.detector;
 
 
-import com.phasec.plagsafe.ComparisonController;
-import com.phasec.plagsafe.objects.FileMap;
+
 import com.phasec.plagsafe.objects.Report;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,27 +10,35 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.ComparisonService;
+import com.phasec.plagsafe.objects.FileModel;
+import com.phasec.plagsafe.objects.SubmissionRecord;
+
 public class LogicalSimilarityDetectorTests {
     // test plagiarism with exact same files
     @Test
     public void testLogicalDetectionSameFiles() {
-        List<List<FileMap>> submissions = new ArrayList<List<FileMap>>();
+        List<SubmissionRecord> submissions = new ArrayList<>();
 
-        FileMap file1 = new FileMap();
+        FileModel file1 = new FileModel();
         file1.setFileName("simple.py");
         file1.setFileData(new File("resources/simple.py"));
-        List<FileMap> file1List = new ArrayList<FileMap>();
+        List<FileModel> file1List = new ArrayList<FileModel>();
         file1List.add(file1);
-        submissions.add(file1List);
+        SubmissionRecord record = new SubmissionRecord();
+        record.setFiles(file1List);
+        submissions.add(record);
 
-        FileMap file2 = new FileMap();
+        FileModel file2 = new FileModel();
         file2.setFileName("simple.py");
         file2.setFileData(new File("resources/simple.py"));
-        List<FileMap> file2List = new ArrayList<FileMap>();
+        List<FileModel> file2List = new ArrayList<FileModel>();
         file2List.add(file2);
-        submissions.add(file2List);
+        SubmissionRecord record2 = new SubmissionRecord();
+        record2.setFiles(file2List);
+        submissions.add(record2);
 
-        ComparisonController controllerForTest = new ComparisonController();
+        ComparisonService controllerForTest = new ComparisonService();
 
         List<Report> reports = controllerForTest.submissionStub(submissions);
         StringBuilder actual = new StringBuilder();
@@ -45,23 +52,27 @@ public class LogicalSimilarityDetectorTests {
     //test plagiarism with different files
     @Test
     public void testLogicalDetectionDifferentFiles() {
-        List<List<FileMap>> submissions = new ArrayList<List<FileMap>>();
+        List<SubmissionRecord> submissions = new ArrayList<>();
 
-        FileMap file1 = new FileMap();
+        FileModel file1 = new FileModel();
         file1.setFileName("simple.py");
         file1.setFileData(new File("resources/simple.py"));
-        List<FileMap> file1List = new ArrayList<FileMap>();
+        List<FileModel> file1List = new ArrayList<FileModel>();
         file1List.add(file1);
-        submissions.add(file1List);
+        SubmissionRecord record = new SubmissionRecord();
+        record.setFiles(file1List);
+        submissions.add(record);
 
-        FileMap file2 = new FileMap();
+        FileModel file2 = new FileModel();
         file2.setFileName("simple1.py");
         file2.setFileData(new File("resources/simple1.py"));
-        List<FileMap> file2List = new ArrayList<FileMap>();
+        List<FileModel> file2List = new ArrayList<FileModel>();
         file2List.add(file2);
-        submissions.add(file2List);
+        SubmissionRecord record2 = new SubmissionRecord();
+        record2.setFiles(file1List);
+        submissions.add(record2);
 
-        ComparisonController controllerForTest = new ComparisonController();
+        ComparisonService controllerForTest = new ComparisonService();
         List<Report> reports = controllerForTest.submissionStub(submissions);
         StringBuilder actual = new StringBuilder();
         for(Report r : reports)
@@ -74,23 +85,27 @@ public class LogicalSimilarityDetectorTests {
     //test for no plagiarism on different files
     @Test
     public void testLogicalDetectionVeryDifferentFiles() {
-        List<List<FileMap>> submissions = new ArrayList<List<FileMap>>();
+        List<SubmissionRecord> submissions = new ArrayList<>();
 
-        FileMap file1 = new FileMap();
+        FileModel file1 = new FileModel();
         file1.setFileName("simple1.py");
         file1.setFileData(new File("resources/simple1.py"));
-        List<FileMap> file1List = new ArrayList<FileMap>();
+        List<FileModel> file1List = new ArrayList<FileModel>();
         file1List.add(file1);
-        submissions.add(file1List);
+        SubmissionRecord record = new SubmissionRecord();
+        record.setFiles(file1List);
+        submissions.add(record);
 
-        FileMap file2 = new FileMap();
+        FileModel file2 = new FileModel();
         file2.setFileName("single_variant.py");
         file2.setFileData(new File("resources/single_variant.py"));
-        List<FileMap> file2List = new ArrayList<FileMap>();
+        List<FileModel> file2List = new ArrayList<FileModel>();
         file2List.add(file2);
-        submissions.add(file2List);
+        SubmissionRecord record2 = new SubmissionRecord();
+        record2.setFiles(file1List);
+        submissions.add(record2);
 
-        ComparisonController controllerForTest = new ComparisonController();
+        ComparisonService controllerForTest = new ComparisonService();
         List<Report> reports = controllerForTest.submissionStub(submissions);
         StringBuilder actual = new StringBuilder();
         for(Report r : reports)

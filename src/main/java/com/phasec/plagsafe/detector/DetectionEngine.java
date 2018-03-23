@@ -1,21 +1,35 @@
 package com.phasec.plagsafe.detector;
 
-import com.phasec.plagsafe.objects.FileMap;
-import com.phasec.plagsafe.objects.Report;
-import util.SubmissionUtility;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.phasec.plagsafe.objects.FileModel;
+import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.objects.SubmissionRecord;
+
+import util.SubmissionUtility;
+
+
 public class DetectionEngine implements Engine {
+	
+	private static Logger logger = LoggerFactory.getLogger(DetectionEngine.class);
+	
     /**
      *
      * @param submissions : list of submissions containing a list of submission files
      */
+	private Logger log;
+	public DetectionEngine(){
+		log = LoggerFactory.getLogger(this.getClass().getName());
+	}
     @Override
-    public List<Report> runDetection(List<List<FileMap>> submissions) {
-        List<List<Submissible>> submissionsMetadataList = createSubmissionsList(submissions);
+    public List<Report> runDetection(List<SubmissionRecord> submissions) {
+        List<SubmissibleRecord> submissionsMetadataList = createSubmissionsList(submissions);
+
         int numberOfSubmissions = submissionsMetadataList.size();
         List<Report> reportList = new ArrayList<>();
 
@@ -28,8 +42,10 @@ public class DetectionEngine implements Engine {
             }
         }
 
-        for(Report report : reportList)
-            System.out.println(report.toString());
+        for(Report report : reportList) {
+        		String reportString = report.toString();
+            logger.info(reportString);
+        }
 
         return reportList;
     }
@@ -40,18 +56,21 @@ public class DetectionEngine implements Engine {
      * @return list of submissions metadata
      *
      */
-    private List<List<Submissible>> createSubmissionsList(List<List<FileMap>> submissions) {
-        List<List<Submissible>> submissionsMetadataList = new ArrayList<List<Submissible>>();
-        SubmissionUtility subUtil = new SubmissionUtility();
-        for(List<FileMap> sub : submissions) {
-            List<Submissible> submissionMetadata = new ArrayList<Submissible>();
-            for(FileMap file : sub) {
-                submissionMetadata.add(subUtil.initializeSubmission(file));
-            }
-            submissionsMetadataList.add(submissionMetadata);
-            //System.out.println(submissionsMetadataList.size());
-        }
 
+    private List<SubmissibleRecord> createSubmissionsList(List<SubmissionRecord> submissions) {
+        List<SubmissibleRecord> submissionsMetadataList = new ArrayList<>();
+        
+        SubmissionUtility subUtil = new SubmissionUtility();
+        for(SubmissionRecord sub : submissions) {
+            SubmissibleRecord submissionMetadata = new SubmissibleRecord();
+            List<Submissible> submissibles = new ArrayList<>();
+            for(FileModel file : sub.getFiles()) {
+            		submissibles.add(subUtil.initializeSubmission(file));
+                
+            }
+            submissionMetadata.setSubmissibles(submissibles);
+            submissionsMetadataList.add(submissionMetadata);
+        }
         return submissionsMetadataList;
     }
 }

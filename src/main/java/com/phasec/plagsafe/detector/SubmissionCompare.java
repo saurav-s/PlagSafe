@@ -1,13 +1,15 @@
 package com.phasec.plagsafe.detector;
 
 import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.objects.SubmissibleRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubmissionCompare implements SubmissionComparable {
+	
     @Override
-    public List<Report> compare(List<Submissible> submission1, List<Submissible> submission2) {
+    public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
         ComparisonContext context = null;
         List<Report> matchReportList = new ArrayList<>();
 
@@ -19,6 +21,7 @@ public class SubmissionCompare implements SubmissionComparable {
         context = new ComparisonContext(new LogicalSimilarityDetectionStrategy());
         matchReportList.addAll(context.compare(submission1, submission2));
 
+        // comparing for code refactoring
         context = new ComparisonContext(new RefactoringDetectionStrategy());
         matchReportList.addAll(context.compare(submission1, submission2));
 

@@ -1,6 +1,7 @@
 package com.phasec.plagsafe.detector;
 
 import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.objects.SubmissibleRecord;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ComparisonContext {
      * @param submission1
      * @param submission2
      */
-    public List<Report> compare(List<Submissible> submission1, List<Submissible> submission2) {
+    public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
         return strategy.compare(submission1, submission2);
     }
 }

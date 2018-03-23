@@ -84,13 +84,8 @@ app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout',
 	        arrayKey: ''
 		  }).success(function (data) {
 
-//              $scope.reports = data;
-			  $scope.reports = [
-			      { "sourceFile" : "test file 1", "targetFile" : "test file 2", "matchPercentage" : 75, "matchRemarks" : "cheater" },
-				  { "sourceFile" : "test file 3", "targetFile" : "test file 1", "matchPercentage" : 95, "matchRemarks" : "Big cheater" },
-			      { "sourceFile" : "test file 4", "targetFile" : "test file 7", "matchPercentage" : 75, "matchRemarks" : "small cheater" },
-				  { "sourceFile" : "test file 9", "targetFile" : "test file 3", "matchPercentage" : 75, "matchRemarks" : "cheater" }
-			    ];
+              $scope.reports = data;
+			  
 		  }).then(function (response) {
 	          $timeout(function () {
 	              $scope.result = response.data;
