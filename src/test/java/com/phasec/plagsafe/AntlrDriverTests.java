@@ -38,7 +38,9 @@ public class AntlrDriverTests {
 	 * Test case for read file operation
 	 * @throws IOException
 	 */
+	/*
 	@Test
+
 	public void testReadFile() throws IOException{
 		
 		File inputFile = new File("resources/simple.py");
@@ -52,7 +54,9 @@ public class AntlrDriverTests {
 	 * Test case for parse file operation
 	 * @throws IOException
 	 */
+	/*
 	@Test
+
 	public void testparseFile() throws IOException{
 		
 		File inputFile = new File("resources/simple.py");
@@ -67,5 +71,6 @@ public class AntlrDriverTests {
 		
 		
 	}
+	*/
 
 }
