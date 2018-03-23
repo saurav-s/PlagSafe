@@ -5,11 +5,14 @@ import util.SubmissionUtility;
 
 import java.io.File;
 
+import static org.junit.Assert.assertNull;
+
 public class SubmissionUtilityTests {
     @Test
     public void testInvalidFIlesExceptions() {
         SubmissionUtility util = new SubmissionUtility();
-        util.readFile(new File("invalideFile"));
-        //expects exception to be thrown
+        String expected = null;
+        expected = util.readFile(new File("invalid File"));
+        assertNull(expected);
     }
 }
