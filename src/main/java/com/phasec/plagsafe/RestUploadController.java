@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +30,8 @@ public class RestUploadController {
 	@Autowired
 	StorageService storageService;
 	
-	List<String> files = new ArrayList<String>();
+	List<String> files = new ArrayList<>();
+	Logger log = LoggerFactory.getLogger(this.getClass().getName());
  
     /**
      * 
@@ -38,7 +41,7 @@ public class RestUploadController {
      * @throws Exception
      */
     @PostMapping("/uploadfile")
-    public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") MultipartFile[] fileList2) throws Exception {
+    public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") MultipartFile[] fileList2)  {
     		try {
     			for(MultipartFile file: fileList1) {
 				storageService.store(file);
@@ -49,28 +52,24 @@ public class RestUploadController {
     				files.add(file.getOriginalFilename());
     				
     			}
-    			//TODO:create submission and start detection procedure
-			String response = "You successfully uploaded all the files.";
-			Gson gson = new Gson();
-			String jsonResponse = gson.toJson(response);
-			return jsonResponse;
+			return getJsonString("You successfully uploaded all the files.");
 		} catch (Exception e) {
-			e.printStackTrace();
-			Gson gson = new Gson();
-			String jsonResponse = gson.toJson("Error occured while uploading the files");
-			return jsonResponse;
+			log.error("Error occured while uploading the files");
+			return getJsonString("Error occured while uploading the files");
 			
 		}
     }
     
 	@GetMapping("/getallfiles")
-	public List<String> getListFiles() {List<String> lstFiles = new ArrayList<String>();
+	public List<String> getListFiles() {
+		List<String> lstFiles = new ArrayList<>();
 		try{
 			lstFiles = files.stream()
 					.map(fileName -> MvcUriComponentsBuilder
 							.fromMethodName(RestUploadController.class, "getFile", fileName).build().toString())
 					.collect(Collectors.toList());	
 		}catch(Exception e){
+			log.error("Error occured while getting the files: "+e.getMessage());
 			throw e;
 		}
 		
@@ -83,5 +82,10 @@ public class RestUploadController {
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 				.body(file);
+	}
+	
+	private String getJsonString(String str) {
+		Gson gson = new Gson();
+		return gson.toJson(str);
 	}
 }

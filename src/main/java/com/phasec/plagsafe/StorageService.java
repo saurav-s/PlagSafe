@@ -26,8 +26,7 @@ public class StorageService {
 		try {
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
         } catch (Exception e) {
-        		e.printStackTrace();
-        		throw new RuntimeException("FAIL!");
+        		log.error("StorageService.store() -> error while storing file. "+e.getMessage());	
         }
 	}
  
@@ -38,10 +37,12 @@ public class StorageService {
             if(resource.exists() || resource.isReadable()) {
                 return resource;
             }else{
-            	throw new RuntimeException("FAIL!");
+            		log.error("StorageService.store() -> error while loading file. ");
+            		return null;
             }
         } catch (MalformedURLException e) {
-        	throw new RuntimeException("FAIL!");
+        		log.error("StorageService.store() -> MalformedURL error while storing file. "+e.getMessage());	
+        		return null;
         }
     }
     
@@ -53,7 +54,7 @@ public class StorageService {
         try {
             Files.createDirectory(rootLocation);
         } catch (IOException e) {
-            throw new RuntimeException("Could not initialize storage!");
+        		log.error("StorageService.store() -> IOException error while init."+e.getMessage());	
         }
     }
 }

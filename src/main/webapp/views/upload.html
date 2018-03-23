@@ -33,6 +33,34 @@
 		<div class="col-sm-offset-2">
 			<p ng-bind="BetaUploadResult"></p>
 		</div>
+		<div>
+			<table class="table table-striped">
+				<thead>
+				<tr>
+						<td>S No.</td>
+						<td>File 1</td>
+					
+
+						<td>File 2</td>
+					
+
+						<td>Match Percentage</td>
+					
+						<td>Match Remarks</td>
+					</tr>
+				</thead>
+				<tbody ng-repeat="rep in reports">
+					
+					<tr>
+						<td>{{$index}}</td>
+						<td>{{rep.sourceFile}}</td>
+						<td>{{rep.targetFile}}</td>
+						<td>{{rep.matchPercentage}}</td>
+						<td>{{rep.matchRemarks}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</form>
 	<hr />
 </div>
