@@ -1,5 +1,6 @@
 package com.phasec.plagsafe.util;
 
+import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
 import org.junit.Test;
 import util.SubmissionUtility;
 
@@ -13,6 +14,14 @@ public class SubmissionUtilityTests {
         SubmissionUtility util = new SubmissionUtility();
         String expected = null;
         expected = util.readFile(new File("invalid File"));
+        assertNull(expected);
+    }
+
+    @Test
+    public void testInvalidFIlesExceptionsForAST() {
+        SubmissionUtility util = new SubmissionUtility();
+        File_inputContext expected = null;
+        expected = util.generateAST(new File("invalid File"));
         assertNull(expected);
     }
 }
