@@ -49,14 +49,14 @@
 						<td>Match Remarks</td>
 					</tr>
 				</thead>
-				<tbody ng-repeat="rep in reports">
+				<tbody ng-repeat="rep in reports track by $index">
 					
 					<tr>
 						<td>{{$index}}</td>
 						<td>{{rep.sourceFile}}</td>
 						<td>{{rep.targetFile}}</td>
 						<td>{{rep.matchPercentage}}</td>
-						<td>{{rep.matchRemarks}}</td>
+						<td>{{rep.matchRemark}}</td>
 					</tr>
 				</tbody>
 			</table>

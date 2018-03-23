@@ -2,8 +2,6 @@ package com.phasec.plagsafe.detector;
 
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
 
-import java.io.File;
-
 /**
  * This interface is to be implemented by any class that represents a submission file
  * @author rohit

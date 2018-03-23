@@ -2,8 +2,6 @@ package com.phasec.plagsafe.detector;
 
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
 
-import java.io.File;
-
 public class Submission implements Submissible {
 	
 	public Submission(){
@@ -46,4 +44,11 @@ public class Submission implements Submissible {
     public void setAst(File_inputContext ast) {
         this.ast = ast;
     }
+
+	@Override
+	public String toString() {
+		return "Submission [name=" + name + ", code=" + code + ", ast=" + ast + "]";
+	}
+    
+    
 }

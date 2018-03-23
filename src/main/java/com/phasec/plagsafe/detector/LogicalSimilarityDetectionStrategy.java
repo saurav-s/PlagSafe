@@ -1,16 +1,15 @@
 package com.phasec.plagsafe.detector;
 
-import com.phasec.plagsafe.antlr.ASTPrinter;
-import com.phasec.plagsafe.objects.Report;
-import util.SubmissionUtility;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.antlr.ASTPrinter;
 import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.objects.SubmissibleRecord;
+
+import util.SubmissionUtility;
 
 public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
-    private SubmissionUtility util;
     private static final String MATCHING_REMARK = "Logical similarities detected.";
 
     /**
@@ -20,11 +19,11 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
      * @return
      */
     @Override
-    public List<Report> compare(List<Submissible> submission1, List<Submissible> submission2) {
+    public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
         List<Report> reportList = new ArrayList<>();
 
-        for(Submissible sub1file : submission1) {
-            for(Submissible sub2file : submission2) {
+        for(Submissible sub1file : submission1.getSubmissibles()) {
+            for(Submissible sub2file : submission2.getSubmissibles()) {
                 Report current = fileASTCompare(sub1file, sub2file);
                 reportList.add(current);
             }
@@ -40,7 +39,6 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
      * @return
      */
     private Report fileASTCompare(Submissible sub1file, Submissible sub2file) {
-        util = new SubmissionUtility();
         ASTPrinter astIterator = new ASTPrinter();
 
         StringBuilder sb = new StringBuilder();
@@ -50,12 +48,10 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
         sb = new StringBuilder();
         astIterator.ASTString(sub2file.getAst(), sb);
         String ast2String = sb.toString();
+        int renameCount = SubmissionUtility.editDistance(ast1String, ast2String);
+        int averageFileLength = SubmissionUtility.getAverageSubmissionFileLength(ast1String, ast2String);
+        int matchPercentage = SubmissionUtility.getMatchPercentage(renameCount, averageFileLength);
 
-        int renameCount = util.editDistance(ast1String, ast2String);
-        int averageFileLength = util.getAverageSubmissionFileLength(ast1String, ast2String);
-        int matchPercentage = util.getMatchPercentage(renameCount, averageFileLength);
-
-        Report report = new Report(sub1file.getName(), sub2file.getName(), matchPercentage, MATCHING_REMARK);
-        return report;
+        return new Report(sub1file.getName(), sub2file.getName(), matchPercentage, MATCHING_REMARK);
     }
 }
