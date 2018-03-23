@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogicalSimilarityDetectorTests {
+    // test plagiarism with exact same files
     @Test
     public void testLogicalDetectionSameFiles() {
         List<List<FileMap>> submissions = new ArrayList<List<FileMap>>();
@@ -41,6 +42,7 @@ public class LogicalSimilarityDetectorTests {
         Assert.assertEquals(expected, actual.toString());
     }
 
+    //test plagiarism with different files
     @Test
     public void testLogicalDetectionDifferentFiles() {
         List<List<FileMap>> submissions = new ArrayList<List<FileMap>>();
