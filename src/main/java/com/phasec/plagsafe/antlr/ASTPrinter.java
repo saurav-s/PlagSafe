@@ -15,7 +15,7 @@ import com.phasec.plagsafe.antlr.generated.Python3Parser;
  *
  */
 public class ASTPrinter {
-	
+
 	// member variable
 	private boolean ignoringWrappers = true;
 	
@@ -55,6 +55,30 @@ public class ASTPrinter {
             ParseTree element = ctx.getChild(i);
             if (element instanceof RuleContext) {
                 explore((RuleContext)element, indentation + (toBeIgnored ? 0 : 1));
+            }
+        }
+    }
+
+    public void ASTString(RuleContext ctx, StringBuilder sb) {
+        buildASTString(ctx, sb, 0);
+    }
+
+    private void buildASTString(RuleContext ctx, StringBuilder sb, int indentation) {
+
+        boolean toBeIgnored = ignoringWrappers
+                && ctx.getChildCount() == 1
+                && ctx.getChild(0) instanceof ParserRuleContext;
+        if (!toBeIgnored) {
+            String ruleName = Python3Parser.ruleNames[ctx.getRuleIndex()];
+            for (int i = 0; i < indentation; i++) {
+                sb.append("  ");
+            }
+            sb.append(ruleName);
+        }
+        for (int i=0;i<ctx.getChildCount();i++) {
+            ParseTree element = ctx.getChild(i);
+            if (element instanceof RuleContext) {
+                buildASTString((RuleContext)element, sb,indentation + (toBeIgnored ? 0 : 1));
             }
         }
     }

@@ -6,6 +6,7 @@ package com.phasec.plagsafe;
 import com.phasec.plagsafe.detector.DetectionEngine;
 import com.phasec.plagsafe.detector.Engine;
 import com.phasec.plagsafe.objects.FileMap;
+import com.phasec.plagsafe.objects.Report;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,8 @@ public class ComparisonController {
      *
      * @param submissions
      */
-    public void submissionStub(List<List<FileMap>> submissions) {
+    public List<Report> submissionStub(List<List<FileMap>> submissions) {
         Engine detectionEngine = new DetectionEngine();
-        detectionEngine.runDetection(submissions);
-
+        return detectionEngine.runDetection(submissions);
     }
 }

@@ -13,6 +13,12 @@ public class Report {
         this.matchRemark = matchRemark;
     }
 
+    @Override
+    public String toString() {
+        return "Report [sourceFile=" + sourceFile + ", targetFile=" + targetFile + ", matchPercentage="
+                + matchPercentage + ", matchRemark=" + matchRemark + "]";
+    }
+
     public String getSourceFile() {
         return sourceFile;
     }
