@@ -13,6 +13,7 @@ import com.phasec.plagsafe.objects.SubmissionRecord;
 
 import util.SubmissionUtility;
 
+
 public class DetectionEngine implements Engine {
 	
 	private static Logger logger = LoggerFactory.getLogger(DetectionEngine.class);
@@ -21,9 +22,14 @@ public class DetectionEngine implements Engine {
      *
      * @param submissions : list of submissions containing a list of submission files
      */
+	private Logger log;
+	public DetectionEngine(){
+		log = LoggerFactory.getLogger(this.getClass().getName());
+	}
     @Override
     public List<Report> runDetection(List<SubmissionRecord> submissions) {
         List<SubmissibleRecord> submissionsMetadataList = createSubmissionsList(submissions);
+
         int numberOfSubmissions = submissionsMetadataList.size();
         List<Report> reportList = new ArrayList<>();
 
@@ -50,8 +56,10 @@ public class DetectionEngine implements Engine {
      * @return list of submissions metadata
      *
      */
+
     private List<SubmissibleRecord> createSubmissionsList(List<SubmissionRecord> submissions) {
         List<SubmissibleRecord> submissionsMetadataList = new ArrayList<>();
+        
         SubmissionUtility subUtil = new SubmissionUtility();
         for(SubmissionRecord sub : submissions) {
             SubmissibleRecord submissionMetadata = new SubmissibleRecord();
