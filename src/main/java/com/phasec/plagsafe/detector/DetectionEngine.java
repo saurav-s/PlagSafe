@@ -8,13 +8,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class DetectionEngine implements Engine {
     /**
      *
      * @param submissions : list of submissions containing a list of submission files
      */
+	private Logger log;
+	public DetectionEngine(){
+		log = LoggerFactory.getLogger(this.getClass().getName());
+	}
     @Override
     public List<Report> runDetection(List<List<FileMap>> submissions) {
+    	log.info("Running detection engine...");
         List<List<Submissible>> submissionsMetadataList = createSubmissionsList(submissions);
         int numberOfSubmissions = submissionsMetadataList.size();
         List<Report> reportList = new ArrayList<>();
@@ -41,6 +49,7 @@ public class DetectionEngine implements Engine {
      *
      */
     private List<List<Submissible>> createSubmissionsList(List<List<FileMap>> submissions) {
+    	log.info("Creating list of submissions...");
         List<List<Submissible>> submissionsMetadataList = new ArrayList<List<Submissible>>();
         SubmissionUtility subUtil = new SubmissionUtility();
         for(List<FileMap> sub : submissions) {

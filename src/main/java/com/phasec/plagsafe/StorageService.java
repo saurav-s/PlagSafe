@@ -31,6 +31,7 @@ public class StorageService {
 	}
  
     public Resource loadFile(String filename) {
+    	log.info("Loading file...");
         try {
             Path file = rootLocation.resolve(filename);
             Resource resource = new UrlResource(file.toUri());
