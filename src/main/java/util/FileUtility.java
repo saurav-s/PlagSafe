@@ -40,6 +40,7 @@ public class FileUtility {
 			fileModelList.add(getFileModel(file));
 		}
 		record.setFiles(fileModelList);
+		logger.info("Created submission records from files");
 		return record;
 	}
 
