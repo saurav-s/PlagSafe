@@ -11,6 +11,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import com.phasec.plagsafe.antlr.generated.Python3Lexer;
 import com.phasec.plagsafe.antlr.generated.Python3Parser;
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a standalone java class which acts as a driver for converting a
@@ -24,29 +26,11 @@ import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
  */
 public class AntlrDriver {
 
-	/**
-	 * Main method which drives the functionality of calling the required
-	 * methods and printing the AST
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		AntlrDriver testAntlr = new AntlrDriver();
-		try {
-			File inputFile = new File("resources/simple.py");
-			File_inputContext fileInputContext = testAntlr.parseFile(inputFile);
-			ASTPrinter astPrinter = new ASTPrinter();
-//			astPrinter.print(fileInputContext);
-			StringBuilder sb = new StringBuilder();
-			astPrinter.printNew(fileInputContext, sb);
-			System.out.println("Output::");
-			System.out.println(sb.toString());
+    private Logger log;
 
-		} catch (IOException e) {
-
-		}
-
-	}
+    public AntlrDriver(){
+        log = LoggerFactory.getLogger(this.getClass().getName());
+    }
 
 	/**
 	 * Responsible for file reading operations
@@ -69,7 +53,7 @@ public class AntlrDriver {
 	 * @throws IOException
 	 */
 	public File_inputContext parseFile(File file) throws IOException {
-		String code = readFile(file, Charset.forName("UTF-8"));
+		String code = readFile(file, Charset.forName("ISO-8859-1"));
 		Python3Lexer l = new Python3Lexer(new ANTLRInputStream(code));
 		CommonTokenStream tokens = new CommonTokenStream(l);
 		Python3Parser parser = new Python3Parser(tokens);

@@ -1,9 +1,9 @@
 package com.phasec.plagsafe.detector;
 
-import com.phasec.plagsafe.objects.FileMap;
-import com.phasec.plagsafe.objects.Report;
-
 import java.util.List;
+
+import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.objects.SubmissionRecord;
 
 /**
  * This is the interface to abstract the plagiarism detection run for all the submissions
@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface Engine {
     /**
-     * this methos runs the detection on all the submissions with each other
-     * @param submissions : list of submissions containing a list of submission files
+     * this method runs the detection on all the submissions with each other
+     * @param submissions : list of submission records
      */
-    public List<Report> runDetection(List<List<FileMap>> submissions);
+    public List<Report> runDetection(List<SubmissionRecord> submissions);
 }

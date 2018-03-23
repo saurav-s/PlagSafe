@@ -4,12 +4,15 @@ import com.phasec.plagsafe.antlr.AntlrDriver;
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
 import com.phasec.plagsafe.detector.Submissible;
 import com.phasec.plagsafe.detector.Submission;
-import com.phasec.plagsafe.objects.FileMap;
+import com.phasec.plagsafe.objects.FileModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class implements the general utilities that are required with every submission
@@ -18,17 +21,18 @@ import java.util.Scanner;
  */
 public class SubmissionUtility {
 
+	private static Logger logger = LoggerFactory.getLogger(SubmissionUtility.class);
     /**
      *
      * @param file
      * @return
      */
-    public Submissible initializeSubmission(FileMap file) {
+    public Submissible initializeSubmission(FileModel file) {
         Submissible submission = new Submission();
         submission.setName(file.getFileName());
         submission.setCode(readFile(file.getFileData()));
         submission.setAst(generateAST(file.getFileData()));
-
+        logger.info(submission.toString());
         return submission;
     }
 
@@ -38,19 +42,11 @@ public class SubmissionUtility {
      * @return : contents of the file as a String
      */
     public String readFile(File inputFile){
-        Scanner scanner = null;
         String text= "";
-        try {
-            scanner = new Scanner(inputFile);
+        try(Scanner scanner = new Scanner(inputFile)) {
             text = scanner.useDelimiter("\\A").next();
-        }
-        catch (FileNotFoundException e) {
-
-        }
-        finally{
-            if(scanner != null){
-                scanner.close();
-            }
+        }catch (FileNotFoundException e){
+        		logger.error("Error occured while generating AST: "+e.getMessage());
         }
         return text;
     }
@@ -63,12 +59,11 @@ public class SubmissionUtility {
     public File_inputContext generateAST(File submissionFile) {
         AntlrDriver antlrDriver = new AntlrDriver();
         File_inputContext ast = null;
-
         try {
             ast = antlrDriver.parseFile(submissionFile);
         }
         catch (IOException e) {
-
+        		logger.error("Error occured while generating AST: "+e.getMessage());
         }
 
         return ast;
@@ -80,7 +75,7 @@ public class SubmissionUtility {
      * @param target
      * @return count of changes to be made on the source string to get the target string
      */
-    public int editDistance(String source, String target) {
+    public static int editDistance(String source, String target) {
         int [][]dp = new int [source.length()+1][target.length()+1];
 
         dp[0][0]=0;

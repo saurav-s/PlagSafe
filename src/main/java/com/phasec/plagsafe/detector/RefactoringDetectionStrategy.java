@@ -4,25 +4,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.objects.SubmissibleRecord;
 
 import util.NGramGeneratorUtility;
 
 public class RefactoringDetectionStrategy implements DetectionStrategy {
 	
+	private static Logger logger = LoggerFactory.getLogger(RefactoringDetectionStrategy.class);
 	private static final String MATCH_REMARK = "Refactoring Similarity Measure ";
-	private static final int N = 3;
+	private static final int NGRAM_SIZE = 3;
 
 	@Override
-	public List<Report> compare(List<Submissible> submission1, List<Submissible> submission2) {
+	public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
 
 		List<Report> reportList = new ArrayList<>();
-		for (Submissible sub1 : submission1) {
-			for (Submissible sub2 : submission2) {
-				List<String> list1 = NGramGeneratorUtility.getNGramList(sub1.getCode(), N);
-				List<String> list2 = NGramGeneratorUtility.getNGramList(sub2.getCode(), N);
+		for (Submissible sub1 : submission1.getSubmissibles()) {
+			for (Submissible sub2 : submission2.getSubmissibles()) {
+				List<String> list1 = NGramGeneratorUtility.getNGramList(sub1.getCode(), NGRAM_SIZE);
+				List<String> list2 = NGramGeneratorUtility.getNGramList(sub2.getCode(), NGRAM_SIZE);
 				double similarityMeasure = compareTwoLists(list1, list2);
-				System.out.println(similarityMeasure);
+				logger.info("similarityMeasure = "+similarityMeasure);
 				Report newReport = new Report(sub1.getName(), sub2.getName(), (int) similarityMeasure, MATCH_REMARK);
 				reportList.add(newReport);
 			}

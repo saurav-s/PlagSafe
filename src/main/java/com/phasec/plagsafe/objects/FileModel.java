@@ -5,7 +5,7 @@ import java.io.File;
 /**
  *
  */
-public class FileMap {
+public class FileModel {
     // name of this file
     private String fileName;
     // code in this file
