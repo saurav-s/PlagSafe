@@ -1,7 +1,8 @@
-<div> Welcome user! </div>
-
-SELECT THE FILE TO BE UPLOADED
-<form method="POST" action="/file/upload" enctype="multipart/form-data">
-    <input type="file" name="file" /><br/><br/>
-    <input type="submit" value="Submit" />
-</form>
+<div ng-controller="FileUploadController">
+    <h2>Welcome to Plagsafe!</h2>
+    <h3>Select submission 1 path</h3>
+    <input type="file" class="file" name="submission1" id="submission1" ng-model="submission1"/><br>
+    <h3>Select submission 2 path</h3>
+    <input type="file" class="file" name="submission2" id="submission2" ng-model="submission2"/><br>
+    <button type="button" ng-click="compare()">Compare</button><br>
+</div>

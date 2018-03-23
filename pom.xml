@@ -22,6 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+        <sonar.exclusions>**/*Python3*.java</sonar.exclusions>
+        <sonar.coverage.exclusions>**/*Python3*.java</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
@@ -61,6 +63,11 @@
 			<artifactId>junit</artifactId>
 			<version>RELEASE</version>
 		</dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.0</version>
+        </dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
