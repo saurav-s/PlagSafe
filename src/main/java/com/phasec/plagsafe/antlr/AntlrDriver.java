@@ -36,7 +36,11 @@ public class AntlrDriver {
 			File inputFile = new File("resources/simple.py");
 			File_inputContext fileInputContext = testAntlr.parseFile(inputFile);
 			ASTPrinter astPrinter = new ASTPrinter();
-			astPrinter.print(fileInputContext);
+//			astPrinter.print(fileInputContext);
+			StringBuilder sb = new StringBuilder();
+			astPrinter.printNew(fileInputContext, sb);
+			System.out.println("Output::");
+			System.out.println(sb.toString());
 
 		} catch (IOException e) {
 

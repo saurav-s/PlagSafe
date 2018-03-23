@@ -5,10 +5,23 @@ import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
 import java.io.File;
 
 public class Submission implements Submissible {
+	
+	public Submission(){
+		
+	}
 
-    private String name;
+    public Submission(String name, String code, File_inputContext ast) {
+		super();
+		this.name = name;
+		this.code = code;
+		this.ast = ast;
+	}
+
+	private String name;
     private String code;
     private File_inputContext ast;
+    
+    
 
     public String getName() {
         return name;

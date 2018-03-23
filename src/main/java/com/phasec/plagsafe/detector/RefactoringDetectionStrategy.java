@@ -11,6 +11,7 @@ import util.NGramGeneratorUtility;
 public class RefactoringDetectionStrategy implements DetectionStrategy {
 	
 	private static final String MATCH_REMARK = "Refactoring Similarity Measure ";
+	private static final int N = 3;
 
 	@Override
 	public List<Report> compare(List<Submissible> submission1, List<Submissible> submission2) {
@@ -18,10 +19,11 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 		List<Report> reportList = new ArrayList<>();
 		for (Submissible sub1 : submission1) {
 			for (Submissible sub2 : submission2) {
-				List<String> list1 = NGramGeneratorUtility.getNGramList(sub1.getCode(), 3);
-				List<String> list2 = NGramGeneratorUtility.getNGramList(sub2.getCode(), 3);
+				List<String> list1 = NGramGeneratorUtility.getNGramList(sub1.getCode(), N);
+				List<String> list2 = NGramGeneratorUtility.getNGramList(sub2.getCode(), N);
 				double similarityMeasure = compareTwoLists(list1, list2);
-				Report newReport = new Report(sub1.getName(), sub2.getName(), (int) similarityMeasure*100, MATCH_REMARK);
+				System.out.println(similarityMeasure);
+				Report newReport = new Report(sub1.getName(), sub2.getName(), (int) similarityMeasure, MATCH_REMARK);
 				reportList.add(newReport);
 			}
 		}
@@ -30,7 +32,7 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 
 	}
 
-	public double compareTwoLists(List<String> list1, List<String> list2) {
+	private double compareTwoLists(List<String> list1, List<String> list2) {
 
 		Collections.sort(list1);
 		Collections.sort(list2);
@@ -53,7 +55,7 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 		}
 
 		int union = list1.size() + list2.size() - intersectionOfNGrams;
-		return ((double) intersectionOfNGrams) / ((double) union);
+		return ((double) intersectionOfNGrams * 100) / ((double) union);
 
 	}
 

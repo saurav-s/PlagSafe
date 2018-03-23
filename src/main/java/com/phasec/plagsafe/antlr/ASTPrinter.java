@@ -58,5 +58,28 @@ public class ASTPrinter {
             }
         }
     }
+    
+    private void exploreNew(RuleContext ctx, int indentation, StringBuilder sb) {
+        boolean toBeIgnored = ignoringWrappers
+                && ctx.getChildCount() == 1
+                && ctx.getChild(0) instanceof ParserRuleContext;
+        if (!toBeIgnored) {
+            String ruleName = Python3Parser.ruleNames[ctx.getRuleIndex()];
+            for (int i = 0; i < indentation; i++) {
+                sb.append("  ");
+            }
+            sb.append(ruleName);
+        }
+        for (int i=0;i<ctx.getChildCount();i++) {
+            ParseTree element = ctx.getChild(i);
+            if (element instanceof RuleContext) {
+                exploreNew((RuleContext)element, indentation + (toBeIgnored ? 0 : 1), sb);
+            }
+        }
+    }
+    
+    public void printNew(RuleContext ctx, StringBuilder sb) {
+        exploreNew(ctx, 0, sb);
+    }
 
 }
