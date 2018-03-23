@@ -1,4 +1,4 @@
-def sum(a, b):
-    return a + b
+def mul(c, d):
+    return c + d
 
-print("The sum of %i and %i is %i" % (5, 3, sum(5, 3)))
+print("The sum of %i and %i is %i" % (7, 6, mul(7, 6)))
