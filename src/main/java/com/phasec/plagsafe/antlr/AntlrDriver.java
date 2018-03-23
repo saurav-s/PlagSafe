@@ -33,7 +33,7 @@ public class AntlrDriver {
 	public static void main(String[] args) {
 		AntlrDriver testAntlr = new AntlrDriver();
 		try {
-			File inputFile = new File("resources/simple.py");
+			File inputFile = new File("upload-dir/single_variant.py");
 			File_inputContext fileInputContext = testAntlr.parseFile(inputFile);
 			ASTPrinter astPrinter = new ASTPrinter();
 //			astPrinter.print(fileInputContext);
@@ -43,7 +43,7 @@ public class AntlrDriver {
 			System.out.println(sb.toString());
 
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
 
 	}
@@ -69,7 +69,7 @@ public class AntlrDriver {
 	 * @throws IOException
 	 */
 	public File_inputContext parseFile(File file) throws IOException {
-		String code = readFile(file, Charset.forName("UTF-8"));
+		String code = readFile(file, Charset.forName("ISO-8859-1"));
 		Python3Lexer l = new Python3Lexer(new ANTLRInputStream(code));
 		CommonTokenStream tokens = new CommonTokenStream(l);
 		Python3Parser parser = new Python3Parser(tokens);

@@ -1,6 +1,7 @@
 package com.phasec.plagsafe;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.google.gson.Gson;
-import com.phasec.plagsafe.objects.MultipartRecord;
+import com.phasec.plagsafe.objects.FileRecord;
 import com.phasec.plagsafe.objects.Report;
 
  
@@ -48,22 +49,22 @@ public class RestUploadController {
     @PostMapping("/uploadfile")
     public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") MultipartFile[] fileList2)  {
     		try {
-    			List<MultipartFile> multipartFiles1 = new ArrayList<>();
+    			List<String> fileNames1 = new ArrayList<>();
     			for(MultipartFile file: fileList1) {
 				storageService.store(file);
 				files.add(file.getOriginalFilename());
-				multipartFiles1.add(file);
+				fileNames1.add(file.getOriginalFilename());
 			}
     			
-    			List<MultipartFile> multipartFiles2 = new ArrayList<>();
+    			List<String> fileNames2 = new ArrayList<>();
     			for(MultipartFile file: fileList2) {
     				storageService.store(file);
     				files.add(file.getOriginalFilename());
-    				multipartFiles2.add(file);
+    				fileNames2.add(file.getOriginalFilename());
     			}
     			
-    			List<Report> reports = runComparison(multipartFiles1, multipartFiles2);
-			return getJsonString(reports);
+    			List<Report> runComparisionForFiles = runComparison(fileNames1, fileNames2);
+    			return getJsonString(runComparisionForFiles);
 		} catch (Exception e) {
 			logger.error("Error occured while uploading the files"+e.getMessage());
 			return getJsonString("Error occured while uploading the files");
@@ -71,20 +72,34 @@ public class RestUploadController {
 		}
     }
 
+
 	/**
-	 * @param multipartFiles1
-	 * @param multipartFiles2
+	 * @param fileNames1
+	 * @param fileNames2
+	 * @return
 	 */
-	private List<Report> runComparison(List<MultipartFile> multipartFiles1, List<MultipartFile> multipartFiles2) {
-		MultipartRecord record1 = new MultipartRecord();
-		MultipartRecord record2 = new MultipartRecord();
-		record1.setMultiparts(multipartFiles1);
-		record2.setMultiparts(multipartFiles2);
-		List<MultipartRecord> multipartRecords = new ArrayList<>();
-		multipartRecords.add(record1);
-		multipartRecords.add(record2);
-		return comparisonService.runComparision(multipartRecords);
+	private List<Report> runComparison(List<String> fileNames1, List<String> fileNames2) {
+		List<FileRecord> filesList = new ArrayList<>();
+		List<File> fileList1 = new ArrayList<>();
+		List<File> fileList2 = new ArrayList<>();
+		FileRecord files1 = new FileRecord();
+		FileRecord files2 = new FileRecord();
+		for(String fileName: fileNames1) {
+			File file = storageService.getFile(fileName);
+			fileList1.add(file);
+		}
+		files1.setFiles(fileList1);
+		
+		for(String fileName: fileNames2) {
+			File file = storageService.getFile(fileName);
+			fileList2.add(file);
+		}
+		files2.setFiles(fileList2);
+		filesList.add(files1);
+		filesList.add(files2);
+		return comparisonService.runComparisionForFiles(filesList);
 	}
+
     
     /**
      * 

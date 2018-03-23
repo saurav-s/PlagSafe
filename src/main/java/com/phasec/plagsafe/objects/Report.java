@@ -1,6 +1,6 @@
 package com.phasec.plagsafe.objects;
 
-public class Report {
+public class Report implements Comparable<Report>{
 
     private String sourceFile;
     private String targetFile;
@@ -51,4 +51,9 @@ public class Report {
     public void setMatchRemark(String matchRemark) {
         this.matchRemark = matchRemark;
     }
+
+	@Override
+	public int compareTo(Report o) {
+		return (this.matchPercentage > o.matchPercentage) ? -1 : (this.matchPercentage == o.matchPercentage) ? 0 : 1;
+	}
 }

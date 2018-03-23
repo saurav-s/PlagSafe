@@ -55,11 +55,12 @@ public class DetectionEngine implements Engine {
         SubmissionUtility subUtil = new SubmissionUtility();
         for(SubmissionRecord sub : submissions) {
             SubmissibleRecord submissionMetadata = new SubmissibleRecord();
+            List<Submissible> submissibles = new ArrayList<>();
             for(FileModel file : sub.getFiles()) {
-            		List<Submissible> submissibles = new ArrayList<>();
             		submissibles.add(subUtil.initializeSubmission(file));
-                submissionMetadata.setSubmissibles(submissibles);
+                
             }
+            submissionMetadata.setSubmissibles(submissibles);
             submissionsMetadataList.add(submissionMetadata);
         }
         return submissionsMetadataList;
