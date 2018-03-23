@@ -77,7 +77,7 @@ public class LogicalSimilarityDetectorTests {
         StringBuilder actual = new StringBuilder();
         for(Report r : reports)
             actual.append(r.toString());
-        String expected = "Report [sourceFile=simple.py, targetFile=simple1.py, matchPercentage=77, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple.py, targetFile=simple1.py, matchPercentage=84, matchRemark=Logical similarities detected.]Report [sourceFile=simple.py, targetFile=simple1.py, matchPercentage=32, matchRemark=Refactoring Similarity Measure ]";
+        String expected = "Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Logical similarities detected.]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Refactoring Similarity Measure ]";
 
         Assert.assertEquals(expected, actual.toString());
     }
@@ -111,7 +111,7 @@ public class LogicalSimilarityDetectorTests {
         for(Report r : reports)
             actual.append(r.toString());
 
-        String expected = "Report [sourceFile=simple1.py, targetFile=single_variant.py, matchPercentage=17, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple1.py, targetFile=single_variant.py, matchPercentage=28, matchRemark=Logical similarities detected.]Report [sourceFile=simple1.py, targetFile=single_variant.py, matchPercentage=2, matchRemark=Refactoring Similarity Measure ]";
+        String expected = "Report [sourceFile=simple1.py, targetFile=simple1.py, matchPercentage=100, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple1.py, targetFile=simple1.py, matchPercentage=100, matchRemark=Logical similarities detected.]Report [sourceFile=simple1.py, targetFile=simple1.py, matchPercentage=100, matchRemark=Refactoring Similarity Measure ]";
         Assert.assertEquals(expected, actual.toString());
     }
 
