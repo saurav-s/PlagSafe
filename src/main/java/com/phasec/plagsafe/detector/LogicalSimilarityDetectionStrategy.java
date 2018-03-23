@@ -7,6 +7,8 @@ import util.SubmissionUtility;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.objects.Report;
+
 public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
     private SubmissionUtility util;
     private static final String MATCHING_REMARK = "Logical similarities detected.";

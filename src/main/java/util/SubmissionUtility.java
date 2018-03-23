@@ -73,7 +73,6 @@ public class SubmissionUtility {
 
         return ast;
     }
-
     /**
      * this method calculates the edit distance from a source string to a target String
      *
@@ -112,7 +111,7 @@ public class SubmissionUtility {
      * @param target
      * @return
      */
-    public int getAverageSubmissionFileLength(String source, String target) {
+    public static int getAverageSubmissionFileLength(String source, String target) {
         return (source.length() + target.length());
     }
 
@@ -122,7 +121,8 @@ public class SubmissionUtility {
      * @param total
      * @return
      */
-    public int getMatchPercentage(int diff, int total) {
+    public static int getMatchPercentage(int diff, int total) {
         return 100 - ((diff*100)/total);
     }
+
 }

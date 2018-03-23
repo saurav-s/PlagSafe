@@ -1,6 +1,7 @@
 package com.phasec.plagsafe.objects;
 
 public class Report {
+
     private String sourceFile;
     private String targetFile;
     private int matchPercentage;
