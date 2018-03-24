@@ -38,7 +38,7 @@ public class EmailService {
 	public void sendAlertMailToAdmins(String message) {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setCc(mailingList.toArray(new String[0]));
-		mailMessage.setSubject("PlagSafe Application Alert");
+		mailMessage.setSubject("Team 109 - PlagSafe Application Alert");
 		mailMessage.setText(message);
 		javaMailSender.send(mailMessage);
 
