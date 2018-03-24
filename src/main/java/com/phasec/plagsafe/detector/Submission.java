@@ -2,6 +2,10 @@ package com.phasec.plagsafe.detector;
 
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
 
+/**
+ * manipulate the basic getters and setters of the submission
+ */
+
 public class Submission implements Submissible {
 	
 	public Submission(){

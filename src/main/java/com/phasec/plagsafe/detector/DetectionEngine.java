@@ -17,12 +17,14 @@ import util.SubmissionUtility;
 public class DetectionEngine implements Engine {
 	
 	private static Logger logger = LoggerFactory.getLogger(DetectionEngine.class);
-	
+
+
     /**
-     *
+     *the detection drive
      * @param submissions : list of submissions containing a list of submission files
      */
-	private Logger log;
+
+    private Logger log;
 	public DetectionEngine(){
 		log = LoggerFactory.getLogger(this.getClass().getName());
 	}

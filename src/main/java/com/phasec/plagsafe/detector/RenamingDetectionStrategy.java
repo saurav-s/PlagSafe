@@ -12,7 +12,15 @@ import util.SubmissionUtility;
 public class RenamingDetectionStrategy implements DetectionStrategy {
 	
 	private static final String MATCH_REMARK = "Renaming Similarity Measure ";
-	
+
+
+	/**
+	 * the concrete method to show comparison result for two submissions
+	 * @param submission1 a folder of submission with a list of submitted files
+	 * @param submission2 another folder of submission with a list of submitted files
+	 * @return a list of reports that contains all results of one-to-one comparison
+	 */
+
 	@Override
 	public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
 		List<Report> reportList = new ArrayList<>();

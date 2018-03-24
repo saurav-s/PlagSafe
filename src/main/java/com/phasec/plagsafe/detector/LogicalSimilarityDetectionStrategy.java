@@ -12,12 +12,15 @@ import util.SubmissionUtility;
 public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
     private static final String MATCHING_REMARK = "Logical similarities detected.";
 
+
+
     /**
-     *
-     * @param submission1
-     * @param submission2
-     * @return
+     * the concrete method to show comparison result for two submissions
+     * @param submission1 a folder of submission with a list of submitted files
+     * @param submission2 another folder of submission with a list of submitted files
+     * @return a list of reports that contains all results of one-to-one comparison
      */
+
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
         List<Report> reportList = new ArrayList<>();
@@ -32,12 +35,15 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
         return reportList;
     }
 
+
+
     /**
-     *
-     * @param sub1file
-     * @param sub2file
-     * @return
+     * compare two submitted files
+     * @param sub1file submission1 a folder of submission with a list of submitted files
+     * @param sub2file another folder of submission with a list of submitted files
+     * @return  the report of comparison of two single files
      */
+
     private Report fileASTCompare(Submissible sub1file, Submissible sub2file) {
         ASTPrinter astIterator = new ASTPrinter();
 

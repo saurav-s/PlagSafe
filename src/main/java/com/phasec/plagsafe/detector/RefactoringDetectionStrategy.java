@@ -18,6 +18,13 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 	private static final String MATCH_REMARK = "Refactoring Similarity Measure ";
 	private static final int NGRAM_SIZE = 3;
 
+	/**
+	 * the concrete method to show comparison result for two submissions
+	 * @param submission1 a folder of submission with submitted rocord
+	 * @param submission2 another folder of submission with submitted rocord
+	 * @return a list of reports that contains all results of one-to-one comparison
+	 */
+
 	@Override
 	public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
 
@@ -36,6 +43,12 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 		return reportList;
 
 	}
+	/**
+	 * compare two submitted files
+	 * @param list1 submission1 a folder of submission with a list of submitted files
+	 * @param list2 another folder of submission with a list of submitted files
+	 * @return the report of comparison of two single files
+	 */
 
 	private double compareTwoLists(List<String> list1, List<String> list2) {
 
