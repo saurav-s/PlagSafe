@@ -1,18 +1,21 @@
 package com.phasec.plagsafe.detector;
 
 
+
+import com.phasec.plagsafe.objects.Report;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 import com.phasec.plagsafe.ComparisonService;
 import com.phasec.plagsafe.objects.FileModel;
 import com.phasec.plagsafe.objects.SubmissionRecord;
 
 public class LogicalSimilarityDetectorTests {
+    // test plagiarism with exact same files
     @Test
     public void testLogicalDetectionSameFiles() {
         List<SubmissionRecord> submissions = new ArrayList<>();
@@ -36,10 +39,17 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(record2);
 
         ComparisonService controllerForTest = new ComparisonService();
-        controllerForTest.submissionStub(submissions);
-        Assert.assertEquals(true, true);
+
+        List<Report> reports = controllerForTest.submissionStub(submissions);
+        StringBuilder actual = new StringBuilder();
+        for(Report r : reports)
+            actual.append(r.toString());
+        String expected = "Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Logical similarities detected.]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Refactoring Similarity Measure ]";
+
+        Assert.assertEquals(expected, actual.toString());
     }
 
+    //test plagiarism with different files
     @Test
     public void testLogicalDetectionDifferentFiles() {
         List<SubmissionRecord> submissions = new ArrayList<>();
@@ -63,10 +73,16 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(record2);
 
         ComparisonService controllerForTest = new ComparisonService();
-        controllerForTest.submissionStub(submissions);
-        Assert.assertEquals(true, true);
+        List<Report> reports = controllerForTest.submissionStub(submissions);
+        StringBuilder actual = new StringBuilder();
+        for(Report r : reports)
+            actual.append(r.toString());
+        String expected = "Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Logical similarities detected.]Report [sourceFile=simple.py, targetFile=simple.py, matchPercentage=100, matchRemark=Refactoring Similarity Measure ]";
+
+        Assert.assertEquals(expected, actual.toString());
     }
 
+    //test for no plagiarism on different files
     @Test
     public void testLogicalDetectionVeryDifferentFiles() {
         List<SubmissionRecord> submissions = new ArrayList<>();
@@ -90,8 +106,13 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(record2);
 
         ComparisonService controllerForTest = new ComparisonService();
-        controllerForTest.submissionStub(submissions);
-        Assert.assertEquals(true, true);
+        List<Report> reports = controllerForTest.submissionStub(submissions);
+        StringBuilder actual = new StringBuilder();
+        for(Report r : reports)
+            actual.append(r.toString());
+
+        String expected = "Report [sourceFile=simple1.py, targetFile=simple1.py, matchPercentage=100, matchRemark=Renaming Similarity Measure ]Report [sourceFile=simple1.py, targetFile=simple1.py, matchPercentage=100, matchRemark=Logical similarities detected.]Report [sourceFile=simple1.py, targetFile=simple1.py, matchPercentage=100, matchRemark=Refactoring Similarity Measure ]";
+        Assert.assertEquals(expected, actual.toString());
     }
 
 }

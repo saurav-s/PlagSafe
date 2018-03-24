@@ -17,16 +17,7 @@ public class SubmissionRecord {
 	public SubmissionRecord() {
 		super();
 	}
-
-	/**
-	 * Parameterized constructor
-	 * @param files
-	 */
-	public SubmissionRecord(List<FileModel> files) {
-		super();
-		this.files = files;
-	}
-
+	
 	/**
 	 * get all the files
 	 * @return list of file models which are part of submission records

@@ -20,7 +20,8 @@ public class SubmissionCompare implements SubmissionComparable {
         // compare for similarity in code logic using AST of each file in the submission
         context = new ComparisonContext(new LogicalSimilarityDetectionStrategy());
         matchReportList.addAll(context.compare(submission1, submission2));
-        
+
+        // comparing for code refactoring
         context = new ComparisonContext(new RefactoringDetectionStrategy());
         matchReportList.addAll(context.compare(submission1, submission2));
 

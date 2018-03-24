@@ -46,7 +46,8 @@ public class SubmissionUtility {
         try(Scanner scanner = new Scanner(inputFile)) {
             text = scanner.useDelimiter("\\A").next();
         }catch (FileNotFoundException e){
-        		logger.error("Error occured while generating AST: "+e.getMessage());
+            logger.error("Error occurred while generating AST: " + e.getMessage());
+            return null;
         }
         return text;
     }
@@ -63,7 +64,8 @@ public class SubmissionUtility {
             ast = antlrDriver.parseFile(submissionFile);
         }
         catch (IOException e) {
-        		logger.error("Error occured while generating AST: "+e.getMessage());
+            logger.error("Error occured while generating AST: " + e.getMessage());
+            return null;
         }
 
         return ast;
