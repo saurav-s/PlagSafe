@@ -21,7 +21,7 @@ public class FileRecord {
 	
 	/**
 	 * Parameterized constructor
-	 * @param multiparts
+	 * @param multiparts the different parts in the files
 	 */
 	public FileRecord(List<File> files) {
 		super();
@@ -29,7 +29,7 @@ public class FileRecord {
 	}
 
 	/**
-	 * 
+	 * get all the files
 	 * @return list of files
 	 */
 	public List<File> getFiles() {
@@ -37,7 +37,7 @@ public class FileRecord {
 	}
 
 	/**
-	 * 
+	 * set all the files
 	 * @param files
 	 */
 	public void setFiles(List<File> files) {

@@ -2,6 +2,10 @@ package com.phasec.plagsafe.objects;
 
 import javax.persistence.*;
 
+/**
+ * the class with all information needed for a user
+ */
+
 @Entity(name="registered_user")
 public class UserObject {
     @Id
@@ -14,6 +18,7 @@ public class UserObject {
     @Column(name="status_id")
     private String statusId;
 
+    //getters and setters for user name
 
     public String getUserName() {
         return userName;
@@ -22,7 +27,7 @@ public class UserObject {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
+    //getters and setters for secret
     public String getSecret() {
         return secret;
     }
@@ -30,7 +35,7 @@ public class UserObject {
     public void setSecret(String secret) {
         this.secret = secret;
     }
-
+    //getters and setters for sStatusID
     public String getStatusId() {
         return statusId;
     }
@@ -39,6 +44,7 @@ public class UserObject {
         this.statusId = statusId;
     }
 
+    //getters and setters for Id
     public int getId() {
         return id;
     }

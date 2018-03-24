@@ -28,7 +28,7 @@ public class SubmissionRecord {
 	}
 
 	/**
-	 * 
+	 * get all the files
 	 * @return list of file models which are part of submission records
 	 */
 	public List<FileModel> getFiles() {
@@ -36,8 +36,8 @@ public class SubmissionRecord {
 	}
 
 	/**
-	 * 
-	 * @param files
+	 * set all the files
+	 * @param files list of file models which are part of submission records
 	 */
 	public void setFiles(List<FileModel> files) {
 		this.files = files;
