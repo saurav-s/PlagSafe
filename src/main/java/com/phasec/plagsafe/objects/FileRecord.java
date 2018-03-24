@@ -11,6 +11,11 @@ import java.util.List;
 public class FileRecord {
 	
 	private List<File> files;
+	
+	public FileRecord(List<File> files){
+		super();
+		this.files = files;
+	}
 
 	/**
 	 * default constructor
