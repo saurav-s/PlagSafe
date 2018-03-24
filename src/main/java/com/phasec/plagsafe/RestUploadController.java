@@ -50,8 +50,9 @@ public class RestUploadController {
 		 * @throws Exception
      */
     @PostMapping("/uploadfile")
-    public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") 
-    		MultipartFile[] fileList2,@RequestParam("strategy") String strategy)  {
+    public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,
+								  @RequestParam("uploadfile2") MultipartFile[] fileList2,
+								  @RequestParam("strategy") String strategy)  {
     		try {
 
     			List<String> fileNames1 = new ArrayList<>();
@@ -71,8 +72,8 @@ public class RestUploadController {
     			List<Report> runComparisionForFiles = runComparison(fileNames1, fileNames2, comparisonStrategy);
     			return getJsonString(runComparisionForFiles);
 		} catch (Exception e) {
-			logger.error("Error occured while uploading the files"+e.getMessage());
-			return getJsonString("Error occured while uploading the files");
+			logger.error("Error occurred while uploading the files"+e.getMessage());
+			return getJsonString("Error occurred while uploading the files");
 			
 		}
     }
