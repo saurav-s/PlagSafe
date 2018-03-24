@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * the java side service
+ */
+
 @Service
 public class StorageService {
 
@@ -22,7 +26,7 @@ public class StorageService {
 	private final Path rootLocation = Paths.get("upload-dir");
 
 	/**
-	 * 
+	 * store all the files
 	 * @param file
 	 */
 	public void store(MultipartFile file) {
@@ -35,9 +39,9 @@ public class StorageService {
 
 
 	/**
-	 * 
-	 * @param filename
-	 * @return
+	 * get the file object
+	 * @param filename filename the name of the loaded files
+	 * @return the file object
 	 */
 	public File getFile(String filename) {
 		try {
@@ -54,7 +58,12 @@ public class StorageService {
 			return null;
 		}
 	}
- 
+
+	/**
+	 * load all the files to the service
+	 * @param filename filename the name of the loaded files
+	 * @return the loaded files as resurce object
+	 */
     public Resource loadFile(String filename) {
     	log.info("Loading file...");
         try {
@@ -71,12 +80,19 @@ public class StorageService {
         		return null;
         }
     }
-    
-    public void deleteAll() {
+
+	/**
+	 * delete all the files in the store system
+	 */
+
+	public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
- 
-    public void init() {
+
+	/**
+	 * initialize the store service
+	 */
+	public void init() {
         try {
             Files.createDirectory(rootLocation);
         } catch (IOException e) {

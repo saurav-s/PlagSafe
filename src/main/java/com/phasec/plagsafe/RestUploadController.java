@@ -25,7 +25,10 @@ import com.google.gson.Gson;
 import com.phasec.plagsafe.objects.FileRecord;
 import com.phasec.plagsafe.objects.Report;
 
- 
+/**
+ * this class is for Rest control
+ */
+
 @RestController
 @RequestMapping("/api")
 public class RestUploadController {
@@ -40,11 +43,11 @@ public class RestUploadController {
 	private static Logger logger = LoggerFactory.getLogger(RestUploadController.class);
  
     /**
-     * 
-     * @param fileList1
-     * @param fileList2
-     * @return
-     * @throws Exception
+     * the Api to upload file
+     * @param fileList1 the first file uploaded
+     * @param fileList2 the second file uploaded
+     * @return if the file is uploaded successfully or not
+		 * @throws Exception
      */
     @PostMapping("/uploadfile")
     public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") MultipartFile[] fileList2)  {
@@ -74,9 +77,10 @@ public class RestUploadController {
 
 
 	/**
-	 * @param fileNames1
-	 * @param fileNames2
-	 * @return
+	 * deploy the comparison method
+	 * @param fileNames1  the first file uploaded
+	 * @param fileNames2  the second file uploaded
+	 * @return a list of reorts
 	 */
 	private List<Report> runComparison(List<String> fileNames1, List<String> fileNames2) {
 		List<FileRecord> filesList = new ArrayList<>();
@@ -102,7 +106,7 @@ public class RestUploadController {
 
     
     /**
-     * 
+     * get all the files that have been uploaded
      * @return all files uri
      */
 	@GetMapping("/getallfiles")
@@ -122,9 +126,9 @@ public class RestUploadController {
 	}
 	
 	/**
-	 * 
-	 * @param filename
-	 * @return
+	 * get the file in the form of Resource object
+	 * @param filename the name of the submitted file
+	 * @return Resource object
 	 */
 	@GetMapping("/files/{filename:.+}")
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
@@ -135,9 +139,9 @@ public class RestUploadController {
 	}
 	
 	/**
-	 * 
+	 * get the Json format of files
 	 * @param str
-	 * @return
+	 * @return Json as a string
 	 */
 	private String getJsonString(String str) {
 		Gson gson = new Gson();
@@ -145,9 +149,9 @@ public class RestUploadController {
 	}
 	
 	/**
-	 * 
-	 * @param reports
-	 * @return
+	 * get the Json format of reports
+	 * @param reports reports object
+	 * @return Json as a string
 	 */
 	private String getJsonString(List<Report> reports) {
 		Gson gson = new Gson();

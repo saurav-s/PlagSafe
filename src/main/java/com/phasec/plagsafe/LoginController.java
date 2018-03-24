@@ -17,8 +17,8 @@ public class LoginController {
 
     /**
      * default login page mapping
-     * @param model
-     * @return
+     * @param model ModelMap for the shouLoginPage method
+     * @return the default login string
      */
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String showLoginPage(ModelMap model){
@@ -27,10 +27,10 @@ public class LoginController {
 
     /**
      * api for login credential checks
-     * @param model
-     * @param name
-     * @param password
-     * @return
+     * @param model ModelMap for the shouLoginPage method
+     * @param name the name of the logged in user
+     * @param password the password of the logged in user
+     * @return the User
      */
     @RequestMapping(value="/logincheck", method = RequestMethod.GET)
     public UserObject showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
