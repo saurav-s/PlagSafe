@@ -24,7 +24,6 @@
 		<java.version>1.8</java.version>
         <sonar.exclusions>**/*Python3*.java</sonar.exclusions>
         <sonar.coverage.exclusions>**/*Python3*.java</sonar.coverage.exclusions>
-		<sonar.coverage.exclusions>**/*.js</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
