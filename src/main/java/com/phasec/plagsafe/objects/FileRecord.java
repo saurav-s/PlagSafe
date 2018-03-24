@@ -18,15 +18,6 @@ public class FileRecord {
 	public FileRecord() {
 		super();
 	}
-	
-	/**
-	 * Parameterized constructor
-	 * @param multiparts
-	 */
-	public FileRecord(List<File> files) {
-		super();
-		this.files = files;
-	}
 
 	/**
 	 * 
