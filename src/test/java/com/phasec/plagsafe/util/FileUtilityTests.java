@@ -15,13 +15,17 @@ import java.util.List;
 public class FileUtilityTests {
     @Test
     public void testGetFileModel() {
-        FileModel model = FileUtility.getFileModel(new File("resources/simple.py"));
+        FileUtility util = new FileUtility();
+
+        FileModel model = util.getFileModel(new File("resources/simple.py"));
         Assert.assertNotNull(model);
     }
 
     @Test
     public void testGetFileMapList() {
+        FileUtility util = new FileUtility();
         List<File> files = new ArrayList<>();
+
         files.add(new File("resources/simple.py"));
         files.add(new File("resources/simple1.py"));
         files.add(new File("resources/single_variant.py"));
@@ -29,7 +33,7 @@ public class FileUtilityTests {
         FileRecord records = new FileRecord();
         records.setFiles(files);
 
-        SubmissionRecord record = FileUtility.getFileMapList(records);
+        SubmissionRecord record = util.getFileMapList(records);
         Assert.assertNotNull(record);
     }
 }
