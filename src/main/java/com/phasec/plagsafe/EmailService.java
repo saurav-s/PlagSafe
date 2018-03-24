@@ -32,7 +32,7 @@ public class EmailService {
 	}
 
 	/**
-	 * 
+	 * Send Alert message to all the admin emails
 	 * @param message
 	 */
 	public void sendAlertMailToAdmins(String message) {
