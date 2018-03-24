@@ -50,8 +50,10 @@ public class RestUploadController {
 		 * @throws Exception
      */
     @PostMapping("/uploadfile")
-    public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") MultipartFile[] fileList2)  {
+    public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,@RequestParam("uploadfile2") 
+    		MultipartFile[] fileList2,@RequestParam("strategy") String strategy)  {
     		try {
+
     			List<String> fileNames1 = new ArrayList<>();
     			for(MultipartFile file: fileList1) {
 				storageService.store(file);
@@ -65,8 +67,8 @@ public class RestUploadController {
     				files.add(file.getOriginalFilename());
     				fileNames2.add(file.getOriginalFilename());
     			}
-    			
-    			List<Report> runComparisionForFiles = runComparison(fileNames1, fileNames2);
+    			StrategyType comparisonStrategy = StrategyType.valueOf(strategy);
+    			List<Report> runComparisionForFiles = runComparison(fileNames1, fileNames2, comparisonStrategy);
     			return getJsonString(runComparisionForFiles);
 		} catch (Exception e) {
 			logger.error("Error occured while uploading the files"+e.getMessage());
@@ -75,14 +77,15 @@ public class RestUploadController {
 		}
     }
 
-
+    
 	/**
 	 * deploy the comparison method
 	 * @param fileNames1  the first file uploaded
 	 * @param fileNames2  the second file uploaded
-	 * @return a list of reorts
+	 * @param comparisonStrategy 
+	 * @return a list of reports
 	 */
-	private List<Report> runComparison(List<String> fileNames1, List<String> fileNames2) {
+	private List<Report> runComparison(List<String> fileNames1, List<String> fileNames2, StrategyType comparisonStrategy) {
 		List<FileRecord> filesList = new ArrayList<>();
 		List<File> fileList1 = new ArrayList<>();
 		List<File> fileList2 = new ArrayList<>();
@@ -101,7 +104,7 @@ public class RestUploadController {
 		files2.setFiles(fileList2);
 		filesList.add(files1);
 		filesList.add(files2);
-		return comparisonService.runComparisionForFiles(filesList);
+		return comparisonService.runComparisionForFiles(filesList, comparisonStrategy);
 	}
 
     

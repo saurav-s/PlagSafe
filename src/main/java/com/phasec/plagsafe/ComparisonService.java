@@ -28,24 +28,26 @@ public class ComparisonService {
     /**
      *
      * @param submissions
+     * @param comparisonStrategy 
      */
-    public List<Report> submissionStub(List<SubmissionRecord> submissions) {
+    public List<Report> submissionStub(List<SubmissionRecord> submissions, StrategyType comparisonStrategy) {
         Engine detectionEngine = new DetectionEngine();
-        return detectionEngine.runDetection(submissions);
+        return detectionEngine.runDetection(submissions, comparisonStrategy);
     }
     
     /**
      * 
      * @param filesList
+     * @param comparisonStrategy 
      * @return
      */
-    public List<Report> runComparisionForFiles(List<FileRecord> filesList){
+    public List<Report> runComparisionForFiles(List<FileRecord> filesList, StrategyType comparisonStrategy){
 		List<SubmissionRecord>  submissionRecords = new ArrayList<>();
 		for(FileRecord files : filesList) {
 			SubmissionRecord record = FileUtility.getFileMapList(files);
 			submissionRecords.add(record);
 		}
-		List<Report> reports = submissionStub(submissionRecords);
+		List<Report> reports = submissionStub(submissionRecords, comparisonStrategy);
 		Collections.sort(reports);
 		return reports;
 		

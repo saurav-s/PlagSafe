@@ -2,6 +2,7 @@ package com.phasec.plagsafe.upload;
 
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -28,6 +29,7 @@ import com.google.gson.Gson;
 import com.phasec.plagsafe.ComparisonService;
 import com.phasec.plagsafe.RestUploadController;
 import com.phasec.plagsafe.StorageService;
+import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
 
 /**
@@ -64,7 +66,7 @@ public class RestUploadControllerTests {
 		reports.add(rep);
 		Gson gson = new Gson();
 		String reportsJson = gson.toJson(reports);
-		when(comparisonService.runComparisionForFiles(anyList())).thenReturn(reports);
+		when(comparisonService.runComparisionForFiles(anyList(), eq(StrategyType.ALL))).thenReturn(reports);
 		when(storageService.getFile(anyString())).thenReturn(new File(""));
 
 		MockMultipartFile firstFile = new MockMultipartFile("uploadfile1", "sample1.py", "text/plain",
@@ -77,7 +79,7 @@ public class RestUploadControllerTests {
 		mvc.perform(MockMvcRequestBuilders
 				.fileUpload("/api/uploadfile")
 				.file(firstFile).file(secondFile).file(thirdFile)
-				.param("some-random", "4"))
+				.param("strategy", "ALL"))
 				.andExpect(status().is(200)).andExpect(content().json(reportsJson));
 	}
 	
@@ -94,7 +96,7 @@ public class RestUploadControllerTests {
 		reports.add(rep);
 		Gson gson = new Gson();
 		String response = gson.toJson("Error occured while uploading the files");
-		when(comparisonService.runComparisionForFiles(anyList())).thenThrow(FileNotFoundException.class);
+		when(comparisonService.runComparisionForFiles(anyList(),eq(StrategyType.ALL))).thenThrow(FileNotFoundException.class);
 		when(storageService.getFile(anyString())).thenReturn(new File(""));
 
 		MockMultipartFile firstFile = new MockMultipartFile("uploadfile1", "sample1.py", "",
@@ -107,7 +109,7 @@ public class RestUploadControllerTests {
 		mvc.perform(MockMvcRequestBuilders
 				.fileUpload("/api/uploadfile")
 				.file(firstFile).file(secondFile).file(thirdFile)
-				.param("some-random", "4"))
+				.param("strategy", "ALL"))
 				.andExpect(status().is(200)).andExpect(content().json(response));
 	}
 	
@@ -127,7 +129,7 @@ public class RestUploadControllerTests {
 		mvc.perform(MockMvcRequestBuilders
 				.fileUpload("/api/uploadfile")
 				.file(firstFile).file(secondFile).file(thirdFile)
-				.param("some-random", "4"))
+				.param("strategy", "ALL"))
 				.andExpect(status().is(200));
 
 		List<String> uriList = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.phasec.plagsafe.detector;
 
 import java.util.List;
 
+import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissionRecord;
 
@@ -15,6 +16,7 @@ public interface Engine {
     /**
      * this method runs the detection on all the submissions with each other
      * @param submissions : list of submission records
+     * @param comparisonStrategy 
      */
-    public List<Report> runDetection(List<SubmissionRecord> submissions);
+    public List<Report> runDetection(List<SubmissionRecord> submissions, StrategyType comparisonStrategy);
 }

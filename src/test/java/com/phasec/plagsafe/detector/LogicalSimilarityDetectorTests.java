@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.phasec.plagsafe.ComparisonService;
+import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.FileModel;
 import com.phasec.plagsafe.objects.SubmissionRecord;
 
@@ -40,7 +41,7 @@ public class LogicalSimilarityDetectorTests {
 
         ComparisonService controllerForTest = new ComparisonService();
 
-        List<Report> reports = controllerForTest.submissionStub(submissions);
+        List<Report> reports = controllerForTest.submissionStub(submissions,StrategyType.ALL);
         StringBuilder actual = new StringBuilder();
         for(Report r : reports)
             actual.append(r.toString());
@@ -73,7 +74,7 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(record2);
 
         ComparisonService controllerForTest = new ComparisonService();
-        List<Report> reports = controllerForTest.submissionStub(submissions);
+        List<Report> reports = controllerForTest.submissionStub(submissions,StrategyType.ALL);
         StringBuilder actual = new StringBuilder();
         for(Report r : reports)
             actual.append(r.toString());
@@ -106,7 +107,7 @@ public class LogicalSimilarityDetectorTests {
         submissions.add(record2);
 
         ComparisonService controllerForTest = new ComparisonService();
-        List<Report> reports = controllerForTest.submissionStub(submissions);
+        List<Report> reports = controllerForTest.submissionStub(submissions,StrategyType.ALL);
         StringBuilder actual = new StringBuilder();
         for(Report r : reports)
             actual.append(r.toString());

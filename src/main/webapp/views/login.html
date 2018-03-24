@@ -1,7 +1,29 @@
-<div ng-controller="LoginController">
-<form action="/" id="login">
-    Username: <input type="text" id="username" ng-model="username"><br>
-    Password: <input type="password" id="password" ng-model="password"><br>
-    <button type="button" ng-click="submit()">Login</button>
-</form>
+<div ng-controller="LoginController" class="container">
+	<br>
+	<br>
+	<br>
+	<h2 align="center">PlagSafe&#8482;</h2>
+	<h4 align="center">A plagiarism detection tool for checking plagiarism in python files</h4>
+	<br>
+	<form action="/" id="login">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>UserName</label> <input type="text" id="username"
+						ng-model="username" class="form-control"><br>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Password</label><input type="password" id="password"
+						ng-model="password" class="form-control"><br>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					<button class="btn btn-success pull-right" type="button" ng-click="submit()">Login</button>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>

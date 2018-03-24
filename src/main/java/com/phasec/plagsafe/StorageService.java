@@ -54,7 +54,7 @@ public class StorageService {
 				return null;
 			}
 		} catch (MalformedURLException e) {
-			log.error("StorageService.store() -> MalformedURL error while storing file. " + e.getMessage());
+			log.error("StorageService.store() -> MalformedURL error while getting file. " + e.getMessage());
 			return null;
 		}
 	}
@@ -62,7 +62,7 @@ public class StorageService {
 	/**
 	 * load all the files to the service
 	 * @param filename filename the name of the loaded files
-	 * @return the loaded files as resurce object
+	 * @return the loaded files as resource object
 	 */
     public Resource loadFile(String filename) {
     	log.info("Loading file...");

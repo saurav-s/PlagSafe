@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.phasec.plagsafe.ComparisonService;
+import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.FileModel;
 import com.phasec.plagsafe.objects.FileRecord;
 import com.phasec.plagsafe.objects.Report;
@@ -35,7 +36,7 @@ public class ComparisonServiceTests {
         record.setFiles(fileList);
         submissions.add(record);
         ComparisonService controllerForTest = new ComparisonService();
-        controllerForTest.submissionStub(submissions);
+        controllerForTest.submissionStub(submissions,StrategyType.ALL);
         Assert.assertEquals(true, true);
     }
     
@@ -57,7 +58,7 @@ public class ComparisonServiceTests {
     	frList.add(fr2);
     	
     	ComparisonService cs = new ComparisonService();
-    	List<Report> res = cs.runComparisionForFiles(frList);
+    	List<Report> res = cs.runComparisionForFiles(frList,StrategyType.ALL);
     	
     	assertNotNull(res);
     	assertEquals(res.size(), 3);

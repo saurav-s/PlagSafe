@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.FileModel;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
@@ -29,7 +30,7 @@ public class DetectionEngine implements Engine {
 		log = LoggerFactory.getLogger(this.getClass().getName());
 	}
     @Override
-    public List<Report> runDetection(List<SubmissionRecord> submissions) {
+    public List<Report> runDetection(List<SubmissionRecord> submissions, StrategyType comparisonStrategy) {
         List<SubmissibleRecord> submissionsMetadataList = createSubmissionsList(submissions);
 
         int numberOfSubmissions = submissionsMetadataList.size();
@@ -39,7 +40,7 @@ public class DetectionEngine implements Engine {
 
         for(int i=0;i<numberOfSubmissions;i++) {
             for(int j=i+1;j<numberOfSubmissions;j++) {
-                List<Report> current = subCompare.compare(submissionsMetadataList.get(i), submissionsMetadataList.get(j));
+                List<Report> current = subCompare.compare(submissionsMetadataList.get(i), submissionsMetadataList.get(j), comparisonStrategy);
                 reportList.addAll(current);
             }
         }

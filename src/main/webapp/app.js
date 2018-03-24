@@ -73,13 +73,15 @@ app.controller('getFilesController', ['$scope', '$http', function($scope, $http)
 
 app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
 
-  
-  $scope.uploadFile = function($fileList1, $fileList2){
+  $scope.strategy="ALL"
+  $scope.uploadFile = function($fileList1, $fileList2, $strategy){
 	  Upload.upload({
 		    url: '/api/uploadfile',
 		    data: {
 		    		uploadfile1: $fileList1,
-		    		uploadfile2: $fileList2
+		    		uploadfile2: $fileList2,
+		    		
+		    		strategy: $scope.strategy
 	        },
 	        arrayKey: ''
 		  }).success(function (data) {
@@ -94,9 +96,6 @@ app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout',
 	          if (response.status > 0) {
 	              $scope.errorMsg = response.status + ': ' + response.data;
 	          }
-	      }, function (evt) {
-	          $scope.progress = 
-	              Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 	      });
 	  };
   
