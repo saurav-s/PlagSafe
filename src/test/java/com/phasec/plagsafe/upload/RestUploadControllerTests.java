@@ -87,7 +87,7 @@ public class RestUploadControllerTests {
 	 * test file upload fail scenario
 	 * @throws Exception
 	 */
-	/*
+	
 	@SuppressWarnings("unchecked")
 	@Test
 
@@ -97,7 +97,7 @@ public class RestUploadControllerTests {
 		Report rep = new Report("file1", "file2", 80, "test remark");
 		reports.add(rep);
 		Gson gson = new Gson();
-		String response = gson.toJson("Error occured while uploading the files");
+		String response = gson.toJson("Error occurred while uploading the files");
 		when(comparisonService.runComparisionForFiles(anyList(),eq(StrategyType.ALL))).thenThrow(FileNotFoundException.class);
 		when(storageService.getFile(anyString())).thenReturn(new File(""));
 
@@ -114,7 +114,7 @@ public class RestUploadControllerTests {
 				.param("strategy", "ALL"))
 				.andExpect(status().is(200)).andExpect(content().json(response));
 	}
-	*/
+	
 	
 	/**
 	 * test get file success

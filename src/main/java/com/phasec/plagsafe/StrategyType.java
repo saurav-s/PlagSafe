@@ -10,7 +10,8 @@ public enum StrategyType {
 	LOGICAL("logical"),
 	REFACTORING("refactoring"),
 	RENAMING("renaming"),
-	ALL("all");
+	ALL("all"),
+	COMBINED("combined");
 
 	private String value;
 

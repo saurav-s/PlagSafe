@@ -5,6 +5,7 @@ import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SubmissionCompare implements SubmissionComparable {
@@ -22,10 +23,24 @@ public class SubmissionCompare implements SubmissionComparable {
 				   				break;
         		case ALL:			matchReportList = compareAll(submission1, submission2);
 				   				break;
+        		case COMBINED:		matchReportList = compareCombined(submission1, submission2);
+   								break;
         }
         return matchReportList;
     }
 
+ 
+	/**
+	 * compare using combination of all the strategies dynamically
+	 * @param submission1
+	 * @param submission2
+	 * @return
+	 */
+	private List<Report> compareCombined(SubmissibleRecord submission1, SubmissibleRecord submission2) {
+		//Do some stuff
+		return Collections.EMPTY_LIST;
+	}
+    
     
 	/**
 	 * compare using all the strategies
