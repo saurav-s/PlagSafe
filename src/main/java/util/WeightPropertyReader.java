@@ -2,6 +2,7 @@ package util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.File;
 import java.io.FileReader;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class WeightPropertyReader {
-    private static final String CONFIG_FILE_PATH = "src/main/resources/config.properties";
+
     private static Logger logger = LoggerFactory.getLogger(WeightPropertyReader.class);
     private static WeightPropertyReader readerObject;
 
@@ -38,22 +39,10 @@ public class WeightPropertyReader {
      * @throws IOException
      */
     public void loadComparisonProperties() throws IOException {
-        File configFile = new File(CONFIG_FILE_PATH);
-        FileReader reader = new FileReader(configFile);
-        try{
-            Properties properties = new Properties();
-            properties.load(reader);
+        this.renaming_weight = 2;
+        this.refactoring_weight = 3;
+        this.logical_weight = 4;
 
-            this.renaming_weight = Integer.parseInt(properties.getProperty("renaming.weight"));
-            this.refactoring_weight = Integer.parseInt(properties.getProperty("refactoring.weight"));
-            this.logical_weight = Integer.parseInt(properties.getProperty("logical.weight"));
-
-        } catch(IOException e) {
-            logger.error("Unable to read properties file" + e.getMessage());
-        }
-        finally {
-            reader.close();
-        }
     }
 
 
