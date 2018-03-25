@@ -66,7 +66,7 @@ public class SubmissionCompare implements SubmissionComparable {
                 } catch(IOException e) {
 
                 }
-                
+
                 int sum =   (prop.getLogical_weight() * logicalMatch) +
                             (prop.getRefactoring_weight() * refactoringMatch) +
                             (prop.getRenaming_weight() * renamingMatch);

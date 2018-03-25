@@ -39,8 +39,8 @@ public class WeightPropertyReader {
      */
     public void loadComparisonProperties() throws IOException {
         File configFile = new File(CONFIG_FILE_PATH);
+        FileReader reader = new FileReader(configFile);
         try{
-            FileReader reader = new FileReader(configFile);
             Properties properties = new Properties();
             properties.load(reader);
 
@@ -50,6 +50,9 @@ public class WeightPropertyReader {
 
         } catch(IOException e) {
             logger.error("Unable to read properties file" + e.getMessage());
+        }
+        finally {
+            reader.close();
         }
     }
 
