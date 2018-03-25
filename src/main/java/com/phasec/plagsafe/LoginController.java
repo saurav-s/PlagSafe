@@ -1,4 +1,6 @@
 package com.phasec.plagsafe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import com.phasec.plagsafe.objects.UserObject;
 @RestController
 public class LoginController {
 
+	private Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
     @Autowired
     LoginService service;
 
@@ -37,8 +41,22 @@ public class LoginController {
      */
     @RequestMapping(value="/logincheck", method = RequestMethod.GET)
     public UserObject showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
-        return service.validateUser(name, password);
-
+    		logger.info("User {} is trying to authenticate",name);
+        UserObject validateUser = service.validateUser(name, password);
+        logAuthActivity(name, validateUser);
+        return validateUser;
     }
+
+	/**
+	 * @param name
+	 * @param validateUser
+	 */
+	private void logAuthActivity(String name, UserObject validateUser) {
+		if(validateUser == null) {
+        		logger.warn("Authentication failure for user {}",name);
+        }else {
+        		logger.info("User {} is authenticated successfully",name);
+        }
+	}
 
 }
