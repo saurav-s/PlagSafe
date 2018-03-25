@@ -3,6 +3,8 @@ package com.phasec.plagsafe.detector;
 import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.WeightPropertyReader;
 
 import java.io.IOException;
@@ -12,6 +14,7 @@ import java.util.List;
 
 public class SubmissionCompare implements SubmissionComparable {
 	private static final String MATCHING_REMARK = "Weighted comparison result of all comparison";
+    private static Logger logger = LoggerFactory.getLogger(SubmissionCompare.class);
 
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2, StrategyType comparisonStrategy) {
@@ -64,14 +67,16 @@ public class SubmissionCompare implements SubmissionComparable {
                 try {
                     prop.loadComparisonProperties();
                 } catch(IOException e) {
-
+                    logger.error("Weight properties could not be read properly");
                 }
+
+                int weightSum = (prop.getLogical_weight() + prop.getRefactoring_weight() + prop.getRenaming_weight());
+                logger.info("Normalizing the polynomial result " + weightSum);
 
                 int sum =   (prop.getLogical_weight() * logicalMatch) +
                             (prop.getRefactoring_weight() * refactoringMatch) +
                             (prop.getRenaming_weight() * renamingMatch);
-                System.out.println(prop.getLogical_weight());
-                int normalizedSum = sum/(prop.getLogical_weight() + prop.getRefactoring_weight() + prop.getRenaming_weight());
+                int normalizedSum = sum/(weightSum == 0?1:weightSum);
 
                 reportList.add(new Report(sub1file.getName(), sub2file.getName(), normalizedSum, MATCHING_REMARK));
             }
