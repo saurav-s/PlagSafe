@@ -33,4 +33,8 @@ public class ComparisonContext {
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
         return strategy.compare(submission1, submission2);
     }
+
+    public int compare(Submissible sub1file, Submissible sub2file) {
+        return strategy.compare(sub1file, sub2file);
+    }
 }

@@ -35,6 +35,19 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
         return reportList;
     }
 
+    /**
+     * takes to submission files and returns the match percentage
+     *
+     * @param sub1file
+     * @param sub2file
+     * @return logical matching percentage
+     *
+     */
+    public int compare(Submissible sub1file, Submissible sub2file) {
+        Report report = fileASTCompare(sub1file, sub2file);
+        return report.getMatchPercentage();
+    }
+
 
 
     /**

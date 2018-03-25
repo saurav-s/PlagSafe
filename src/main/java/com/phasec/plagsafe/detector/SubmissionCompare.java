@@ -3,28 +3,35 @@ package com.phasec.plagsafe.detector;
 import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
+import util.WeightPropertyReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class SubmissionCompare implements SubmissionComparable {
-	
+	private static final String MATCHING_REMARK = "Weighted comparison result of all comparison";
 
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2, StrategyType comparisonStrategy) {
         List<Report> matchReportList = new ArrayList<>();
         switch(comparisonStrategy) {
-        		case RENAMING:  		matchReportList = compareRenaming(submission1, submission2);
-        					   		break;
-        		case LOGICAL: 		matchReportList = compareLogic(submission1, submission2);
-				   				break;
-        		case REFACTORING:	matchReportList = compareRefactoring(submission1, submission2);
-				   				break;
-        		case ALL:			matchReportList = compareAll(submission1, submission2);
-				   				break;
-        		case COMBINED:		matchReportList = compareCombined(submission1, submission2);
-   								break;
+        		case RENAMING:
+        			matchReportList = compareRenaming(submission1, submission2);
+        			break;
+        		case LOGICAL:
+        			matchReportList = compareLogic(submission1, submission2);
+        			break;
+        		case REFACTORING:
+        			matchReportList = compareRefactoring(submission1, submission2);
+        			break;
+        		case ALL:
+        			matchReportList = compareAll(submission1, submission2);
+        			break;
+        		case COMBINED:
+        			matchReportList = compareCombined(submission1, submission2);
+        			break;
         }
         return matchReportList;
     }
@@ -37,8 +44,40 @@ public class SubmissionCompare implements SubmissionComparable {
 	 * @return
 	 */
 	private List<Report> compareCombined(SubmissibleRecord submission1, SubmissibleRecord submission2) {
-		//Do some stuff
-		return Collections.EMPTY_LIST;
+        List<Report> reportList = new ArrayList<>();
+
+        for(Submissible sub1file : submission1.getSubmissibles()) {
+            for(Submissible sub2file : submission2.getSubmissibles()) {
+                // logical match
+                ComparisonContext context = new ComparisonContext(new LogicalSimilarityDetectionStrategy());
+                int logicalMatch = context.compare(sub1file, sub2file);
+
+                // renaming match
+                context = new ComparisonContext(new RenamingDetectionStrategy());
+                int renamingMatch = context.compare(sub1file, sub2file);
+
+                // refactoring match
+                context = new ComparisonContext(new RefactoringDetectionStrategy());
+                int refactoringMatch = context.compare(sub1file, sub2file);
+
+                WeightPropertyReader prop = WeightPropertyReader.makeReaderObject();
+                try {
+                    prop.loadComparisonProperties();
+                } catch(IOException e) {
+
+                }
+                
+                int sum =   (prop.getLogical_weight() * logicalMatch) +
+                            (prop.getRefactoring_weight() * refactoringMatch) +
+                            (prop.getRenaming_weight() * renamingMatch);
+                System.out.println(prop.getLogical_weight());
+                int normalizedSum = sum/(prop.getLogical_weight() + prop.getRefactoring_weight() + prop.getRenaming_weight());
+
+                reportList.add(new Report(sub1file.getName(), sub2file.getName(), normalizedSum, MATCHING_REMARK));
+            }
+        }
+
+		return reportList;
 	}
     
     
