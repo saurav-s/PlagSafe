@@ -6,38 +6,87 @@
 </div>
 
 <div ng-controller="UploadFileController">
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="uploadfile1">
-				Submission 1:</label>
-			<div class="col-sm-10">
-				<input class="form-control" type="file" file-model="uploadedFile1"
-					placeholder="Upload File" accept=".py" webKitDirectory multiple>
-			</div>
-			<br><label class="control-label col-sm-2"
-				for="uploadfile2">Submission 2:</label>
-			<div class="col-sm-10">
-				<input class="form-control" type="file" file-model="uploadedFile2"
-					placeholder="Upload File" accept=".py" webKitDirectory multiple>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-2"
-				for="radioModel">Choose Strategy</label>
-			<div class="col-sm-10">
-			<input class="btn" type="radio" ng-model="strategy" value="LOGICAL"> Logical  
-			<input class="btn" type="radio" ng-model="strategy" value="RENAMING"> Renaming  
-			<input class="btn" type="radio" ng-model="strategy" value="REFACTORING"> Refactoring  
-			<input class="btn" type="radio" ng-model="strategy" value="ALL"> All
-			<input class="btn" type="radio" ng-model="strategy" value="COMBINED"> Use Dynamic Combination
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-primary"
-					ng-click="uploadFile(uploadedFile1,uploadedFile2,strategy)">Upload</button>
-			</div>
-		</div>
+
+
+
+    <form class="form-horizontal">
+        <ul class="tabmenu col-sm-*">
+            <li ng-class="{'active': tabName=='tab1'}" ng-click="tabName='tab1'" font-size="36px">Two Submissions</li>
+            <li ng-class="{'active': tabName=='tab2'}" ng-click="tabName='tab2'" font-size="36px">Entire Class</li>
+        </ul>
+
+        <div ng-switch="tabName">
+            <div ng-switch-when="tab1">
+                <div class="form-group">
+                    <label class="control-label col-sm-*" for="uploadfile1">
+                        Submission 1:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="file" file-model="uploadedFile1"
+                            placeholder="Upload File" accept=".py" webKitDirectory multiple>
+                    </div>
+                    <br><label class="control-label col-sm-*"
+                        for="uploadfile2">Submission 2:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="file" file-model="uploadedFile2"
+                            placeholder="Upload File" accept=".py" webKitDirectory multiple>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-*"
+                        for="radioModel">Choose Strategy</label>
+                    <div class="col-sm-10">
+                    <input class="btn" type="radio" ng-model="strategy" value="LOGICAL"> Logical
+                    <input class="btn" type="radio" ng-model="strategy" value="RENAMING"> Renaming
+                    <input class="btn" type="radio" ng-model="strategy" value="REFACTORING"> Refactoring
+                    <input class="btn" type="radio" ng-model="strategy" value="ALL"> All
+                    <input class="btn" type="radio" ng-model="strategy" value="COMBINED"> Use Dynamic Combination
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary"
+                            ng-click="uploadFile(uploadedFile1,uploadedFile2,strategy)">Upload & Compare</button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-switch-when="tab2">
+                <div class="form-group">
+                    <label class="control-label col-sm-*" for="uploadfile1">
+                        Class Submission:</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" type="file" file-model="classSubmission"
+                               placeholder="Upload File" accept=".py" webKitDirectory multiple>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-*"
+                           for="radioModel">Choose Strategy</label>
+                    <div class="col-sm-10">
+                        <input class="btn" type="radio" ng-model="strategy" value="LOGICAL"> Logical
+                        <input class="btn" type="radio" ng-model="strategy" value="RENAMING"> Renaming
+                        <input class="btn" type="radio" ng-model="strategy" value="REFACTORING"> Refactoring
+                        <input class="btn" type="radio" ng-model="strategy" value="ALL"> All
+                        <input class="btn" type="radio" ng-model="strategy" value="COMBINED"> Use Dynamic Combination
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary"
+                                ng-click="uploadFile(classSubmission,strategy)">Upload & Compare</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
 		<br><br>
 		<div class="col-sm-offset-2">
 			<p ng-bind="BetaUploadResult"></p>
