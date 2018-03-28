@@ -41,6 +41,7 @@ public class RestUploadController {
 	
 	private List<String> files = new ArrayList<>();
 	private static Logger logger = LoggerFactory.getLogger(RestUploadController.class);
+	private static final String ACCEPTABLE_FILE_TYPE = ".py";
  
     /**
      * the Api to upload file
@@ -55,30 +56,37 @@ public class RestUploadController {
 								  @RequestParam("strategy") String strategy)  {
     		try {
 
-    			List<String> fileNames1 = new ArrayList<>();
-    			for(MultipartFile file: fileList1) {
-				storageService.store(file);
-				files.add(file.getOriginalFilename());
-				fileNames1.add(file.getOriginalFilename());
-			}
-    			
-    			List<String> fileNames2 = new ArrayList<>();
-    			for(MultipartFile file: fileList2) {
-    				storageService.store(file);
-    				files.add(file.getOriginalFilename());
-    				fileNames2.add(file.getOriginalFilename());
-    			}
+    			List<String> fileNames1 = storeFiles(fileList1);
+    			List<String> fileNames2 = storeFiles(fileList2);
+
     			StrategyType comparisonStrategy = StrategyType.valueOf(strategy);
     			List<Report> runComparisionForFiles = runComparison(fileNames1, fileNames2, comparisonStrategy);
     			return getJsonString(runComparisionForFiles);
-		} catch (Exception e) {
-			logger.error("Error occurred while uploading the files"+e.getMessage());
-			return getJsonString("Error occurred while uploading the files");
+			} catch (Exception e) {
+				logger.error("Error occurred while uploading the files"+e.getMessage());
+				return getJsonString("Error occurred while uploading the files");
 			
-		}
+			}
     }
 
-    
+    /**
+     * stores only stores the
+     * @param receivedFiles
+     * @return
+     */
+    private List<String> storeFiles(MultipartFile[] receivedFiles) {
+        List<String> fileNamesList = new ArrayList<>();
+
+        for(MultipartFile file : receivedFiles) {
+            if(file.getOriginalFilename().endsWith(ACCEPTABLE_FILE_TYPE)) {
+                storageService.store(file);
+                files.add(file.getOriginalFilename());
+                fileNamesList.add(file.getOriginalFilename());
+            }
+        }
+        return fileNamesList;
+    }
+
 	/**
 	 * deploy the comparison method
 	 * @param fileNames1  the first file uploaded
@@ -122,7 +130,7 @@ public class RestUploadController {
 							.fromMethodName(RestUploadController.class, "getFile", fileName).build().toString())
 					.collect(Collectors.toList());	
 		}catch(Exception e){
-			logger.error("Error occured while getting the files: "+e.getMessage());
+			logger.error("Error occured while getting the files: " + e.getMessage());
 			throw e;
 		}
 		
