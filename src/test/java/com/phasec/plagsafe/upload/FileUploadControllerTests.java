@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.google.gson.Gson;
 import com.phasec.plagsafe.ComparisonService;
-import com.phasec.plagsafe.RestUploadController;
+import com.phasec.plagsafe.FileUploadController;
 import com.phasec.plagsafe.StorageService;
 import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
@@ -38,8 +38,8 @@ import com.phasec.plagsafe.objects.Report;
  *
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(RestUploadController.class)
-public class RestUploadControllerTests {
+@WebMvcTest(FileUploadController.class)
+public class FileUploadControllerTests {
 
 	@Autowired
 	private MockMvc mvc;

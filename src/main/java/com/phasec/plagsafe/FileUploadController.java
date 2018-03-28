@@ -30,7 +30,7 @@ import com.phasec.plagsafe.objects.Report;
 
 @RestController
 @RequestMapping("/api")
-public class RestUploadController {
+public class FileUploadController {
 
 	@Autowired
 	StorageService storageService;
@@ -39,7 +39,7 @@ public class RestUploadController {
 	ComparisonService comparisonService;
 
 	private List<String> files = new ArrayList<>();
-	private static Logger logger = LoggerFactory.getLogger(RestUploadController.class);
+	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 	private static final String ACCEPTABLE_FILE_TYPE = ".py";
 
 	/**
@@ -142,7 +142,7 @@ public class RestUploadController {
 		try {
 			lstFiles = files.stream()
 					.map(fileName -> MvcUriComponentsBuilder
-							.fromMethodName(RestUploadController.class, "getFile", fileName).build().toString())
+							.fromMethodName(FileUploadController.class, "getFile", fileName).build().toString())
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			logger.error("Error occured while getting the files: " + e.getMessage());
