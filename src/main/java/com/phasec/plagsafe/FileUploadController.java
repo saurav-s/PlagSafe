@@ -1,6 +1,8 @@
 package com.phasec.plagsafe;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import com.google.gson.Gson;
 import com.phasec.plagsafe.objects.FileRecord;
 import com.phasec.plagsafe.objects.Report;
+
 
 /**
  * this class acts as controller for file uploads
@@ -41,6 +45,8 @@ public class FileUploadController {
 	private List<String> files = new ArrayList<>();
 	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 	private static final String ACCEPTABLE_FILE_TYPE = ".py";
+
+
 
 	/**
 	 * the Api to upload file,
@@ -69,8 +75,10 @@ public class FileUploadController {
 		}
 	}
 
+
+
 	/**
-	 *  stores the multipart files.
+	 * stores the acceptable multipart files  and returns list of File names which were stored.
 	 * 
 	 * @param receivedFiles
 	 * @return list of File names which were stored
@@ -88,6 +96,8 @@ public class FileUploadController {
 		return fileNamesList;
 	}
 
+
+
 	/**
 	 * create a list of FileRecords and deploy the comparison method
 	 * 
@@ -95,12 +105,16 @@ public class FileUploadController {
 	 * @param fileNames2 the second file uploaded
 	 * @param comparisonStrategy
 	 * @return a list of reports
+	 * @throws MalformedURLException
+	 * @throws FileNotFoundException
 	 */
 	private List<Report> runComparison(List<String> fileNames1, List<String> fileNames2,
-			StrategyType comparisonStrategy) {
+			StrategyType comparisonStrategy) throws FileNotFoundException, MalformedURLException {
 		List<FileRecord> filesList = createFileRecordList(fileNames1, fileNames2);
 		return comparisonService.runComparisionForFiles(filesList, comparisonStrategy);
 	}
+
+
 
 	/**
 	 * Create a List of FileRecord object from the two list of filenames
@@ -108,28 +122,44 @@ public class FileUploadController {
 	 * @param fileNames1
 	 * @param fileNames2
 	 * @return List of FileRecord object
+	 * @throws MalformedURLException
+	 * @throws FileNotFoundException
 	 */
-	private List<FileRecord> createFileRecordList(List<String> fileNames1, List<String> fileNames2) {
+	private List<FileRecord> createFileRecordList(List<String> fileNames1, List<String> fileNames2)
+			throws FileNotFoundException, MalformedURLException {
 		List<FileRecord> filesList = new ArrayList<>();
 		List<File> fileList1 = new ArrayList<>();
 		List<File> fileList2 = new ArrayList<>();
+		FileRecord files1 = createFileRecord(fileNames1, fileList1);
+		FileRecord files2 = createFileRecord(fileNames2, fileList2);
+		filesList.add(files1);
+		filesList.add(files2);
+		return filesList;
+	}
+
+
+	/**
+	 * Create a FileRecord object from the two list of filenames
+	 * 
+	 * @param fileNames1
+	 * @param fileList1
+	 * @return FileRecord object 
+	 * @throws FileNotFoundException
+	 * @throws MalformedURLException
+	 */
+	private FileRecord createFileRecord(List<String> fileNames1, List<File> fileList1)
+			throws FileNotFoundException, MalformedURLException {
 		FileRecord files1 = new FileRecord();
-		FileRecord files2 = new FileRecord();
+
 		for (String fileName : fileNames1) {
 			File file = storageService.getFile(fileName);
 			fileList1.add(file);
 		}
 		files1.setFiles(fileList1);
-
-		for (String fileName : fileNames2) {
-			File file = storageService.getFile(fileName);
-			fileList2.add(file);
-		}
-		files2.setFiles(fileList2);
-		filesList.add(files1);
-		filesList.add(files2);
-		return filesList;
+		return files1;
 	}
+
+
 
 	/**
 	 * get all the files that have been uploaded
@@ -152,37 +182,49 @@ public class FileUploadController {
 		return lstFiles;
 	}
 
+
+
 	/**
-	 * get the file in the form of Resource object.
-	 * User can download files through this uri
+	 * get the file in the form of Resource object. User can download files through
+	 * this URI
 	 * 
 	 * @param filename the name of the submitted file
-	 * @return Resource object
+	 * @return Resource URI of the file
 	 */
 	@GetMapping("/files/{filename:.+}")
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-		Resource file = storageService.loadFile(filename);
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-				.body(file);
+		try {
+			Resource file = storageService.loadFile(filename);
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+					.body(file);
+		} catch (FileNotFoundException | MalformedURLException e) {
+			logger.error("Error fecthing file");
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
 	}
 
+
+
 	/**
-	 * get the Json format of string
+	 * get the JSON format of string
 	 * 
 	 * @param str string to be converted
-	 * @return Json string value
+	 * @return JSON string value
 	 */
 	private String getJsonString(String str) {
 		Gson gson = new Gson();
 		return gson.toJson(str);
 	}
 
+
+
 	/**
-	 * get the Json format of reports
+	 * get the JSON format of reports
 	 * 
 	 * @param reports
-	 * @return Json string representing list of Reports
+	 * @return JSON string representing list of Reports
 	 */
 	private String getJsonString(List<Report> reports) {
 		Gson gson = new Gson();

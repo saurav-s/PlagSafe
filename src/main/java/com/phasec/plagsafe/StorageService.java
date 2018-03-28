@@ -1,6 +1,7 @@
 package com.phasec.plagsafe;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -15,18 +16,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+
 /**
- * the java side service
+ * A Service class used to store and retrieve files
  */
 
 @Service
 public class StorageService {
 
 	Logger log = LoggerFactory.getLogger(this.getClass().getName());
+	
+	// root location where files will be stored on the system
 	private final Path rootLocation = Paths.get("upload-dir");
 
+
+
 	/**
-	 * store all the files
+	 * store all the files to the local storage
+	 * 
 	 * @param file
 	 */
 	public void store(MultipartFile file) {
@@ -38,65 +45,85 @@ public class StorageService {
 	}
 
 
+
 	/**
-	 * get the file object
+	 * get the file object from local file storage
+	 * 
 	 * @param filename filename the name of the loaded files
 	 * @return the file object
+	 * @throws FileNotFoundException
+	 * @throws MalformedURLException
 	 */
-	public File getFile(String filename) {
+	public File getFile(String filename) throws FileNotFoundException, MalformedURLException {
 		try {
 			Path path = rootLocation.resolve(filename);
 			Resource resource = new UrlResource(path.toUri());
-			if (resource.exists() || resource.isReadable()) {
-				return path.toFile();
-			} else {
-				log.error("StorageService.store() -> error while loading file. ");
-				return null;
-			}
+			validateResource(resource);
+			return path.toFile();
 		} catch (MalformedURLException e) {
-			log.error("StorageService.store() -> MalformedURL error while getting file. " + e.getMessage());
-			return null;
+			log.error("StorageService.getFile() -> MalformedURL error while getting file. " + e.getMessage());
+			throw e;
 		}
 	}
 
+
+
+	/**
+	 * validate the existence of the resource
+	 * 
+	 * @param resource
+	 * @throws FileNotFoundException
+	 */
+	private void validateResource(Resource resource) throws FileNotFoundException {
+		if (!resource.exists() && !resource.isReadable()) {
+			log.error("StorageService.validateResource() -> error while validating file resource. ");
+			throw new FileNotFoundException(
+					"Error validating file resource, File does not exists or it is not readable");
+		}
+	}
+
+
+
 	/**
 	 * load all the files to the service
+	 * 
 	 * @param filename filename the name of the loaded files
 	 * @return the loaded files as resource object
+	 * @throws FileNotFoundException
+	 * @throws MalformedURLException
 	 */
-    public Resource loadFile(String filename) {
-    	log.info("Loading file...");
-        try {
-            Path file = rootLocation.resolve(filename);
-            Resource resource = new UrlResource(file.toUri());
-            if(resource.exists() || resource.isReadable()) {
-                return resource;
-            }else{
-            		log.error("StorageService.store() -> error while loading file. ");
-            		return null;
-            }
-        } catch (MalformedURLException e) {
-        		log.error("StorageService.store() -> MalformedURL error while storing file. "+e.getMessage());	
-        		return null;
-        }
-    }
+	public Resource loadFile(String filename) throws FileNotFoundException, MalformedURLException {
+		log.info("Loading file...");
+		try {
+			Path file = rootLocation.resolve(filename);
+			Resource resource = new UrlResource(file.toUri());
+			validateResource(resource);
+			return resource;
+		} catch (MalformedURLException e) {
+			log.error("StorageService.loadfile() -> MalformedURL error while storing file. " + e.getMessage());
+			throw e;
+		}
+	}
+
+
 
 	/**
 	 * delete all the files in the store system
 	 */
-
 	public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
-    }
+		FileSystemUtils.deleteRecursively(rootLocation.toFile());
+	}
+
+
 
 	/**
 	 * initialize the store service
 	 */
 	public void init() {
-        try {
-            Files.createDirectory(rootLocation);
-        } catch (IOException e) {
-        		log.error("StorageService.store() -> IOException error while init."+e.getMessage());	
-        }
-    }
+		try {
+			Files.createDirectory(rootLocation);
+		} catch (IOException e) {
+			log.error("StorageService.store() -> IOException error while init." + e.getMessage());
+		}
+	}
 }
