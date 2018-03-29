@@ -73,32 +73,37 @@ app.controller('getFilesController', ['$scope', '$http', function($scope, $http)
 
 app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
 
-  $scope.strategy="ALL"
-  $scope.uploadFile = function($fileList1, $fileList2, $strategy){
-	  Upload.upload({
-		    url: '/api/uploadfile',
-		    data: {
-		    		uploadfile1: $fileList1,
-		    		uploadfile2: $fileList2,
-		    		
-		    		strategy: $scope.strategy
-	        },
-	        arrayKey: ''
-		  }).success(function (data) {
+      $scope.strategy="ALL"
+      $scope.uploadFile = function($fileList1, $fileList2, $strategy){
+          Upload.upload({
+                url: '/api/uploadfile',
+                data: {
+                        uploadfile1: $fileList1,
+                        uploadfile2: $fileList2,
 
-              $scope.reports = data;
-			  
-		  }).then(function (response) {
-	          $timeout(function () {
-	              $scope.result = response.data;
-	          });
-	      }, function (response) {
-	          if (response.status > 0) {
-	              $scope.errorMsg = response.status + ': ' + response.data;
-	          }
-	      });
-	  };
-  
+                        strategy: $scope.strategy
+                },
+                arrayKey: ''
+              }).success(function (data) {
+
+                  $scope.reports = data;
+
+              }).then(function (response) {
+                  $timeout(function () {
+                      $scope.result = response.data;
+                  });
+              }, function (response) {
+                  if (response.status > 0) {
+                      $scope.errorMsg = response.status + ': ' + response.data;
+                  }
+              });
+          };
+
+      $scope.uploadClassSubmission = function ($fileList, $strategy) {
+          
+      };
+
+
 
 }]);
 
