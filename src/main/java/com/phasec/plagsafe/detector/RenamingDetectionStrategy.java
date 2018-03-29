@@ -3,12 +3,15 @@ package com.phasec.plagsafe.detector;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
 
 import util.LevenshteinDistanceGeneratorUtility;
 import util.SubmissionUtility;
 
+@Service
 public class RenamingDetectionStrategy implements DetectionStrategy {
 	
 	private static final String MATCH_REMARK = "Renaming Similarity Measure ";
