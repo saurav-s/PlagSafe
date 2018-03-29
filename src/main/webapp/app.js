@@ -100,10 +100,20 @@ app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout',
           };
 
       $scope.uploadClassSubmission = function ($fileList, $strategy) {
-          
+          console.log("Getting relative paths of all the files present");
+          var pathsList = [];
+
+          for (var i = 0; i < $fileList.length; i++) {
+              console.log("file path");
+              var file = $fileList[i];
+              console.log(file.webkitRelativePath);
+              pathsList.push(file.webkitRelativePath);
+          }
+
+          for(var i=0;i <$fileList.length;i++) {
+              console.log("file path: " + $fileList[i].webkitRelativePath);
+              console.log("file name: " + $fileList[i].webkito)
+          }
       };
-
-
-
 }]);
 
