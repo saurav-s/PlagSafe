@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 /**
- * this class is for testing all functions in the StorageServiceImpl
+ * this class is for testing all functions in the StorageService
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PlagsafeApplication.class)
@@ -28,7 +28,7 @@ public class StorageServiceTests {
 
 
 	/**
-	 * test the init function in StorageServiceImpl
+	 * test the init function in StorageService
 	 */
 	@Test
 	public void testInitMethod() {
@@ -40,7 +40,7 @@ public class StorageServiceTests {
 
 
 	/**
-	 * test the deleteAll function in StorageServiceImpl. folder 'upload-dir' is
+	 * test the deleteAll function in StorageService. folder 'upload-dir' is
 	 * successfully deleted under target
 	 */
 
@@ -55,7 +55,7 @@ public class StorageServiceTests {
 
 
 	/**
-	 * test the store files function in StorageServiceImpl. folder 'upload-dir' is
+	 * test the store files function in StorageService. folder 'upload-dir' is
 	 * successfully deleted under target with specific files created
 	 */
 	@Test
@@ -74,7 +74,7 @@ public class StorageServiceTests {
 
 
 	/**
-	 * test the loadfiles function in StorageServiceImpl. if no such file, throw
+	 * test the loadfiles function in StorageService. if no such file, throw
 	 * FileNotFoundException exception
 	 * 
 	 * @throws FileNotFoundException
@@ -94,7 +94,7 @@ public class StorageServiceTests {
 
 
 	/**
-	 * test the loadfiles function in StorageServiceImpl. if no such file, throw
+	 * test the loadfiles function in StorageService. if no such file, throw
 	 * FileNotFoundException exception
 	 * 
 	 * @throws FileNotFoundException
@@ -108,7 +108,7 @@ public class StorageServiceTests {
 
 
 	/**
-	 * test the getFile function in StorageServiceImpl. if file is stored under
+	 * test the getFile function in StorageService. if file is stored under
 	 * 'upload-dir', return the file object , else, return FileNotFoundException
 	 * 
 	 * @throws FileNotFoundException
@@ -120,7 +120,7 @@ public class StorageServiceTests {
 	}
 	
 	/**
-	 * test the getFile function in StorageServiceImpl. if file is stored under
+	 * test the getFile function in StorageService. if file is stored under
 	 * 'upload-dir', return the file object , else, return FileNotFoundException
 	 * 
 	 * @throws FileNotFoundException
