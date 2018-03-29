@@ -6,25 +6,43 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
 
 import util.NGramGeneratorUtility;
 
+/**
+ * Represents one of the implementations of the Plagiarism detection strategies.
+ * This strategy takes the help of n-grams and w-shingling to detect the
+ * similarity between two files. We calculate the n-gram for each of the file.
+ * Then we calculate their similarity based on the concept of w-shingling. This
+ * class implements the DetectionStrategy interface Reference:
+ * https://en.wikipedia.org/wiki/W-shingling
+ * 
+ * @author Tridiv
+ *
+ */
+@Service
 public class RefactoringDetectionStrategy implements DetectionStrategy {
-	
-	private static Logger logger = LoggerFactory.getLogger(RefactoringDetectionStrategy.class);
+
+	// Constant declarations
 	private static final String MATCH_REMARK = "Refactoring Similarity Measure ";
 	private static final int NGRAM_SIZE = 3;
 
 	/**
-	 * the concrete method to show comparison result for two submissions
-	 * @param submission1 a folder of submission with submitted rocord
-	 * @param submission2 another folder of submission with submitted rocord
-	 * @return a list of reports that contains all results of one-to-one comparison
+	 * Represents the concrete method to compare two submissions. As each
+	 * submission can have multiple files, this method iterates through all
+	 * possible combinations of files and does a comparison between them to
+	 * calculate the similarity measure.
+	 * 
+	 * @param submission1: a folder of submission with a list of submitted files
+	 * @param submission2: another folder of submission with a list of submitted
+	 *            files
+	 * @return a list of reports that contains all results of one-to-one
+	 *         comparisons
 	 */
-
 	@Override
 	public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
 
@@ -32,53 +50,75 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 		for (Submissible sub1 : submission1.getSubmissibles()) {
 			for (Submissible sub2 : submission2.getSubmissibles()) {
 				int similarityMeasure = getNGramSimilarityMeasure(sub1, sub2);
-				logger.info("similarityMeasure = " + similarityMeasure);
 				Report newReport = new Report(sub1.getName(), sub2.getName(), similarityMeasure, MATCH_REMARK);
 				reportList.add(newReport);
 			}
 		}
-		
 		return reportList;
 
 	}
 
-    /**
-     * compares for refactoring similarities in two files
-     * @param sub1
-     * @param sub2
-     * @return similarity measure of the two files
-     */
+	/**
+	 * Represents the concrete method to compare between two individual file
+	 * submissions.
+	 * 
+	 * @param sub1: a file submission
+	 * @param sub2: another file submission
+	 * @return Integer representing the similarity measure between the two input
+	 *         file submissions
+	 */
+	@Override
 	public int compare(Submissible sub1, Submissible sub2) {
-	    return getNGramSimilarityMeasure(sub1, sub2);
+		return getNGramSimilarityMeasure(sub1, sub2);
 	}
 
-    /**
-     * Calculates N-grams and compares the results
-     * @param sub1
-     * @param sub2
-     * @return return comparison results
-     */
+	/**
+	 * Calculates N-grams and compares the results to find the similarity
+	 * measure
+	 * 
+	 * @param sub1: a file submission
+	 * @param sub2: another file submission
+	 * @return Integer representing the similarity measure between the two input
+	 *         file submissions on the basis of their generated N-grams
+	 */
 	private int getNGramSimilarityMeasure(Submissible sub1, Submissible sub2) {
-        List<String> list1 = NGramGeneratorUtility.getNGramList(sub1.getCode(), NGRAM_SIZE);
-        List<String> list2 = NGramGeneratorUtility.getNGramList(sub2.getCode(), NGRAM_SIZE);
-        double similarityMeasure = compareTwoLists(list1, list2);
-        return (int) similarityMeasure;
-    }
+		List<String> list1 = NGramGeneratorUtility.getNGramList(sub1.getCode(), NGRAM_SIZE);
+		List<String> list2 = NGramGeneratorUtility.getNGramList(sub2.getCode(), NGRAM_SIZE);
+		double similarityMeasure = compareTwoLists(list1, list2);
+		return (int) similarityMeasure;
+	}
 
 	/**
-	 * compare two submitted files
-	 * @param list1 submission1 a folder of submission with a list of submitted files
-	 * @param list2 another folder of submission with a list of submitted files
-	 * @return the report of comparison of two single files
+	 * Compares two lists of N-Grams returns the similarity quotient between
+	 * them with the help of w-shingling formulae
+	 * 
+	 * @param list1: List of N-grams
+	 * @param list2: Another list of N-grams
+	 * @return Double value representing the similarity between the two input
+	 *         list of N-grams.
 	 */
-
 	private double compareTwoLists(List<String> list1, List<String> list2) {
 
 		Collections.sort(list1);
 		Collections.sort(list2);
 
-		int intersectionOfNGrams = 0;
+		int intersectionOfNGrams = getIntersectionCount(list1, list2);
+		int union = list1.size() + list2.size() - intersectionOfNGrams;
 
+		return ((double) intersectionOfNGrams * 100) / ((double) union);
+
+	}
+
+	/**
+	 * 
+	 * @param list1: a list of Strings
+	 * @param list2: another list of Strings
+	 * @return Integer representing the intersection between the two input
+	 *         strings.
+	 */
+	private int getIntersectionCount(List<String> list1, List<String> list2) {
+
+		int intersectionOfNGrams = 0;
 		int index1 = 0;
 		int index2 = 0;
 
@@ -93,9 +133,7 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 				index2++;
 			}
 		}
-
-		int union = list1.size() + list2.size() - intersectionOfNGrams;
-		return ((double) intersectionOfNGrams * 100) / ((double) union);
+		return intersectionOfNGrams;
 
 	}
 
