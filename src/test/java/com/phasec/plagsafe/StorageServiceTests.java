@@ -1,28 +1,23 @@
 package com.phasec.plagsafe;
 
-import static org.junit.Assert.assertNull;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.junit4.SpringRunner;
 
-
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes =  PlagsafeApplication.class)
 public class StorageServiceTests {
 
+	@Autowired
 	StorageService service;
-
-
-
-	@Before
-	public void setUp() {
-		// mockService = mock(StorageService.class);
-		service = new StorageService();
-	}
 
 
 
@@ -52,20 +47,16 @@ public class StorageServiceTests {
 
 
 
-	@Test
+	@Test (expected = FileNotFoundException.class )
 	public void testLoadFile() throws FileNotFoundException, MalformedURLException {
-
 		Resource res = service.loadFile("wrong_fileName");
-		assertNull(res);
 	}
 
 
 
-	@Test
+	@Test (expected = FileNotFoundException.class )
 	public void testGetFile() throws FileNotFoundException, MalformedURLException {
-
 		File obtainedFile = service.getFile("wrong_fileName");
-		assertNull(obtainedFile);
 	}
 
 }
