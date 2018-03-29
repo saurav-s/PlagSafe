@@ -41,7 +41,7 @@ public class LoginController {
      */
     @RequestMapping(value="/logincheck", method = RequestMethod.GET)
     public UserObject showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
-    		logger.info("User {} is trying to authenticate",name);
+        logger.info("User {} is trying to authenticate ",name);
         UserObject validateUser = service.validateUser(name, password);
         logAuthActivity(name, validateUser);
         return validateUser;

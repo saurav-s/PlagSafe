@@ -23,7 +23,7 @@ public interface StorageService {
 	 */
 	void store(MultipartFile file);
 
-
+	void store(MultipartFile file, String path);
 
 	/**
 	 * get the file object from local file storage

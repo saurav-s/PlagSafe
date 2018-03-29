@@ -45,6 +45,15 @@ public class StorageServiceImpl implements StorageService {
 		}
 	}
 
+	@Override
+	public void store(MultipartFile file, String path) {
+		try {
+		    path = path.replaceAll("/","-");
+		    Files.copy(file.getInputStream(), this.rootLocation.resolve(path));
+        } catch(Exception e) {
+		    log.error("StorageService.store() -> error while storing file. " + e.getMessage());
+        }
+	}
 
 
 	/**

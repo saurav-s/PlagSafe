@@ -1,5 +1,8 @@
 package com.phasec.plagsafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +14,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/class")
 public class ClassSubmissionController {
+
+    private static Logger logger = LoggerFactory.getLogger(ClassSubmissionController.class);
+
+    @Autowired
+    ClassSubmissionService submissionService;
+
     /**
      * to upload entire class submissions preserving the directory structure
      * @param submissions list of class submission files
@@ -24,7 +33,8 @@ public class ClassSubmissionController {
                                          @RequestParam("strategy") String strategy)
     {
 
-
+        // pass the received info to a service for further processing and computations
+        submissionService.initializeAndCompare(submissions, paths, strategy);
         return new String();
     }
 

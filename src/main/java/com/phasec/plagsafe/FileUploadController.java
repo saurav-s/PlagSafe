@@ -46,7 +46,7 @@ public class FileUploadController {
 	private List<String> files = new ArrayList<>();
 	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
-	@Value("#{'${list.of.acceptable.file.type}'.split(',')}")
+	@Value("#{'${acceptable.file.types}'.split(',')}")
 	private List<String> acceptableFiles;
 
 
@@ -91,7 +91,7 @@ public class FileUploadController {
 		List<String> fileNamesList = new ArrayList<>();
 
 		for (MultipartFile file : receivedFiles) {
-			if (isAccpetableFile(file)) {
+			if (isAcceptableFile(file)) {
 				storageService.store(file);
 				addToFileUploadList(file);
 				fileNamesList.add(file.getOriginalFilename());
@@ -108,7 +108,7 @@ public class FileUploadController {
 	 * @param file
 	 * @return
 	 */
-	private boolean isAccpetableFile(MultipartFile file) {
+	private boolean isAcceptableFile(MultipartFile file) {
 		for (String acceptableFileType : acceptableFiles) {
 			if (file.getOriginalFilename().endsWith(acceptableFileType))
 				return true;
@@ -142,7 +142,7 @@ public class FileUploadController {
 	 * @throws FileNotFoundException
 	 */
 	private List<Report> runComparison(List<String> fileNames1, List<String> fileNames2,
-			StrategyType comparisonStrategy) throws FileNotFoundException, MalformedURLException {
+									   StrategyType comparisonStrategy) throws FileNotFoundException, MalformedURLException {
 		List<FileRecord> filesList = createFileRecordList(fileNames1, fileNames2);
 		return comparisonService.runComparisionForFiles(filesList, comparisonStrategy);
 	}
@@ -209,7 +209,7 @@ public class FileUploadController {
 							.fromMethodName(FileUploadController.class, "getFile", fileName).build().toString())
 					.collect(Collectors.toList());
 		} catch (Exception e) {
-			logger.error("Error occured while getting the files: " + e.getMessage());
+			logger.error("Error occurred while getting the files: " + e.getMessage());
 			throw e;
 		}
 
@@ -233,7 +233,7 @@ public class FileUploadController {
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 					.body(file);
 		} catch (FileNotFoundException | MalformedURLException e) {
-			logger.error("Error fecthing file");
+			logger.error("Error fetching file");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
