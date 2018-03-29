@@ -1,24 +1,33 @@
 package com.phasec.plagsafe.detector;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.phasec.plagsafe.PlagsafeApplication;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes =  PlagsafeApplication.class)
 public class RefactoringDetectionStrategyTests {
 	
-	private DetectionStrategy strategy;
+	@Autowired
+	@Qualifier("refactoringDetectionStrategy")
+	private DetectionStrategy refactoringDetectionStrategy;
 	
-	@Before
-	public void setUp(){
-		strategy = new RefactoringDetectionStrategy();
-	}
+//	@Before
+//	public void setUp(){
+//		strategy = new RefactoringDetectionStrategy();
+//	}
 	
 	@Test
 	public void testCompleteRedundantInput(){
@@ -41,7 +50,7 @@ public class RefactoringDetectionStrategyTests {
 		student2List.add(student2sub2);
 		SubmissibleRecord record2 = new SubmissibleRecord();
 		record2.setSubmissibles(student2List);
-		List<Report> obtainedReportList = strategy.compare(sr1, record2);
+		List<Report> obtainedReportList = refactoringDetectionStrategy.compare(sr1, record2);
 		
 		assertEquals(100, obtainedReportList.get(0).getMatchPercentage());
 		assertEquals(2, obtainedReportList.get(1).getMatchPercentage());
@@ -72,7 +81,7 @@ public class RefactoringDetectionStrategyTests {
 		SubmissibleRecord record2 = new SubmissibleRecord();
 		record2.setSubmissibles(student2List);
 		
-		List<Report> obtainedReportList = strategy.compare(record1, record2);
+		List<Report> obtainedReportList = refactoringDetectionStrategy.compare(record1, record2);
 		
 		for(Report r: obtainedReportList){
 			assertEquals(57, obtainedReportList.get(0).getMatchPercentage());
@@ -105,7 +114,7 @@ public class RefactoringDetectionStrategyTests {
 		SubmissibleRecord record2 = new SubmissibleRecord();
 		record2.setSubmissibles(student2List);
 		
-		List<Report> obtainedReportList = strategy.compare(record1, record2);
+		List<Report> obtainedReportList = refactoringDetectionStrategy.compare(record1, record2);
 		
 		for(Report r: obtainedReportList){
 			assertEquals(0, obtainedReportList.get(0).getMatchPercentage());
