@@ -108,7 +108,7 @@ public class SubmissionUtility {
      * @param target
      * @return
      */
-    public static int getAverageSubmissionFileLength(String source, String target) {
+    public static int getTotalSubmissionFileLength(String source, String target) {
         return (source.length() + target.length());
     }
 

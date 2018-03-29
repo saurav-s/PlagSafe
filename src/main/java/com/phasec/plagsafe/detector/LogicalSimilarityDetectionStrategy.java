@@ -80,7 +80,7 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
 		astIterator.ASTString(sub2file.getAst(), sb);
 		String ast2String = sb.toString();
 		int renameCount = SubmissionUtility.editDistance(ast1String, ast2String);
-		int averageFileLength = SubmissionUtility.getAverageSubmissionFileLength(ast1String, ast2String);
+		int averageFileLength = SubmissionUtility.getTotalSubmissionFileLength(ast1String, ast2String);
 		int matchPercentage = SubmissionUtility.getMatchPercentage(renameCount, averageFileLength);
 
 		return new Report(sub1file.getName(), sub2file.getName(), matchPercentage, MATCHING_REMARK);
