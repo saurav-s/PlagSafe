@@ -45,9 +45,9 @@ public class FileUploadController {
 
 	private List<String> files = new ArrayList<>();
 	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
-	
+
 	@Value("#{'${list.of.acceptable.file.type}'.split(',')}")
-	private  List<String> acceptableFiles;
+	private List<String> acceptableFiles;
 
 
 
@@ -81,7 +81,8 @@ public class FileUploadController {
 
 
 	/**
-	 * stores the acceptable multipart files  and returns list of File names which were stored.
+	 * stores the acceptable multipart files and returns list of File names which
+	 * were stored.
 	 * 
 	 * @param receivedFiles
 	 * @return list of File names which were stored
@@ -100,22 +101,26 @@ public class FileUploadController {
 	}
 
 
+
 	/**
-	 * check whether this file type belongs to acceptable list or not 
+	 * check whether this file type belongs to acceptable list or not
+	 * 
 	 * @param file
 	 * @return
 	 */
 	private boolean isAccpetableFile(MultipartFile file) {
-		for(String acceptableFileType : acceptableFiles) {
-			if(file.getOriginalFilename().endsWith(acceptableFileType))
+		for (String acceptableFileType : acceptableFiles) {
+			if (file.getOriginalFilename().endsWith(acceptableFileType))
 				return true;
 		}
 		return false;
 	}
 
 
+
 	/**
 	 * Add the file to files uploaded list
+	 * 
 	 * @param file
 	 */
 	private void addToFileUploadList(MultipartFile file) {
@@ -166,12 +171,13 @@ public class FileUploadController {
 	}
 
 
+
 	/**
 	 * Create a FileRecord object from the two list of filenames
 	 * 
 	 * @param fileNames1
 	 * @param fileList1
-	 * @return FileRecord object 
+	 * @return FileRecord object
 	 * @throws FileNotFoundException
 	 * @throws MalformedURLException
 	 */

@@ -18,16 +18,18 @@ import com.phasec.plagsafe.objects.FileModel;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissionRecord;
 
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes =  PlagsafeApplication.class)
+@SpringBootTest(classes = PlagsafeApplication.class)
 public class LogicalSimilarityDetectorTests {
 
 	@Autowired
 	ComparisonService comparisonService;
 
 
+
 	/**
-	 *  test plagiarism with exact same files
+	 * test plagiarism with exact same files
 	 */
 	@Test
 	public void testLogicalDetectionSameFiles() {

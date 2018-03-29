@@ -28,6 +28,7 @@ public class EmailServiceImpl implements EmailService {
 	 * @param subject
 	 * @param message
 	 */
+	@Override
 	public void sendMail(String toEmail, String subject, String message) {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setTo(toEmail);
@@ -40,6 +41,7 @@ public class EmailServiceImpl implements EmailService {
 	 * Send Alert message to all the admin emails
 	 * @param message
 	 */
+	@Override
 	public void sendAlertMailToAdmins(String message) {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setCc(mailingList.toArray(new String[0]));

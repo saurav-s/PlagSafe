@@ -12,8 +12,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes =  PlagsafeApplication.class)
+@SpringBootTest(classes = PlagsafeApplication.class)
 public class StorageServiceTests {
 
 	@Autowired
@@ -47,14 +48,14 @@ public class StorageServiceTests {
 
 
 
-	@Test (expected = FileNotFoundException.class )
+	@Test(expected = FileNotFoundException.class)
 	public void testLoadFile() throws FileNotFoundException, MalformedURLException {
 		Resource res = service.loadFile("wrong_fileName");
 	}
 
 
 
-	@Test (expected = FileNotFoundException.class )
+	@Test(expected = FileNotFoundException.class)
 	public void testGetFile() throws FileNotFoundException, MalformedURLException {
 		File obtainedFile = service.getFile("wrong_fileName");
 	}

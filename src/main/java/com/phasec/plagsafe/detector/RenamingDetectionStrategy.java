@@ -43,6 +43,7 @@ public class RenamingDetectionStrategy implements DetectionStrategy {
 	 * @param sub2file
 	 * @return
 	 */
+	@Override
 	public int compare(Submissible sub1file, Submissible sub2file) {
 		return calculateRenamingMatch(sub1file, sub2file);
 	}

@@ -50,6 +50,7 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
      * @param sub2
      * @return similarity measure of the two files
      */
+	@Override
 	public int compare(Submissible sub1, Submissible sub2) {
 	    return getNGramSimilarityMeasure(sub1, sub2);
 	}
