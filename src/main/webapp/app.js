@@ -100,20 +100,40 @@ app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout',
           };
 
       $scope.uploadClassSubmission = function ($fileList, $strategy) {
-          console.log("Getting relative paths of all the files present");
-          var pathsList = [];
 
+          var $pathsList = [];
           for (var i = 0; i < $fileList.length; i++) {
-              console.log("file path");
               var file = $fileList[i];
-              console.log(file.webkitRelativePath);
-              pathsList.push(file.webkitRelativePath);
+              //console.log(file.webkitRelativePath);
+              $pathsList.push(file.webkitRelativePath);
           }
 
+          /*
           for(var i=0;i <$fileList.length;i++) {
               console.log("file path: " + $fileList[i].webkitRelativePath);
-              console.log("file name: " + $fileList[i].webkito)
+              console.log("file name: " + $fileList[i].name);
           }
+          */
+
+          Upload.upload({
+              url: '/api/class/submissions',
+              data: {
+                  submissionFiles: $fileList,
+                  relativePaths: $pathsList,
+                  strategy: $scope.strategy
+              },
+              arrayKey: ''
+          }).success(function (data) {
+              $scope.reports = data;
+          }).then(function (response) {
+              $timeout(function () {
+                  $scope.result = response.data;
+              });
+          }, function(response) {
+              if(response.status > 0) {
+                  $scope.errorMsg = response.status + ' : ' + response.data;
+              }
+          });
       };
 }]);
 
