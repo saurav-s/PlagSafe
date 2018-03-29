@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,9 @@ public class FileUploadController {
 
 	private List<String> files = new ArrayList<>();
 	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
-	private static final String ACCEPTABLE_FILE_TYPE = ".py";
+	
+	@Value("#{'${list.of.acceptable.file.type}'.split(',')}")
+	private  List<String> acceptableFiles;
 
 
 
@@ -56,7 +59,7 @@ public class FileUploadController {
 	 * @param fileList2 the second directory inside which all the files will be
 	 *            uploaded
 	 * @param strategy
-	 * @return a json string containing List of reports objects
+	 * @return a JSON string containing List of reports objects
 	 */
 	@PostMapping("/uploadfile")
 	public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,
@@ -87,13 +90,38 @@ public class FileUploadController {
 		List<String> fileNamesList = new ArrayList<>();
 
 		for (MultipartFile file : receivedFiles) {
-			if (file.getOriginalFilename().endsWith(ACCEPTABLE_FILE_TYPE)) {
+			if (isAccpetableFile(file)) {
 				storageService.store(file);
-				files.add(file.getOriginalFilename());
+				addToFileUploadList(file);
 				fileNamesList.add(file.getOriginalFilename());
 			}
 		}
 		return fileNamesList;
+	}
+
+
+	/**
+	 * check whether this file type belongs to acceptable list or not 
+	 * @param file
+	 * @return
+	 */
+	private boolean isAccpetableFile(MultipartFile file) {
+		for(String acceptableFileType : acceptableFiles) {
+			if(file.getOriginalFilename().endsWith(acceptableFileType))
+				return true;
+		}
+		return false;
+	}
+
+
+	/**
+	 * Add the file to files uploaded list
+	 * @param file
+	 */
+	private void addToFileUploadList(MultipartFile file) {
+		if (!files.contains(file.getOriginalFilename())) {
+			files.add(file.getOriginalFilename());
+		}
 	}
 
 
