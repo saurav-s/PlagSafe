@@ -3,12 +3,15 @@ package com.phasec.plagsafe.detector;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.phasec.plagsafe.antlr.ASTPrinter;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
 
 import util.SubmissionUtility;
 
+@Service
 public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
     private static final String MATCHING_REMARK = "Logical similarities detected.";
 
