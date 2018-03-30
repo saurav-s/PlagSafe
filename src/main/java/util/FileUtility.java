@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import com.phasec.plagsafe.objects.FileModel;
 import com.phasec.plagsafe.objects.FileRecord;
 import com.phasec.plagsafe.objects.SubmissionRecord;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtility {
 	
@@ -42,6 +44,14 @@ public class FileUtility {
 		record.setFiles(fileModelList);
 		logger.info("Created submission records from files");
 		return record;
+	}
+
+	public static boolean validFileType(MultipartFile file, List<String> validTypes) {
+		for (String validType : validTypes) {
+			if (file.getOriginalFilename().endsWith(validType))
+				return true;
+		}
+		return false;
 	}
 
 }

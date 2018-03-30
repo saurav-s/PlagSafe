@@ -22,7 +22,7 @@ import util.FileUtility;
  *
  */
 @Service
-public class ComparisonServiceImpl implements ComparisonService {
+public class  ComparisonServiceImpl implements ComparisonService {
 
 	/**
 	 * Runs comparison for the SubmissionRecord list and generates a List of report

@@ -46,10 +46,13 @@ public class StorageServiceImpl implements StorageService {
 	}
 
 	@Override
-	public void store(MultipartFile file, String path) {
+	public void store(MultipartFile file, String pathPrefix) {
 		try {
-		    path = path.replaceAll("/","-");
-		    Files.copy(file.getInputStream(), this.rootLocation.resolve(path));
+		    // removing if old file present with the same name
+		    Files.deleteIfExists(this.rootLocation.resolve(pathPrefix));
+
+		    // copying the new file to the location
+		    Files.copy(file.getInputStream(), this.rootLocation.resolve(pathPrefix));
         } catch(Exception e) {
 		    log.error("StorageService.store() -> error while storing file. " + e.getMessage());
         }

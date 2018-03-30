@@ -70,8 +70,8 @@ public class FileUploadController {
 			List<String> fileNames2 = storeFiles(fileList2);
 
 			StrategyType comparisonStrategy = StrategyType.valueOf(strategy);
-			List<Report> runComparisionForFiles = runComparison(fileNames1, fileNames2, comparisonStrategy);
-			return getJsonString(runComparisionForFiles);
+			List<Report> comparisonReport = runComparison(fileNames1, fileNames2, comparisonStrategy);
+			return getJsonString(comparisonReport);
 		} catch (Exception e) {
 			logger.error("Error occurred while uploading the files" + e.getMessage());
 			return getJsonString("Error occurred while uploading the files");
