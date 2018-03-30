@@ -19,11 +19,14 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.google.gson.Gson;
 import com.phasec.plagsafe.ComparisonService;
@@ -43,7 +46,7 @@ public class FileUploadControllerTests {
 
 	@Autowired
 	private MockMvc mvc;
-
+	
 	@MockBean
 	private StorageService storageService;
 
@@ -73,7 +76,7 @@ public class FileUploadControllerTests {
 				"some xml".getBytes());
 		MockMultipartFile secondFile = new MockMultipartFile("uploadfile2", "", "sample2.py",
 				"some other type".getBytes());
-		MockMultipartFile thirdFile = new MockMultipartFile("uploadfile3", "", "sample3.py",
+		MockMultipartFile thirdFile = new MockMultipartFile("uploadfile1", "", "sample3.py",
 				"some more other type".getBytes());
 
 		mvc.perform(MockMvcRequestBuilders
@@ -105,7 +108,7 @@ public class FileUploadControllerTests {
 				"some xml".getBytes());
 		MockMultipartFile secondFile = new MockMultipartFile("uploadfile2", "sample2.py"," text/plain",
 				"some other type".getBytes());
-		MockMultipartFile thirdFile = new MockMultipartFile("uploadfile3", "sample3.py","text/plain",
+		MockMultipartFile thirdFile = new MockMultipartFile("uploadfile1", "sample3.py","text/plain",
 				"some more other type".getBytes());
 
 		mvc.perform(MockMvcRequestBuilders
@@ -122,27 +125,60 @@ public class FileUploadControllerTests {
 	 */
 	@Test
 	public void testGetFilesSuccess() throws Exception {
-		MockMultipartFile firstFile = new MockMultipartFile("uploadfile1", "sample1.py", "",
+		MockMultipartFile firstFile = new MockMultipartFile("uploadfile1", "sample1.py", "text/plain",
 				"some xml".getBytes());
 		MockMultipartFile secondFile = new MockMultipartFile("uploadfile2", "sample2.py"," text/plain",
 				"some other type".getBytes());
-		MockMultipartFile thirdFile = new MockMultipartFile("uploadfile3", "sample3.py","text/plain",
+		MockMultipartFile thirdFile = new MockMultipartFile("uploadfile1", "sample3.py","text/plain",
 				"some more other type".getBytes());
 
 		mvc.perform(MockMvcRequestBuilders
 				.fileUpload("/api/uploadfile")
 				.file(firstFile).file(secondFile).file(thirdFile)
 				.param("strategy", "ALL"))
+				.andExpect(status().is(200))
+				.andDo(MockMvcResultHandlers.print());
+
+		List<String> uriList = new ArrayList<>();
+		uriList.add("sampleURIPath");
+		mvc.perform(get("/api/getallfiles")
+		 .contentType(MediaType.APPLICATION_JSON))
+		 .andExpect(status().isOk())
+		 .andExpect(
+				 content().
+				 string("[\"http://localhost/api/files/sample1.py\",\"http://localhost/api/files/sample3.py\",\"http://localhost/api/files/sample2.py\"]")
+				 )
+		 .andDo(MockMvcResultHandlers.print());
+		
+
+	}
+	
+	
+	/**
+	 * test get file success
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetFileSuccess() throws Exception {
+		MockMultipartFile firstFile = new MockMultipartFile("uploadfile1", "sample1.py", "text/plain",
+				"some xml".getBytes());
+		Resource u = new UrlResource("http://www.google.com");
+		when(storageService.loadFile(anyString())).thenReturn(u);
+
+		mvc.perform(MockMvcRequestBuilders
+				.fileUpload("/api/uploadfile")
+				.file(firstFile)
+				.param("strategy", "ALL"))
 				.andExpect(status().is(200));
 
 		List<String> uriList = new ArrayList<>();
 		uriList.add("sampleURIPath");
 
-		mvc.perform(get("/api/getallfiles")
-		 .contentType(MediaType.APPLICATION_JSON))
-		 .andExpect(status().isOk());
-		 
+		mvc.perform(get("/api/files/sample1.py"))
+				.andExpect(status().isOk());
 	}
+	
+	
 	
 
 
