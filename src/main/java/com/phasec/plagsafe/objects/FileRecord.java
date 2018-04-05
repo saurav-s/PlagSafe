@@ -21,7 +21,7 @@ public class FileRecord {
 	
 	/**
 	 * Parameterized constructor
-	 * @param multiparts the different parts in the files
+	 * @param files the different parts in the files
 	 */
 	public FileRecord(List<File> files) {
 		super();
@@ -44,5 +44,7 @@ public class FileRecord {
 		this.files = files;
 	}
 
-	
+	public void addFile(File file) {
+	    files.add(file);
+    }
 }

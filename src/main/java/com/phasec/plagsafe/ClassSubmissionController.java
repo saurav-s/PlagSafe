@@ -34,8 +34,8 @@ public class ClassSubmissionController {
     {
 
         // pass the received info to a service for further processing and computations
-        submissionService.initializeAndCompare(submissions, paths, strategy);
-        return new String();
+        // return the comparison result string
+        return submissionService.initializeAndCompare(submissions, paths, strategy);
     }
 
 }
