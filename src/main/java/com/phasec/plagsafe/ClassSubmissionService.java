@@ -44,11 +44,11 @@ public class ClassSubmissionService {
             // save the all the files
             List<String> submissionFiles = storeFiles(submissions, paths);
 
-            // comparison strategy
+            // comparison strategy demanded by the user
             StrategyType comparisonStrategy = StrategyType.valueOf(strategy);
 
-            //get the report from comparison of files
-            List<Report> comparisonReport = initializeComparison(submissionFiles, comparisonStrategy);
+            //get the report from comparison of files based on the comparison strategy
+            List<Report> comparisonReport = triggerComparison(submissionFiles, comparisonStrategy);
             reformatFilenames(comparisonReport);
 
             //convert to JSON string and return comparison results
@@ -83,7 +83,7 @@ public class ClassSubmissionService {
      * @throws FileNotFoundException    if any of the file that is to be read is not found
      * @throws MalformedURLException
      */
-    private List<Report> initializeComparison(List<String> submissionFiles, StrategyType comparisonStrategy)
+    private List<Report> triggerComparison(List<String> submissionFiles, StrategyType comparisonStrategy)
             throws FileNotFoundException, MalformedURLException {
 
         // create list of comparable file records
