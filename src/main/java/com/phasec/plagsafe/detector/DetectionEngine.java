@@ -19,17 +19,13 @@ public class DetectionEngine implements Engine {
 	
 	private static Logger logger = LoggerFactory.getLogger(DetectionEngine.class);
 
-
     /**
-     *the detection drive
-     * @param submissions : list of submissions containing a list of submission files
+     * driver for initiating plagiarism detection
+     * @param submissions : list of submission records
+     * @param comparisonStrategy comparison strategy demanded by the user
+     * @return list comparison report
      */
-
-    private Logger log;
-	public DetectionEngine(){
-		log = LoggerFactory.getLogger(this.getClass().getName());
-	}
-    @Override
+	@Override
     public List<Report> runDetection(List<SubmissionRecord> submissions, StrategyType comparisonStrategy) {
         List<SubmissibleRecord> submissionsMetadataList = createSubmissionsList(submissions);
 
