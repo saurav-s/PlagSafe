@@ -80,4 +80,100 @@ public class ComparisonServiceTests {
 		assertEquals(res.size(), 3);
 
 	}
+	
+	
+	@Test
+	public void testForCombinedStrtegy() {
+
+		File file1 = new File("resources/simple1.py");
+		List<File> fileList1 = new ArrayList<>();
+		fileList1.add(file1);
+		FileRecord fr1 = new FileRecord(fileList1);
+
+		File file2 = new File("resources/simple.py");
+		List<File> fileList2 = new ArrayList<>();
+		fileList2.add(file2);
+		FileRecord fr2 = new FileRecord(fileList2);
+
+		List<FileRecord> frList = new ArrayList<>();
+		frList.add(fr1);
+		frList.add(fr2);
+
+		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.COMBINED);
+
+		assertNotNull(res);
+		assertEquals(res.size(), 1);
+
+	}
+	
+	@Test
+	public void testForRefactoringStrtegy() {
+
+		File file1 = new File("resources/simple1.py");
+		List<File> fileList1 = new ArrayList<>();
+		fileList1.add(file1);
+		FileRecord fr1 = new FileRecord(fileList1);
+
+		File file2 = new File("resources/simple.py");
+		List<File> fileList2 = new ArrayList<>();
+		fileList2.add(file2);
+		FileRecord fr2 = new FileRecord(fileList2);
+
+		List<FileRecord> frList = new ArrayList<>();
+		frList.add(fr1);
+		frList.add(fr2);
+
+		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.REFACTORING);
+
+		assertNotNull(res);
+		assertEquals(res.size(), 1);
+
+	}
+	@Test
+	public void testForLogicalStrtegy() {
+
+		File file1 = new File("resources/simple1.py");
+		List<File> fileList1 = new ArrayList<>();
+		fileList1.add(file1);
+		FileRecord fr1 = new FileRecord(fileList1);
+
+		File file2 = new File("resources/simple.py");
+		List<File> fileList2 = new ArrayList<>();
+		fileList2.add(file2);
+		FileRecord fr2 = new FileRecord(fileList2);
+
+		List<FileRecord> frList = new ArrayList<>();
+		frList.add(fr1);
+		frList.add(fr2);
+
+		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.LOGICAL);
+
+		assertNotNull(res);
+		assertEquals(res.size(), 1);
+
+	}
+	
+	@Test
+	public void testForRenamingStrtegy() {
+
+		File file1 = new File("resources/simple1.py");
+		List<File> fileList1 = new ArrayList<>();
+		fileList1.add(file1);
+		FileRecord fr1 = new FileRecord(fileList1);
+
+		File file2 = new File("resources/simple.py");
+		List<File> fileList2 = new ArrayList<>();
+		fileList2.add(file2);
+		FileRecord fr2 = new FileRecord(fileList2);
+
+		List<FileRecord> frList = new ArrayList<>();
+		frList.add(fr1);
+		frList.add(fr2);
+
+		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.RENAMING);
+
+		assertNotNull(res);
+		assertEquals(res.size(), 1);
+
+	}
 }
