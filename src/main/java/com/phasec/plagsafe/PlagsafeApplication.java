@@ -2,6 +2,7 @@ package com.phasec.plagsafe;
 
 import javax.annotation.Resource;
 
+import com.phasec.plagsafe.objects.SystemStatistics;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +20,11 @@ public class PlagsafeApplication  implements CommandLineRunner{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PlagsafeApplication.class, args);
+
+		SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
+		stats.resetSystemStats();
+		stats.loadSystemStats();
+		System.out.println(stats.toString());
 	}
 	
 	/**
