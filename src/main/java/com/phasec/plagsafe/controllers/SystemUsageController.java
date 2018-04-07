@@ -9,16 +9,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/system")
 public class SystemUsageController {
 
     private static Logger logger = LoggerFactory.getLogger(SystemUsageController.class);
 
-    @GetMapping("usage")
+    /**
+     * get controller method to receive the system stats request
+     * @return
+     */
+    @GetMapping("/api/system/usage")
     public SystemStatistics getSystemUsageStatistics() {
+        // log the request
+        logger.info("System stats requested");
 
+        // get an instance
+        SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
 
-        return null;
+        // load the stats
+        stats.loadSystemStats();
+
+        // log current stats
+        logger.info(stats.toString());
+
+        // returns system statistics
+        return stats;
     }
 
 }

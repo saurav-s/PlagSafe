@@ -19,7 +19,3 @@ form .progress {
     background: orange;
     width: 0;
 }
-
-.tabmenu {margin-top: 20px; border-bottom: 1px ridge;}
-.tabmenu li.active {background-color: #F0F0F0;border: 3px inset; border-bottom: 1px solid #fff;}
-.tabmenu li {display:inline; cursor: pointer; padding: 0 10px;}

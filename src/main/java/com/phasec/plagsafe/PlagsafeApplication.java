@@ -21,10 +21,11 @@ public class PlagsafeApplication  implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(PlagsafeApplication.class, args);
 
-		SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
-		stats.resetSystemStats();
-		stats.loadSystemStats();
-		System.out.println(stats.toString());
+        // get an instance
+        SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
+
+        // load the stats
+        stats.resetSystemStats();
 	}
 	
 	/**

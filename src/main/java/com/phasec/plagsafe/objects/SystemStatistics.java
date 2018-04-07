@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SystemStatistics implements Serializable {
@@ -13,27 +16,39 @@ public class SystemStatistics implements Serializable {
     private static final String FILE_PATH = "src/main/resources/stats.ser";
 
     // start date of the system
-    private Date systemStartDate;
+    private static String systemStartDate;
 
     // previous use of the system
-    private Date systemLastUsed;
+    private static String systemLastUsed;
+
+    private String getCurrentDateString() {
+        // Create an instance of SimpleDateFormat used for formatting
+        // the string representation of date (month/day/year)
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+        // Get the date today using Calendar object.
+        Date today = Calendar.getInstance().getTime();
+
+        return df.format(today);
+    }
 
     public void updateSystemLastUsed() {
-        systemLastUsed = new Date();
+
+        systemLastUsed = getCurrentDateString();
     }
 
     // total number of times the system has run since the start date
-    private int totalRuns;
+    private static int totalRuns;
 
     public void incrementTotalRunsBy(int i) {
         totalRuns += i;
     }
-    
+
     // count of the total requests made by the user for each type of strategy
-    private int logicalComparisonRequested;
-    private int renamingComparisonRequested;
-    private int refactoringComparisonRequested;
-    private int weightedComparisonRequested;
+    private static int logicalComparisonRequested;
+    private static int renamingComparisonRequested;
+    private static int refactoringComparisonRequested;
+    private static int weightedComparisonRequested;
 
     public void incrementLogicalComparisonRequestedBy(int i) {
         logicalComparisonRequested += i;
@@ -52,21 +67,21 @@ public class SystemStatistics implements Serializable {
     }
 
     // count of total number of files compared
-    private int totalFilesCompared;
+    private static int totalFilesCompared;
 
     public void incrementTotalFilesComparedBy(int i) {
         totalFilesCompared += i;
     }
 
     // maximum number of files compared in a single run
-    private int maxSystemLoad;
+    private static int maxSystemLoad;
 
     public void updateMaxLoad(int currentLoad) {
         maxSystemLoad = Math.max(maxSystemLoad, currentLoad);
     }
 
     // number of times the system has crashed
-    private int systemFailures;
+    private static int systemFailures;
 
     public void incrementSystemFailuresBy(int i) {
         systemFailures += i;
@@ -104,8 +119,8 @@ public class SystemStatistics implements Serializable {
      * resets all data members to counts to 0, and dates to today's date for the data members
      */
     private void resetStats() {
-        systemStartDate = new Date();
-        systemLastUsed = new Date();
+        systemStartDate = getCurrentDateString();
+        systemLastUsed = getCurrentDateString();
         totalRuns = 0;
         logicalComparisonRequested = 0;
         renamingComparisonRequested = 0;
@@ -123,6 +138,7 @@ public class SystemStatistics implements Serializable {
         try {
             FileOutputStream outputFile = new FileOutputStream(FILE_PATH);
             ObjectOutputStream out = new ObjectOutputStream(outputFile);
+
             out.writeObject(statsInstance);
 
             out.close();
@@ -160,12 +176,8 @@ public class SystemStatistics implements Serializable {
     }
 
 
-    public Date getSystemStartDate() {
+    public String getSystemStartDate() {
         return systemStartDate;
-    }
-
-    public void setSystemStartDate(Date systemStartDate) {
-        this.systemStartDate = systemStartDate;
     }
 
     public int getTotalRuns() {
@@ -232,11 +244,8 @@ public class SystemStatistics implements Serializable {
         this.systemFailures = systemFailures;
     }
 
-    public Date getSystemLastUsed() {
+    public String getSystemLastUsed() {
         return systemLastUsed;
     }
 
-    public void setSystemLastUsed(Date systemLastUsed) {
-        this.systemLastUsed = systemLastUsed;
-    }
 }

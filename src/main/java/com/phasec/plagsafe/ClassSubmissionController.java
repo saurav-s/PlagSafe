@@ -1,5 +1,6 @@
 package com.phasec.plagsafe;
 
+import com.phasec.plagsafe.objects.SystemStatistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class ClassSubmissionController {
                                          @RequestParam("relativePaths") List<String> paths,
                                          @RequestParam("strategy") String strategy)
     {
+
+        SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
+        stats.loadSystemStats();
+        stats.incrementTotalRunsBy(1);
+        stats.serializeStats();
 
         // pass the received info to a service for further processing and computations
         // return the comparison result string

@@ -3,6 +3,7 @@ package com.phasec.plagsafe.detector;
 import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.objects.SystemStatistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.WeightPropertyReader;
@@ -19,20 +20,39 @@ public class SubmissionCompare implements SubmissionComparable {
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2, StrategyType comparisonStrategy) {
         List<Report> matchReportList = new ArrayList<>();
+		SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
         switch(comparisonStrategy) {
         		case RENAMING:
+
+					stats.loadSystemStats();
+					stats.incrementRenamingComparisonRequestedRunsBy(1);
+					stats.serializeStats();
         			matchReportList = compareRenaming(submission1, submission2);
         			break;
         		case LOGICAL:
+					stats.loadSystemStats();
+					stats.incrementLogicalComparisonRequestedBy(1);
+					stats.serializeStats();
         			matchReportList = compareLogic(submission1, submission2);
         			break;
         		case REFACTORING:
+					stats.loadSystemStats();
+					stats.incrementRefactoringComparisonRequested(1);
+					stats.serializeStats();
         			matchReportList = compareRefactoring(submission1, submission2);
         			break;
         		case ALL:
+					stats.loadSystemStats();
+					stats.incrementRenamingComparisonRequestedRunsBy(1);
+					stats.incrementLogicalComparisonRequestedBy(1);
+					stats.incrementRefactoringComparisonRequested(1);
+					stats.serializeStats();
         			matchReportList = compareAll(submission1, submission2);
         			break;
         		case COMBINED:
+					stats.loadSystemStats();
+					stats.incrementWeightedComparisonRequestedRunsBy(1);
+					stats.serializeStats();
         			matchReportList = compareCombined(submission1, submission2);
         			break;
         }
