@@ -162,21 +162,16 @@ public class SystemStatistics implements Serializable {
 
 
     public void loadSystemStats() {
-        FileInputStream inputFile = null;
+        //FileInputStream inputFile = null;
         ObjectInputStream input = null;
-        try {
-            inputFile = new FileInputStream(FILE_PATH);
+        try (FileInputStream inputFile =  new FileInputStream(FILE_PATH)){
+            //inputFile = new FileInputStream(FILE_PATH);
             input = new ObjectInputStream(inputFile);
             statsInstance = (SystemStatistics) input.readObject();
 
         } catch(IOException | ClassNotFoundException e) {
             logger.error("Object deserialization exception " + e);
         } finally {
-            try{
-                if(input != null) { input.close(); inputFile.close();}
-            } catch(IOException e) {
-                logger.error("Object serialization exception " + e);
-            }
 
         }
     }
