@@ -172,7 +172,7 @@ public class SystemStatistics implements Serializable {
         } catch(IOException | ClassNotFoundException e) {
             logger.error("Object deserialization exception " + e);
         } finally {
-
+            logger.info("closing");
         }
     }
 
