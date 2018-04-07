@@ -150,8 +150,8 @@ public class SystemStatistics implements Serializable {
         } finally {
 
             try{
-                out.close();
-                outputFile.flush();
+                if(out!= null) out.close();
+                if(outputFile!= null) outputFile.flush();
             } catch(IOException e) {
                 logger.error("Object serialization exception " + e);
             }
@@ -172,7 +172,7 @@ public class SystemStatistics implements Serializable {
             logger.error("Object deserialization exception " + e);
         } finally {
             try{
-                input.close();
+                if(input != null) input.close();
             } catch(IOException e) {
                 logger.error("Object serialization exception " + e);
             }
