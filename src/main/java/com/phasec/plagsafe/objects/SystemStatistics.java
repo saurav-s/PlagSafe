@@ -148,7 +148,7 @@ public class SystemStatistics implements Serializable {
         } catch(IOException e) {
             logger.error("Object serialization exception " + e);
         } finally {
-            
+
             try{
                 out.close();
                 outputFile.flush();
@@ -161,13 +161,22 @@ public class SystemStatistics implements Serializable {
 
 
     public void loadSystemStats() {
+        FileInputStream inputFile = null;
+        ObjectInputStream input = null;
         try {
-            FileInputStream inputFile = new FileInputStream(FILE_PATH);
-            ObjectInputStream input = new ObjectInputStream(inputFile);
+            inputFile = new FileInputStream(FILE_PATH);
+            input = new ObjectInputStream(inputFile);
             statsInstance = (SystemStatistics) input.readObject();
 
         } catch(IOException | ClassNotFoundException e) {
             logger.error("Object deserialization exception " + e);
+        } finally {
+            try{
+                input.close();
+            } catch(IOException e) {
+                logger.error("Object serialization exception " + e);
+            }
+
         }
     }
 
