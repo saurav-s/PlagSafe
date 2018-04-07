@@ -67,7 +67,7 @@ public class ClassSubmissionService {
      * updates the filenames in the reports with the right delimiter, replacing the internally used delimiter
      * @param reports a list of reports which needs the modification
      */
-    private void reformatFilenames(List<Report> reports) {
+    void reformatFilenames(List<Report> reports) {
         for(Report report : reports) {
             report.setSourceFile(report.getSourceFile().replaceAll(FILE_NAME_DELIMITER, PATH_DELIMITER));
             report.setTargetFile(report.getTargetFile().replaceAll(FILE_NAME_DELIMITER, PATH_DELIMITER));

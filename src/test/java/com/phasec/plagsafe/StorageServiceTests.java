@@ -70,6 +70,25 @@ public class StorageServiceTests {
 		service.store(secondFile);
 
 	}
+	
+	
+	/**
+	 * test the store files function in StorageService. folder 'upload-dir' is
+	 * successfully deleted under target with specific files created
+	 */
+	@Test
+	public void testStoreWithPath() {
+
+		MockMultipartFile firstFile = new MockMultipartFile("uploadfile1", "sample1.py", "text/plain",
+				"some xml".getBytes());
+		service.store(firstFile,"xyz/sample1.py");
+
+		MockMultipartFile secondFile = new MockMultipartFile("uploadfile2", "randomFile.py", "text/plain",
+				"some xml".getBytes());
+		service.store(secondFile,"xyz/randomFile.py");
+
+	}
+
 
 
 
