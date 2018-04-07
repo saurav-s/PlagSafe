@@ -15,12 +15,12 @@ app.config(function($routeProvider) {
             },
             templateUrl: 'views/upload.html'
         })
-        .otherwise({
-            redirectTo: '/'
+        .when('/system', {
+            templateUrl: 'views/system_stats.html'
         });
 });
 
-app.controller('LoginController', function($scope, $location, $rootScope, LoginService) {
+app.controller('LoginController', function($scope, $location, $rootScope, LoginService, $http) {
     $scope.submit = function () {
         var username = $scope.username;
         var password = $scope.password;
@@ -34,6 +34,17 @@ app.controller('LoginController', function($scope, $location, $rootScope, LoginS
                     $location.path('/upload');
                 }
             });
+    };
+
+
+    $scope.get_system_stats = function() {
+        $location.path("/system");
+        var url = "/api/system/usage";
+        $http.get(url).then(function(response) {
+            $rootScope.stats = response.data;
+        }, function(response){
+
+        });
     };
 });
 
@@ -71,7 +82,7 @@ app.controller('getFilesController', ['$scope', '$http', function($scope, $http)
 }]);
 
 
-app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout', function($scope, $http, Upload, $timeout){
+app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout','$location', function($scope, $http, Upload, $timeout, $location){
 
       $scope.strategy="ALL"
       $scope.uploadFile = function($fileList1, $fileList2, $strategy){
@@ -135,5 +146,6 @@ app.controller('UploadFileController', ['$scope', '$http', 'Upload', '$timeout',
               }
           });
       };
+
 }]);
 
