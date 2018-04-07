@@ -135,16 +135,27 @@ public class SystemStatistics implements Serializable {
      * Serializes this object
      */
     public void serializeStats() {
+        FileOutputStream outputFile = null;
+        ObjectOutputStream out = null;
+
         try {
-            FileOutputStream outputFile = new FileOutputStream(FILE_PATH);
-            ObjectOutputStream out = new ObjectOutputStream(outputFile);
+            outputFile = new FileOutputStream(FILE_PATH);
+            out = new ObjectOutputStream(outputFile);
 
             out.writeObject(statsInstance);
 
-            out.close();
-            outputFile.flush();
+
         } catch(IOException e) {
             logger.error("Object serialization exception " + e);
+        } finally {
+            
+            try{
+                out.close();
+                outputFile.flush();
+            } catch(IOException e) {
+                logger.error("Object serialization exception " + e);
+            }
+
         }
     }
 
