@@ -60,7 +60,9 @@ public class ClassSubmissionServiceTests {
 		submissions[1] = secondFile;
 		String strategy = "ALL";
 		String responseMessage = submissionService.initializeAndCompare(submissions, paths, strategy);
-		assertEquals("[{\"sourceFile\":\"test/team101/simple.py\",\"targetFile\":\"test/team102/simple.py\",\"matchPercentage\":100,\"matchRemark\":\"test_Remarks\"}]", responseMessage);
+		assertEquals(
+				"[{\"sourceFile\":\"test/team101/simple.py\",\"targetFile\":\"test/team102/simple.py\",\"matchPercentage\":100,\"matchRemark\":\"test_Remarks\"}]",
+				responseMessage);
 	}
 
 
@@ -88,18 +90,19 @@ public class ClassSubmissionServiceTests {
 		String responseMessage = submissionService.initializeAndCompare(submissions, paths, strategy);
 		assertEquals("\"Error occurred while uploading the file \"", responseMessage);
 	}
-	
+
+
+
 	/**
 	 * Test for reformat File names
 	 */
 	@Test
-	public void test_reformatFileNames(){
+	public void test_reformatFileNames() {
 		List<Report> mockReportList = new ArrayList<>();
 		Report report1 = new Report("Today is a good day", "Today is Firday", 92, "Similarities detected");
 		mockReportList.add(report1);
 		submissionService.reformatFilenames(mockReportList);
-		
-		
+
 	}
 
 }
