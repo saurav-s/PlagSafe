@@ -183,8 +183,8 @@
 													</tr>
 												</tbody>
 											</table>
-											<div ngshow="(reports).length == 0" class="alert alert-info alert-dismissible fade show">
-												<a class="close" data-dismiss="alert">×</a><span> <strong>No Results to display</strong>
+											<div ng-hide="reports.length" class="alert alert-info alert-dismissible fade show">
+												<span> <strong>No Results to display</strong>
 												</span>
 											</div>
 										</div>
@@ -221,6 +221,12 @@
 								<li ng-repeat="file in lstFiles track by $index"><a
 									href='{{file}}'>{{file}}</a></li>
 							</ul>
+						</div>
+						<div ng-hide="lstFiles.length"
+							class="alert alert-info alert-dismissible fade show">
+							<span> <strong>No
+									Files available for download</strong>
+							</span>
 						</div>
 					</div>
 				</div>

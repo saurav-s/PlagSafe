@@ -208,8 +208,8 @@ app.controller('UploadFileController', [
 
 		} ]);
 
-app.controller('SystemStatsController', [ '$scope', '$http',
-		function($scope, $http) {
+app.controller('SystemStatsController', [ '$scope', '$http','$rootScope',
+		function($scope, $http, $rootScope) {
 			$scope.get_system_stats = function() {
 				var url = "/api/system/usage";
 				$http.get(url).then(function(response) {
