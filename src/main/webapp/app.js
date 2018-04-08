@@ -1,13 +1,17 @@
 var app = angular.module('PlagsafeApp', [ 'ngRoute', 'ngFileUpload' ]);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider,$windowProvider) {
 	$routeProvider.when('/', {
 		templateUrl : 'views/login.html'
 	}).when('/upload', {
 		resolve : {
 			"check" : function($location, $rootScope) {
 				if (!$rootScope.loggedIn) {
-					$location.path('/');
+					var $window = $windowProvider.$get();
+					var currentUser = $window.localStorage.getItem("currentUser");
+					if(!currentUser){
+						$location.path('/');
+					}
 				}
 			}
 		},
@@ -19,7 +23,7 @@ app.config(function($routeProvider) {
 
 app.controller(
 				'LoginController',
-				function($scope, $location, $rootScope, LoginService, $http) {
+				function($scope, $location, $rootScope, LoginService, $http, $window) {
 					$scope.submit = function() {
 						var username = $scope.username;
 						var password = $scope.password;
@@ -34,6 +38,7 @@ app.controller(
 													&& user.userName !== undefined) {
 												$rootScope.loggedIn = true;
 												$rootScope.userName = username
+												$window.localStorage.setItem("currentUser", username);
 												$location.path('/upload');
 											} else {
 												$('#alert_placeholder')
@@ -223,3 +228,4 @@ app.controller('SystemStatsController', [ '$scope', '$http','$rootScope',
 				});
 			};
 		} ]);
+
