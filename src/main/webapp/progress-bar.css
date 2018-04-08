@@ -6,16 +6,40 @@
     top: 7px;
 }
 form .progress {
-    line-height: 15px;
+    line-height: 17px;
 }
 
 .progress {
     display: inline-block;
     width: 100px;
+    height: 20px;
     border: 3px groove #CCC;
 }
-.progress div {
-    font-size: smaller;
-    background: orange;
-    width: 0;
-}
+
+/* .table td.text { */
+/*     max-width: 177px; */
+/* } */
+/* .table td.text { */
+/*     white-space: nowrap; */
+/*     overflow: hidden; */
+/*     text-overflow: ellipsis; */
+/*     display: inline-block; */
+/*     max-width: 100%; */
+/* } */
+
+[data-toggle="collapse"]:after {
+display: inline-block;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  content: "\f054";
+  transform: rotate(90deg) ;
+  transition: all linear 0.25s;
+  float: right;
+  }   
+[data-toggle="collapse"].collapsed:after {
+  transform: rotate(0deg) ;
+ } 

@@ -3,14 +3,16 @@ package com.phasec.plagsafe.objects;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.phasec.plagsafe.system.SystemStatisticsService;
 
-public class SystemStatisticsTests {
+
+public class SystemStatisticsServiceTests {
 	
-	private SystemStatistics instance;
+	private SystemStatisticsService instance;
 	
 	@Before
 	public void setUp(){
-		instance = SystemStatistics.initializeSystemStatistics();
+		instance = SystemStatisticsService.initializeSystemStatistics();
 	}
 	
 	@Test

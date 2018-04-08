@@ -2,7 +2,6 @@ package com.phasec.plagsafe;
 
 import javax.annotation.Resource;
 
-import com.phasec.plagsafe.objects.SystemStatistics;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
+
+import com.phasec.plagsafe.system.SystemStatisticsService;
 
 @SpringBootApplication
 public class PlagsafeApplication  implements CommandLineRunner{
@@ -22,7 +23,7 @@ public class PlagsafeApplication  implements CommandLineRunner{
 		SpringApplication.run(PlagsafeApplication.class, args);
 
         // get an instance
-        SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
+        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
 
         // load the stats
         stats.resetSystemStats();

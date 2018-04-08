@@ -1,6 +1,5 @@
 package com.phasec.plagsafe;
 
-import com.phasec.plagsafe.objects.SystemStatistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.phasec.plagsafe.system.SystemStatisticsService;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class ClassSubmissionController {
                                          @RequestParam("strategy") String strategy)
     {
 
-        SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
+        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
         stats.loadSystemStats();
         stats.incrementTotalRunsBy(1);
         stats.serializeStats();

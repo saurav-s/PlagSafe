@@ -1,15 +1,14 @@
 <div ng-controller="LoginController" class="container">
-	<br>
-	<br>
-	<br>
+	<br> <br> <br>
 	<h2 align="center">PlagSafe&#8482;</h2>
-	<h4 align="center">A plagiarism detection tool for checking plagiarism in python files</h4>
+	<h4 align="center">A plagiarism detection tool for checking
+		plagiarism in python files</h4>
 	<br>
 	<form action="/" id="login">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label>Username</label> <input type="text" id="username"
+					<label>UserName</label> <input type="text" id="username"
 						ng-model="username" class="form-control"><br>
 				</div>
 			</div>
@@ -21,9 +20,14 @@
 			</div>
 			<div class="col-md-12">
 				<div class="form-group">
-					<button class="btn btn-success pull-right" type="button" ng-click="submit()">Login</button>
+					<button class="btn btn-success btn-block" type="button"
+						ng-click="submit()">Login</button>
+
 				</div>
 			</div>
 		</div>
 	</form>
+	<div id="alert_placeholder">
+	</div>
 </div>
+

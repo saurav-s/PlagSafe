@@ -3,7 +3,8 @@ package com.phasec.plagsafe.detector;
 import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
-import com.phasec.plagsafe.objects.SystemStatistics;
+import com.phasec.plagsafe.system.SystemStatisticsService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.WeightPropertyReader;
@@ -20,7 +21,7 @@ public class SubmissionCompare implements SubmissionComparable {
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2, StrategyType comparisonStrategy) {
         List<Report> matchReportList = new ArrayList<>();
-		SystemStatistics stats = SystemStatistics.initializeSystemStatistics();
+		SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
         switch(comparisonStrategy) {
         		case RENAMING:
 
