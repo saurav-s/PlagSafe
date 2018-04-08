@@ -40,21 +40,13 @@ app
 												$('#alert_placeholder')
 														.html(
 																'<div class="alert alert-danger alert-dismissible fade show">'
-																+ '<a class="close" data-dismiss="alert">×</a><span>'
+																		+ '<a class="close" data-dismiss="alert">×</a><span>'
 																		+ '<strong>Invalid credentials</strong>'
 																		+ '</span></div>')
 											}
 										});
 					};
 
-					$scope.get_system_stats = function() {
-						var url = "/api/system/usage";
-						$http.get(url).then(function(response) {
-							$rootScope.stats = response.data;
-						}, function(response) {
-
-						});
-					};
 				});
 
 app.directive('fileModel', [ '$parse', function($parse) {
@@ -96,42 +88,41 @@ app.controller('UploadFileController', [
 		'$timeout',
 		'$location',
 		function($scope, $http, Upload, $timeout, $location) {
-			
+
 			$('#f1').on('change', function(evt) {
-			    var file1 = evt.target.files[0];
-			    	var file2 = $("#f2")[0].files.length;
-			    if (file1 && file2){
-			    		$scope.disableTwinUpload = false;
-			    } else {
-			    		$scope.disableTwinUpload = true;
-			    }
+				var file1 = evt.target.files[0];
+				var file2 = $("#f2")[0].files.length;
+				if (file1 && file2) {
+					$scope.disableTwinUpload = false;
+				} else {
+					$scope.disableTwinUpload = true;
+				}
 			});
-			
+
 			$('#f2').on('change', function(evt) {
-			    var file2 = evt.target.files[0];
+				var file2 = evt.target.files[0];
 				var file1 = $("#f1")[0].files.length;
-			    if (file1 && file2){
-			    		$scope.disableTwinUpload = false;
-			    } else {
-			    		$scope.disableTwinUpload = true;
-			    }
+				if (file1 && file2) {
+					$scope.disableTwinUpload = false;
+				} else {
+					$scope.disableTwinUpload = true;
+				}
 			});
-			
+
 			$('#dir1').on('change', function(evt) {
-			    var file = evt.target.files[0];
-			    if (file){
-			    		$scope.disableUpload = false
-			    } else {
-			    		$scope.disableUpload = true
-			    }
+				var file = evt.target.files[0];
+				if (file) {
+					$scope.disableUpload = false
+				} else {
+					$scope.disableUpload = true
+				}
 			});
-			
+
 			//Init default states
 			$scope.strategy = "ALL";
 			$scope.disableTwinUpload = true;
 			$scope.disableUpload = true;
-			
-			
+
 			//upload function for 2 submissions
 			$scope.uploadFile = function($fileList1, $fileList2, $strategy) {
 				$scope.disableTwinUpload = true;
@@ -196,7 +187,7 @@ app.controller('UploadFileController', [
 					$scope.showClassUploadProgress = false;
 					$('#uploadCollapse2').collapse('hide');
 					$('#resultCollapse').collapse('show');
-					
+
 				}).then(
 						function(response) {
 							$scope.disableUpload = false;
@@ -215,7 +206,17 @@ app.controller('UploadFileController', [
 									parseInt(100.0 * evt.loaded / evt.total));
 						});
 			};
-			
+
 		} ]);
 
+app.controller('systemStatisticsController', [ '$scope', '$http',
+		function($scope, $http) {
+			$scope.get_system_stats = function() {
+				var url = "/api/system/usage";
+				$http.get(url).then(function(response) {
+					$rootScope.stats = response.data;
+				}, function(response) {
 
+				});
+			};
+		} ]);
