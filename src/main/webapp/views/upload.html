@@ -103,10 +103,11 @@
 													ng-disabled="disableTwinUpload">Upload & Compare</button>
 											</div>
 										</div>
+										<!-- Progress bar for twin uplaod -->
 										<div class="progress" style="width: 100%;"
 											ng-show="twinUploadProgress >= 0 && showTwinUploadProgress">
 											<div class="progress-bar bg-success progress-bar-striped"
-												role="progressbar" style="width: {{twinUploadProgress"
+												role="progressbar" style="width: {{twinUploadProgress}}%;"
 												aria-valuemin="0" aria-valuemax="100">{{twinUploadProgress}}%</div>
 										</div>
 										<br> <br> <br>
@@ -173,69 +174,72 @@
 												</div>
 											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<div class="col-sm-offset-2 col-sm-10">
-											<button type="submit" class="btn btn-secondary"
-												ng-click="uploadClassSubmission(classSubmission,strategy)"
-												ng-disabled="disableUpload">Upload & Compare</button>
+
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<button type="submit" class="btn btn-secondary"
+													ng-click="uploadClassSubmission(classSubmission,strategy)"
+													ng-disabled="disableUpload">Upload & Compare</button>
+											</div>
+										</div>
+										<!-- Progress bar for class uplaod -->
+										<div class="progress" style="width: 100%;"
+											ng-show="classUploadProgress >= 0 && showClassUploadProgress">
+											<div class="progress-bar bg-success progress-bar-striped"
+												role="progressbar" style="width: {{classUploadProgress}}%;"
+												aria-valuemin="0" aria-valuemax="100">{{classUploadProgress}}%</div>
+										</div>
+										<br> <br> <br>
+									</div>
+								</div>
+
+
+								<!-- Results display logic goes here-->
+								<div class="card ">
+									<div class="card-header text-white bg-secondary">
+										<h4 class="card-title">
+											<a data-toggle="collapse" data-target="#resultCollapse">Results</a>
+										</h4>
+									</div>
+									<div id="resultCollapse"  
+										href="javascript:;" class="collapse">
+										<div class="card-text">
+											<div class="table-responsive">
+												<table ng-show="reports.length"
+													class="table table-striped table-hover">
+													<thead class="thead thead-dark">
+														<tr>
+															<th scope="col">#</th>
+															<th scope="col">File 1</th>
+															<th scope="col">File 2</th>
+															<th scope="col">Match Percentage</th>
+															<th scope="col">Match Remarks</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="rep in reports track by $index">
+															<th scope="row">{{$index}}</th>
+															<td>{{rep.sourceFile}}</td>
+															<td>{{rep.targetFile}}</td>
+															<td>{{rep.matchPercentage}}</td>
+															<td>{{rep.matchRemark}}</td>
+														</tr>
+													</tbody>
+												</table>
+												<div ng-hide="reports.length"
+													class="alert alert-info alert-dismissible fade show">
+													<span> <strong>No Results to display</strong>
+													</span>
+												</div>
+											</div>
 										</div>
 									</div>
-									<div class="progress" style="width: 100%;"
-										ng-show="classUploadProgress >= 0 && showClassUploadProgress">
-										<div class="progress-bar bg-success progress-bar-striped"
-											role="progressbar" style="width: {{classUploadProgress"
-											aria-valuemin="0" aria-valuemax="100">{{classUploadProgress}}%</div>
-									</div>
-									<br> <br> <br>
 								</div>
 							</div>
+						</form>
+						<hr />
 					</div>
-
-
-					<!-- Results display logic goes here-->
-					<div class="card ">
-						<div class="card-header text-white bg-secondary">
-							<h4 class="card-title">
-								<a data-toggle="collapse" data-target="#resultCollapse">Results</a>
-							</h4>
-						</div>
-						<div id="resultCollapse" href="javascript:;" class="collapse">
-							<div class="card-text">
-								<div class="table-responsive">
-									<table ng-show="(reports).length"
-										class="table table-striped table-hover">
-										<thead class="thead thead-dark">
-											<tr>
-												<th scope="col">#</th>
-												<th scope="col">File 1</th>
-												<th scope="col">File 2</th>
-												<th scope="col">Match Percentage</th>
-												<th scope="col">Match Remarks</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr ng-repeat="rep in reports track by $index">
-												<th scope="row">{{$index}}</th>
-												<td>{{rep.sourceFile}}</td>
-												<td>{{rep.targetFile}}</td>
-												<td>{{rep.matchPercentage}}</td>
-												<td>{{rep.matchRemark}}</td>
-											</tr>
-										</tbody>
-									</table>
-									<div ng-hide="reports.length"
-										class="alert alert-info alert-dismissible fade show">
-										<span> <strong>No Results to display</strong>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					</form>
-					<hr />
 				</div>
 			</div>
 		</div>
