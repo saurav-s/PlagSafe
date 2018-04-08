@@ -84,7 +84,7 @@
 										<div class="progress" style="width: 100%;"
 											ng-show="twinUploadProgress >= 0 && showTwinUploadProgress">
 											<div class="progress-bar bg-success progress-bar-striped"
-												role="progressbar" style="width: {{twinUploadProgress"
+												role="progressbar" style="width: {{twinUploadProgress}}%;"
 												aria-valuemin="0" aria-valuemax="100">{{twinUploadProgress}}%</div>
 										</div>
 										<br>
@@ -142,13 +142,11 @@
 										<div class="progress" style="width: 100%;"
 											ng-show="classUploadProgress >= 0 && showClassUploadProgress">
 											<div class="progress-bar bg-success progress-bar-striped"
-												role="progressbar" style="width: {{classUploadProgress"
+												role="progressbar" style="width: {{classUploadProgress}}%;"
 												aria-valuemin="0" aria-valuemax="100">{{classUploadProgress}}%</div>
 										</div>
+										<br> <br> <br>
 									</div>
-									<br>
-									<br>
-									<br>
 								</div>
 							</div>
 							
@@ -161,7 +159,7 @@
 									</h4>
 								</div>
 								<div id="resultCollapse" href="javascript:;"
-									class="collapse show">
+									class="collapse">
 									<div class="card-text">
 										<div class="table-responsive">
 											<table ng-show="(reports).length"
