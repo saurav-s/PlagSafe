@@ -209,7 +209,7 @@ app.controller('UploadFileController', [
 
 		} ]);
 
-app.controller('systemStatisticsController', [ '$scope', '$http',
+app.controller('SystemStatsController', [ '$scope', '$http',
 		function($scope, $http) {
 			$scope.get_system_stats = function() {
 				var url = "/api/system/usage";
