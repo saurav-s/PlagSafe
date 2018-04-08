@@ -229,3 +229,15 @@ app.controller('SystemStatsController', [ '$scope', '$http','$rootScope',
 			};
 		} ]);
 
+
+app.controller('LogoutController', [ '$location', '$scope', '$window',
+		function($location, $scope, $window) {
+
+			$scope.logout = function() {
+				$window.localStorage.clear();
+				$location.path('/');
+			};
+		} ]);
+
+
+	
