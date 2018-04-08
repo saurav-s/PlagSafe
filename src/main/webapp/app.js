@@ -88,6 +88,10 @@ app.controller('UploadFileController', [
 		'$location',
 		function($scope, $http, Upload, $timeout, $location) {
 
+			$(document).ready(function(){
+			    $('[data-toggle="tooltip"]').tooltip();   
+			});
+			
 			$('#f1').on('change', function(evt) {
 				var file1 = evt.target.files[0];
 				var file2 = $("#f2")[0].files.length;

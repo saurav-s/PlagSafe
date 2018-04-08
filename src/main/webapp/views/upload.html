@@ -14,25 +14,25 @@
 	<br>
 	<div id="parentAccordian">
 		<div class="card list-group">
-		
-		
+
+
 			<!-- Upload Files and Results section goes here-->
-			
+
 			<div class="card-header text-white bg-dark">
 				<h4 class="card-title">
 					<a data-toggle="collapse" data-target="#collapse1">Upload Files</a>
 				</h4>
 			</div>
-			<div id="collapse1" href="javascript:;"
-				class="card-body collapse" data-parent="#parentAccordian">
+			<div id="collapse1" href="javascript:;" class="card-body collapse"
+				data-parent="#parentAccordian">
 				<div class="card-text">
 					<div ng-controller="UploadFileController">
 
 						<form class="form-horizontal">
 							<div id="uploadParentAccordian">
-							
+
 								<!-- Upload twin submission logic goes here-->
-								
+
 								<div class="card list-group">
 									<div class="card-header text-white bg-secondary">
 										<h4 class="card-title">
@@ -63,14 +63,36 @@
 											<label class="control-label col-sm-*" for="radioModel">Choose
 												Strategy</label>
 											<div class="col-sm-10">
-												<input class="btn" type="radio" ng-model="strategy"
-													value="LOGICAL"> Logical <input class="btn"
-													type="radio" ng-model="strategy" value="RENAMING">
-												Renaming <input class="btn" type="radio" ng-model="strategy"
-													value="REFACTORING"> Refactoring <input class="btn"
-													type="radio" ng-model="strategy" value="ALL"> All <input
-													class="btn" type="radio" ng-model="strategy"
-													value="COMBINED"> Use Dynamic Combination
+												<div>
+													<input class="btn" data-toggle="tooltip"
+														data-placement="right"
+														title="Use Renaming simlarity measure" type="radio"
+														ng-model="strategy" value="LOGICAL"> Logical
+												</div>
+												<div>
+													<input class="btn" data-toggle="tooltip"
+														data-placement="right"
+														title="Use Renaming simlarity measure" type="radio"
+														ng-model="strategy" value="RENAMING"> Renaming
+												</div>
+												<div>
+													<input data-toggle="tooltip" data-placement="right"
+														title="Use Renaming simlarity measure" class="btn"
+														type="radio" ng-model="strategy" value="REFACTORING">
+													Refactoring
+												</div>
+												<div>
+													<input data-toggle="tooltip" data-placement="right"
+														title="Use All three above strategies and generate independent scores for them"
+														class="btn" type="radio" ng-model="strategy" value="ALL">
+													All
+												</div>
+												<div>
+													<input data-toggle="tooltip" data-placement="right"
+														title="Use dynamic combination of weights to determine a combined total score using all the 3 strategies"
+														class="btn" type="radio" ng-model="strategy"
+														value="COMBINED"> Use Dynamic Combination
+												</div>
 											</div>
 										</div>
 										<div class="form-group">
@@ -84,17 +106,15 @@
 										<div class="progress" style="width: 100%;"
 											ng-show="twinUploadProgress >= 0 && showTwinUploadProgress">
 											<div class="progress-bar bg-success progress-bar-striped"
-												role="progressbar" style="width: {{twinUploadProgress}}%;"
+												role="progressbar" style="width: {{twinUploadProgress"
 												aria-valuemin="0" aria-valuemax="100">{{twinUploadProgress}}%</div>
 										</div>
-										<br>
-										<br>
-										<br>
+										<br> <br> <br>
 									</div>
 								</div>
-								
+
 								<!-- Upload class submission logic goes here-->
-								
+
 								<div class="card list-group">
 									<div class="card-header text-white bg-secondary">
 										<h4 class="card-title">
@@ -121,86 +141,107 @@
 											<label class="control-label col-sm-*" for="radioModel">Choose
 												Strategy</label>
 											<div class="col-sm-10">
-												<input class="btn" type="radio" ng-model="strategy"
-													value="LOGICAL"> Logical <input class="btn"
-													type="radio" ng-model="strategy" value="RENAMING">
-												Renaming <input class="btn" type="radio" ng-model="strategy"
-													value="REFACTORING"> Refactoring <input class="btn"
-													type="radio" ng-model="strategy" value="ALL"> All <input
-													class="btn" type="radio" ng-model="strategy"
-													value="COMBINED"> Use Dynamic Combination
+												<div>
+													<input class="btn" data-toggle="tooltip"
+														data-placement="right"
+														title="Use Logical simlarity measure" type="radio"
+														ng-model="strategy" value="LOGICAL"> Logical
+												</div>
+												<div>
+													<input class="btn" data-toggle="tooltip"
+														data-placement="right"
+														title="Use Renaming simlarity measure" type="radio"
+														ng-model="strategy" value="RENAMING"> Renaming
+												</div>
+												<div>
+													<input data-toggle="tooltip" data-placement="right"
+														title="Use Renaming simlarity measure" class="btn"
+														type="radio" ng-model="strategy" value="REFACTORING">
+													Refactoring
+												</div>
+												<div>
+													<input data-toggle="tooltip" data-placement="right"
+														title="Use All three above strategies and generate independent scores for them"
+														class="btn" type="radio" ng-model="strategy" value="ALL">
+													All
+												</div>
+												<div>
+													<input data-toggle="tooltip" data-placement="right"
+														title="Use dynamic combination of weights to determine a combined total score using all the 3 strategies"
+														class="btn" type="radio" ng-model="strategy"
+														value="COMBINED"> Use Dynamic Combination
+												</div>
 											</div>
 										</div>
+									</div>
 
-										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-												<button type="submit" class="btn btn-secondary"
-													ng-click="uploadClassSubmission(classSubmission,strategy)"
-													ng-disabled="disableUpload">Upload & Compare</button>
-											</div>
-										</div>
-										<div class="progress" style="width: 100%;"
-											ng-show="classUploadProgress >= 0 && showClassUploadProgress">
-											<div class="progress-bar bg-success progress-bar-striped"
-												role="progressbar" style="width: {{classUploadProgress}}%;"
-												aria-valuemin="0" aria-valuemax="100">{{classUploadProgress}}%</div>
-										</div>
-										<br> <br> <br>
-									</div>
-								</div>
-							</div>
-							
-							
-							<!-- Results display logic goes here-->
-							<div class="card ">
-								<div class="card-header text-white bg-secondary">
-									<h4 class="card-title">
-										<a data-toggle="collapse" data-target="#resultCollapse">Results</a>
-									</h4>
-								</div>
-								<div id="resultCollapse" href="javascript:;"
-									class="collapse">
-									<div class="card-text">
-										<div class="table-responsive">
-											<table ng-show="(reports).length"
-												class="table table-striped table-hover">
-												<thead class="thead thead-dark">
-													<tr>
-														<th scope="col">#</th>
-														<th scope="col">File 1</th>
-														<th scope="col">File 2</th>
-														<th scope="col">Match Percentage</th>
-														<th scope="col">Match Remarks</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr ng-repeat="rep in reports track by $index">
-														<th scope="row">{{$index}}</th>
-														<td>{{rep.sourceFile}}</td>
-														<td>{{rep.targetFile}}</td>
-														<td>{{rep.matchPercentage}}</td>
-														<td>{{rep.matchRemark}}</td>
-													</tr>
-												</tbody>
-											</table>
-											<div ng-hide="reports.length" class="alert alert-info alert-dismissible fade show">
-												<span> <strong>No Results to display</strong>
-												</span>
-											</div>
+									<div class="form-group">
+										<div class="col-sm-offset-2 col-sm-10">
+											<button type="submit" class="btn btn-secondary"
+												ng-click="uploadClassSubmission(classSubmission,strategy)"
+												ng-disabled="disableUpload">Upload & Compare</button>
 										</div>
 									</div>
+									<div class="progress" style="width: 100%;"
+										ng-show="classUploadProgress >= 0 && showClassUploadProgress">
+										<div class="progress-bar bg-success progress-bar-striped"
+											role="progressbar" style="width: {{classUploadProgress"
+											aria-valuemin="0" aria-valuemax="100">{{classUploadProgress}}%</div>
+									</div>
+									<br> <br> <br>
 								</div>
 							</div>
-						</form>
-						<hr />
 					</div>
+
+
+					<!-- Results display logic goes here-->
+					<div class="card ">
+						<div class="card-header text-white bg-secondary">
+							<h4 class="card-title">
+								<a data-toggle="collapse" data-target="#resultCollapse">Results</a>
+							</h4>
+						</div>
+						<div id="resultCollapse" href="javascript:;" class="collapse">
+							<div class="card-text">
+								<div class="table-responsive">
+									<table ng-show="(reports).length"
+										class="table table-striped table-hover">
+										<thead class="thead thead-dark">
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col">File 1</th>
+												<th scope="col">File 2</th>
+												<th scope="col">Match Percentage</th>
+												<th scope="col">Match Remarks</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="rep in reports track by $index">
+												<th scope="row">{{$index}}</th>
+												<td>{{rep.sourceFile}}</td>
+												<td>{{rep.targetFile}}</td>
+												<td>{{rep.matchPercentage}}</td>
+												<td>{{rep.matchRemark}}</td>
+											</tr>
+										</tbody>
+									</table>
+									<div ng-hide="reports.length"
+										class="alert alert-info alert-dismissible fade show">
+										<span> <strong>No Results to display</strong>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</form>
+					<hr />
 				</div>
 			</div>
 		</div>
-		
-		
+
 		<!-- Download section logic goes here-->
-		
+
 		<div class="card list-group">
 			<div class="card-header text-white bg-dark">
 				<h4 class="card-title">
@@ -224,18 +265,17 @@
 						</div>
 						<div ng-hide="lstFiles.length"
 							class="alert alert-info alert-dismissible fade show">
-							<span> <strong>No
-									Files available for download</strong>
+							<span> <strong>No Files available for download</strong>
 							</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<!-- System statistics logic goes here-->
-		
+
 		<div class="card list-group">
 			<div class="card-header text-white bg-dark">
 				<h4 class="card-title">
@@ -307,3 +347,4 @@
 			</div>
 		</div>
 	</div>
+</div>
