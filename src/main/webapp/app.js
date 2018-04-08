@@ -17,8 +17,7 @@ app.config(function($routeProvider) {
 	});
 });
 
-app
-		.controller(
+app.controller(
 				'LoginController',
 				function($scope, $location, $rootScope, LoginService, $http) {
 					$scope.submit = function() {
