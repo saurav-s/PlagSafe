@@ -1,18 +1,18 @@
 package com.phasec.plagsafe.detector;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
 import com.phasec.plagsafe.system.SystemStatisticsService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import util.WeightPropertyReader;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class SubmissionCompare implements SubmissionComparable {
 	private static final String MATCHING_REMARK = "Weighted comparison result of all comparison";
