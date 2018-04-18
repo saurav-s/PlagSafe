@@ -34,43 +34,6 @@ public class AntlrDriverTests {
 		antlrDriver = new AntlrDriver();
 	}
 	
-	/**
-	 * Test case for read file operation
-	 * @throws IOException
-	 */
-	/*
-	@Test
-
-	public void testReadFile() throws IOException{
-		
-		File inputFile = new File("resources/simple.py");
-		String obtainedResult = antlrDriver.readFile(inputFile, Charset.forName("UTF-8"));
-		String expectedResult = "def sum(a, b):\n    return a + b\n\nprint(\"The sum of %i and %i is %i\" % (5, 3, sum(5, 3)))\n";
-		
-		assertEquals(expectedResult, obtainedResult);	
-	}
 	
-	/**
-	 * Test case for parse file operation
-	 * @throws IOException
-	 */
-	/*
-	@Test
-
-	public void testparseFile() throws IOException{
-		
-		File inputFile = new File("resources/simple.py");
-		File_inputContext obtainedResult = antlrDriver.parseFile(inputFile);
-		
-		String code = antlrDriver.readFile(inputFile, Charset.forName("UTF-8"));
-		Python3Parser parser = new Python3Parser(new CommonTokenStream(new Python3Lexer(new ANTLRInputStream(code))));
-		File_inputContext expectedResult = parser.file_input();
-	
-		assertEquals(expectedResult.toString(), obtainedResult.toString());
-		
-		
-		
-	}
-	*/
 
 }
