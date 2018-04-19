@@ -25,7 +25,7 @@ public class SystemUsageController {
 		logger.info("System stats requested");
 
 		// get an instance
-		SystemStatisticsService service = SystemStatisticsService.initializeSystemStatistics();
+		SystemStatisticsService service = SystemStatisticsService.getSystemStatInstance();
 
 		// load the stats
 		SystemUsageInfo systemStats = service.loadSystemStats();

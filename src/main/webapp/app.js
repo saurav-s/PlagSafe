@@ -103,6 +103,7 @@ app.controller('RegistrationController', [ '$scope', '$http','$rootScope','$time
 					params : {
 						email : $user.email,
 						password : $user.password,
+						confirmPassword : $user.confirmPassword,
 						firstName : $user.firstName,
 						lastName : $user.lastName,
 						confirmEmail : $user.confirmEmail

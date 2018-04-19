@@ -24,7 +24,7 @@ public class PlagsafeApplication  implements CommandLineRunner{
 		SpringApplication.run(PlagsafeApplication.class, args);
 
         // get an instance
-        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
+        SystemStatisticsService stats = SystemStatisticsService.getSystemStatInstance();
 
         // load the stats
         stats.resetSystemStats();

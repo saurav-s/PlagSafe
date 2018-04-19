@@ -21,7 +21,7 @@ public class SubmissionCompare implements SubmissionComparable {
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2, StrategyType comparisonStrategy) {
         List<Report> matchReportList = new ArrayList<>();
-		SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
+		SystemStatisticsService stats = SystemStatisticsService.getSystemStatInstance();
         switch(comparisonStrategy) {
         		case RENAMING:
 

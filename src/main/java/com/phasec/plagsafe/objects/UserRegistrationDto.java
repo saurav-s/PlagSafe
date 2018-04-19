@@ -79,12 +79,4 @@ public class UserRegistrationDto {
         this.confirmEmail = confirmEmail;
     }
 
-    public Boolean getTerms() {
-        return terms;
-    }
-
-    public void setTerms(Boolean terms) {
-        this.terms = terms;
-    }
-
 }

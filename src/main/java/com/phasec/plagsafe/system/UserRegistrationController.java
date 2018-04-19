@@ -40,13 +40,13 @@ public class UserRegistrationController {
 	 * @param result
 	 */
 	@PostMapping("/registration")
-	public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto, BindingResult result) {
+	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto userDto, BindingResult result) {
 		User existing = userService.findByEmail(userDto.getEmail());
 		if (existing != null) {
-			DataFormatUtility.getJsonString("There is already an account registered with that email");
+			return DataFormatUtility.getJsonString("There is already an account registered with that email");
 		}
 		if (result.hasErrors()) {
-			DataFormatUtility.getJsonString("Validation errors");
+			return DataFormatUtility.getJsonString("Validation errors");
 		}
 		userService.save(userDto);
 		return DataFormatUtility.getJsonString("success");

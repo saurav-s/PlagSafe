@@ -22,19 +22,51 @@ import com.phasec.plagsafe.objects.SystemUsageInfo;
  * This class interacts with system usage information 
  *
  */
+/**
+ * @author sanketsaurav
+ *
+ */
+/**
+ * @author sanketsaurav
+ *
+ */
 @Service
 public class SystemStatisticsService implements Serializable {
 
 	private static Logger logger = LoggerFactory.getLogger(SystemStatisticsService.class);
+
+	private static SystemStatisticsService statsInstance;
+
 	// serialized file location
 	private static final String FILE_PATH = "src/main/resources/stats.ser";
 
 	// start date of the system
-	private static String systemStartDate;
+	private String systemStartDate;
 
 	// previous use of the system
-	private static String systemLastUsed;
+	private String systemLastUsed;
+	
+	// total number of times the system has run since the start date
+	private int totalRuns;
+	
+	// count of total number of files compared
+	private int totalFilesCompared;
+	
+	// maximum number of files compared in a single run
+	private int maxSystemLoad;
+	
+	// number of times the system has crashed
+	private int systemFailures;
 
+
+
+
+
+	// count of the total requests made by the user for each type of strategy
+	private int logicalComparisonRequested;
+	private int renamingComparisonRequested;
+	private int refactoringComparisonRequested;
+	private int weightedComparisonRequested;
 
 
 	private String getCurrentDateString() {
@@ -49,80 +81,71 @@ public class SystemStatisticsService implements Serializable {
 	}
 
 
-
+	/**
+	 * update last system update date
+	 */
 	public void updateSystemLastUsed() {
-
 		systemLastUsed = getCurrentDateString();
 	}
 
-	// total number of times the system has run since the start date
-	private static int totalRuns;
 
-
-
+	/**
+	 * increment total runs by i
+	 * @param i : number of runs
+	 */
 	public void incrementTotalRunsBy(int i) {
 		totalRuns += i;
 	}
 
-	// count of the total requests made by the user for each type of strategy
-	private static int logicalComparisonRequested;
-	private static int renamingComparisonRequested;
-	private static int refactoringComparisonRequested;
-	private static int weightedComparisonRequested;
-
-
-
+	/**
+	 * increment logical comparison runs by i
+	 * @param i
+	 */
 	public void incrementLogicalComparisonRequestedBy(int i) {
 		logicalComparisonRequested += i;
 	}
 
-
-
+	/**
+	 * 
+	 * @param i
+	 */
 	public void incrementRenamingComparisonRequestedRunsBy(int i) {
 		renamingComparisonRequested += i;
 	}
 
-
-
+	/**
+	 * 
+	 * @param i
+	 */
 	public void incrementRefactoringComparisonRequested(int i) {
 		refactoringComparisonRequested += i;
 	}
 
 
-
+	/**
+	 * 
+	 * @param i
+	 */
 	public void incrementWeightedComparisonRequestedRunsBy(int i) {
 		weightedComparisonRequested += i;
 	}
 
-	// count of total number of files compared
-	private static int totalFilesCompared;
-
-
-
+	
+	/**
+	 * 
+	 * @param i
+	 */
 	public void incrementTotalFilesComparedBy(int i) {
 		totalFilesCompared += i;
 	}
-
-	// maximum number of files compared in a single run
-	private static int maxSystemLoad;
-
-
 
 	public void updateMaxLoad(int currentLoad) {
 		maxSystemLoad = Math.max(maxSystemLoad, currentLoad);
 	}
 
-	// number of times the system has crashed
-	private static int systemFailures;
-
-
-
 	public void incrementSystemFailuresBy(int i) {
 		systemFailures += i;
 	}
-
-	private static SystemStatisticsService statsInstance;
-
 
 
 	/**
@@ -139,7 +162,7 @@ public class SystemStatisticsService implements Serializable {
 	 * @return instance of this class
 	 */
 
-	public static SystemStatisticsService initializeSystemStatistics() {
+	public static SystemStatisticsService getSystemStatInstance() {
 		if (statsInstance == null)
 			statsInstance = new SystemStatisticsService();
 		return statsInstance;
@@ -190,7 +213,10 @@ public class SystemStatisticsService implements Serializable {
 	}
 
 
-
+	/**
+	 * load all system stats
+	 * @return system usage info
+	 */
 	public SystemUsageInfo loadSystemStats() {
 		ObjectInputStream input = null;
 		try (FileInputStream inputFile = new FileInputStream(FILE_PATH)) {
@@ -200,9 +226,7 @@ public class SystemStatisticsService implements Serializable {
 		} catch (IOException | ClassNotFoundException e) {
 			logger.error("Object deserialization exception " + e);
 			return new SystemUsageInfo();
-		} finally {
-			//logger.info("closing files in finally after closing");
-		}
+		} 
 	}
 	
 	private SystemUsageInfo getCurrentSystemUsageInfo() {
@@ -249,8 +273,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setTotalRuns(int totalRuns) {
-		this.totalRuns = totalRuns;
+	public void setTotalRuns(int runs) {
+		totalRuns = runs;
 	}
 
 
@@ -261,8 +285,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setLogicalComparisonRequested(int logicalComparisonRequested) {
-		this.logicalComparisonRequested = logicalComparisonRequested;
+	public void setLogicalComparisonRequested(int logicalComparisons) {
+		logicalComparisonRequested = logicalComparisons;
 	}
 
 
@@ -273,8 +297,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setRenamingComparisonRequested(int renamingComparisonRequested) {
-		this.renamingComparisonRequested = renamingComparisonRequested;
+	public void setRenamingComparisonRequested(int renamingComparisons) {
+		renamingComparisonRequested = renamingComparisons;
 	}
 
 
@@ -285,8 +309,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setRefactoringComparisonRequested(int refactoringComparisonRequested) {
-		this.refactoringComparisonRequested = refactoringComparisonRequested;
+	public void setRefactoringComparisonRequested(int refactoringComparisons) {
+		refactoringComparisonRequested = refactoringComparisons;
 	}
 
 
@@ -297,8 +321,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setWeightedComparisonRequested(int weightedComparisonRequested) {
-		this.weightedComparisonRequested = weightedComparisonRequested;
+	public void setWeightedComparisonRequested(int weightedComparisons) {
+		weightedComparisonRequested = weightedComparisons;
 	}
 
 
@@ -309,8 +333,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setTotalFilesCompared(int totalFilesCompared) {
-		this.totalFilesCompared = totalFilesCompared;
+	public void setTotalFilesCompared(int totalFiles) {
+		totalFilesCompared = totalFiles;
 	}
 
 
@@ -321,8 +345,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setMaxSystemLoad(int maxSystemLoad) {
-		this.maxSystemLoad = maxSystemLoad;
+	public void setMaxSystemLoad(int maxLoad) {
+		maxSystemLoad = maxLoad;
 	}
 
 
@@ -333,8 +357,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setSystemFailures(int systemFailures) {
-		this.systemFailures = systemFailures;
+	public void setSystemFailures(int systemFailuresCount) {
+		systemFailures = systemFailuresCount;
 	}
 
 
