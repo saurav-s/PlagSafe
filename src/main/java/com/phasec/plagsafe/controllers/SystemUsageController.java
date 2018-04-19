@@ -22,13 +22,10 @@ public class SystemUsageController {
 	public SystemUsageInfo getSystemUsageStatistics() {
 		// log the request
 		logger.info("System stats requested");
-
 		// get an instance
 		SystemStatisticsService service = SystemStatisticsService.initializeSystemStatistics();
-
 		// load the stats
 		SystemUsageInfo systemStats = service.loadSystemStats();
-
 		logger.info(systemStats.toString());
 
 		// returns services statistics

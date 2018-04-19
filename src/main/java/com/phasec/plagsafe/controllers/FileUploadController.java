@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.phasec.plagsafe.services.ClassSubmissionService;
 import com.phasec.plagsafe.services.ComparisonService;
 import com.phasec.plagsafe.services.StorageService;
 import com.phasec.plagsafe.models.StrategyType;
@@ -47,6 +48,9 @@ public class FileUploadController {
 	@Autowired
     ComparisonService comparisonService;
 
+	@Autowired
+	ClassSubmissionService submissionService;
+
 	private List<String> files = new ArrayList<>();
 	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
@@ -69,7 +73,7 @@ public class FileUploadController {
 	public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,
 			@RequestParam("uploadfile2") MultipartFile[] fileList2, @RequestParam("strategy") String strategy) {
 		try {
-
+		    
 			List<String> fileNames1 = storeFiles(fileList1);
 			List<String> fileNames2 = storeFiles(fileList2);
 
