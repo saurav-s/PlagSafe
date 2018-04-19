@@ -224,10 +224,15 @@
 													<tbody>
 														<tr ng-repeat="rep in reports track by $index">
 															<th scope="row">{{$index}}</th>
-															<td>{{rep.sourceFile}}</td>
+															<td>{{rep.sourceFile}}<br>
+                                                                <button type="submit" class="btn btn-secondary"
+                                                                        ng-click="fetchSimilarities(rep.sourceFile,rep.targetFile)">
+                                                                    See Similarities</button>
+                                                            </td>
 															<td>{{rep.targetFile}}</td>
 															<td>{{rep.matchPercentage}}</td>
 															<td>{{rep.matchRemark}}</td>
+
 														</tr>
 													</tbody>
 												</table>

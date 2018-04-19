@@ -1,6 +1,7 @@
 package util;
 
 import com.google.gson.Gson;
+import com.phasec.plagsafe.models.MatchSnippet;
 import com.phasec.plagsafe.models.Report;
 
 import java.util.List;
@@ -19,6 +20,11 @@ public class DataFormatUtility {
     public static String getJsonString(List<Report> reports) {
         Gson gson = new Gson();
         return gson.toJson(reports);
+    }
+
+    public static String getJsonString(MatchSnippet snippet) {
+        Gson gson = new Gson();
+        return gson.toJson(snippet);
     }
 
     /**

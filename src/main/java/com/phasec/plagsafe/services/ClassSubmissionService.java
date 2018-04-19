@@ -138,9 +138,10 @@ public class ClassSubmissionService {
         // divide list of files according to submissions
         Map<String, List<String>>  submissionMap = reorganizeSubmissionFiles(submissionFiles);
 
-        for(Entry submission : submissionMap.entrySet()) {
+        for(Entry<String, List<String>> submission : submissionMap.entrySet()) {
             // make a record of files for this submission
-            FileRecord record = makeRecordFiles(submissionMap.get(submission));
+
+            FileRecord record = makeRecordFiles(submission.getValue());
 
             // add the record to the list of records
             recordList.add(record);

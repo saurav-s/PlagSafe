@@ -184,6 +184,20 @@ app.controller('UploadFileController', [
 						});
 			};
 
+			$scope.fetchSimilarities = function($fileOneName, $fileTwoName) {
+				console.log($fileOneName)
+                console.log($fileTwoName)
+                var url = '/match/snippet?firstFile=' + $fileOneName + '&secondFile=' + $fileTwoName
+
+                $http.get(url).then(function(response) {
+                    $location.path = '/snippet.html'
+                    console.log(response.data)
+                    $scope.results = response.data;
+                }, function(response){
+
+                });
+			}
+
 			//upload function for class submission
 			$scope.uploadClassSubmission = function($fileList, $strategy) {
 				$scope.disableUpload = true;
