@@ -27,7 +27,7 @@ public class SystemStatisticsService implements Serializable {
 
 	private static Logger logger = LoggerFactory.getLogger(SystemStatisticsService.class);
 	// serialized file location
-	private static final String FILE_PATH = "src/main/resources/stats.ser";
+	private static final String FILE_PATH = "upload-dir/stats.ser";
 
 	// start date of the system
 	private static String systemStartDate;
