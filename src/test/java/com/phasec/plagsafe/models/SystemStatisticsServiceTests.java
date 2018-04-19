@@ -43,6 +43,21 @@ public class SystemStatisticsServiceTests {
 		instance.setSystemFailures(3);
 		String lastUsed = instance.getSystemLastUsed();
 		
+		// new test cases
+		instance.incrementLogicalComparisonRequestedBy(3);
+		instance.incrementRenamingComparisonRequestedRunsBy(3);
+		instance.incrementRefactoringComparisonRequested(3);
+		instance.incrementWeightedComparisonRequestedRunsBy(3);
+		
+		SystemStatisticsService.loadSystemStats();
+		instance.setTotalRuns(3);
+		instance.getRenamingComparisonRequested();
+		
+		
+		
+		
+		
+		
 		
 	}
 
