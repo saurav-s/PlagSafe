@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.phasec.plagsafe.system.SystemStatisticsService;
 
@@ -47,5 +48,10 @@ public class PlagsafeApplication  implements CommandLineRunner{
 	    		((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
 	    	}
 	    };
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

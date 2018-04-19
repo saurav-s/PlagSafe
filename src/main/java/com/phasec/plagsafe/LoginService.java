@@ -1,19 +1,21 @@
 package com.phasec.plagsafe;
 
-/**
- * Login service
- */
-import com.phasec.plagsafe.objects.UserObject;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.phasec.plagsafe.objects.User;
 
 @Service
 public class LoginService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepo userRepository;
+    
+    @Autowired
+    private  BCryptPasswordEncoder encoder;
 
     /**
      *
@@ -21,13 +23,15 @@ public class LoginService {
      * @param secret password
      * @return true iff a matching record exists in the database
      */
-    public UserObject validateUser(String userName, String secret) {
-        List<UserObject> records = userRepository.findAll();
-        UserObject match = null;
+    public User validateUser(String userName, String secret) {
+    		
+        List<User> records = userRepository.findAll();
+       
+        User match = null;
 
-        for(UserObject user : records) {
+        for(User user : records) {
             //user found, successful validation
-            if(user.getUserName().equals(userName) && user.getSecret().equals(secret)) {
+        		if(userName.equalsIgnoreCase(user.getEmail()) && encoder.matches(secret, user.getPassword())) {
                 match = user;
                 break;
             }
