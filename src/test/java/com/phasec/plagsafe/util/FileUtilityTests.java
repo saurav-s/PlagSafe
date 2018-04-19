@@ -4,6 +4,7 @@ import com.phasec.plagsafe.models.FileModel;
 import com.phasec.plagsafe.models.FileRecord;
 import com.phasec.plagsafe.models.SubmissionRecord;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import util.FileUtility;
 
@@ -12,6 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileUtilityTests {
+	
+	FileUtility instance;
+	
+	@Before
+	public void setUp(){
+		instance = FileUtility.createInstance();
+	}
+	
     @Test
     public void testGetFileModel() {
 

@@ -9,6 +9,10 @@ import java.util.List;
  *
  */
 public class NGramGeneratorUtility {
+	
+	public static NGramGeneratorUtility createInstance(){
+		return new NGramGeneratorUtility();
+	}
 
 	private NGramGeneratorUtility() {
 

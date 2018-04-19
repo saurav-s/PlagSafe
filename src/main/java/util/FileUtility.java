@@ -15,6 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUtility {
 	
 	private static Logger logger = LoggerFactory.getLogger(FileUtility.class);
+	
+	public static FileUtility createInstance(){
+		return new FileUtility();
+	}
 
 	private FileUtility() {
 

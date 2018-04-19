@@ -7,6 +7,10 @@ public class WeightPropertyReader {
     private int renamingWeight;
     private int refactoringWeight;
     private int logicalWeight;
+    
+    public static WeightPropertyReader createInstance(){
+    	return new WeightPropertyReader();
+    }
 
     // creating a private constructor
     private WeightPropertyReader() {

@@ -6,6 +6,10 @@ import com.phasec.plagsafe.models.Report;
 import java.util.List;
 
 public class DataFormatUtility {
+	
+	public static DataFormatUtility createInstance(){
+		return new DataFormatUtility();
+	}
 
     private DataFormatUtility() {
 
