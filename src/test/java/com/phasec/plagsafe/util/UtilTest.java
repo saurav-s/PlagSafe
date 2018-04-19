@@ -4,13 +4,30 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import util.LevenshteinDistanceGeneratorUtility;
 import util.NGramGeneratorUtility;
+import util.SubmissionUtility;
 import util.WeightPropertyReader;
 
 public class UtilTest {
+	
+	NGramGeneratorUtility nGramInstance;
+	SubmissionUtility subInstance;
+	WeightPropertyReader wpropInstance;
+	LevenshteinDistanceGeneratorUtility levInstance;
+	
+	@Before
+	public void setUp(){
+		nGramInstance = NGramGeneratorUtility.createInstance();
+		subInstance = SubmissionUtility.createInstance();
+		wpropInstance = WeightPropertyReader.createInstance();
+		levInstance = LevenshteinDistanceGeneratorUtility.createInstance();
+		
+	}
+	
 	
 
 	

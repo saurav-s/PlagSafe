@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.phasec.plagsafe.models.Report;
@@ -13,8 +14,18 @@ import util.DataFormatUtility;
 
 public class DataFormatUtilityTests {
 	
+	DataFormatUtility instance;
+	
+	@Before
+	public void setUp(){
+		instance = DataFormatUtility.createInstance();
+	}
+	
+	
+	
 	@Test
 	public void testDataFormatUtility(){
+		
 		
 		String str = "Report1";
 		String str2 = "Report2";

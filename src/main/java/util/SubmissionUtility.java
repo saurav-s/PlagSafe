@@ -27,6 +27,10 @@ import static com.phasec.plagsafe.models.StrategyType.COMBINED;
 public class SubmissionUtility {
 
 	private static Logger logger = LoggerFactory.getLogger(SubmissionUtility.class);
+	
+	public static SubmissionUtility createInstance(){
+		return new SubmissionUtility();
+	}
 
     // Static strategy map to switch go to different strategies
     private static Map<StrategyType, DetectionStrategy> strategyMap = new HashMap<>();

@@ -1,6 +1,10 @@
 package util;
 
 public class LevenshteinDistanceGeneratorUtility {
+	
+	public static LevenshteinDistanceGeneratorUtility createInstance(){
+		return new LevenshteinDistanceGeneratorUtility();
+	}
 
 	private LevenshteinDistanceGeneratorUtility() {
 

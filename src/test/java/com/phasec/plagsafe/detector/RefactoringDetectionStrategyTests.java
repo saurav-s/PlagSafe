@@ -29,6 +29,8 @@ public class RefactoringDetectionStrategyTests {
 
 	@Test
 	public void testCompleteRedundantInput() {
+		
+		refactoringDetectionStrategy.updateRequestCount();
 
 		Submission student1sub1 = new Submission("File1", "Today is a great day", null);
 		Submission student1sub2 = new Submission("File2", "It has been snowing continously", null);
