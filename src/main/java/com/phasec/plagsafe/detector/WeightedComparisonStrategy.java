@@ -8,14 +8,12 @@ import org.slf4j.LoggerFactory;
 import util.SubmissionUtility;
 import util.WeightPropertyReader;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.phasec.plagsafe.models.StrategyType.*;
 
 public class WeightedComparisonStrategy implements DetectionStrategy {
-    private static Logger logger = LoggerFactory.getLogger(WeightedComparisonStrategy.class);
 
     private static final String MATCHING_REMARK = "Weighted comparison result of all comparison";
 
