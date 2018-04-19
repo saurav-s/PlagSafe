@@ -35,9 +35,9 @@ public class UtilTest {
 	@Test
 	public void test_WeightPropertyReader_setRenaming_weight(){
 		WeightPropertyReader object = WeightPropertyReader.makeReaderObject();
-		object.setRenaming_weight(13);
+		object.setRenamingWeight(13);
 		
-		int obtainedRenamingWeight = object.getRenaming_weight();
+		int obtainedRenamingWeight = object.getRenamingWeight();
 		assertEquals(obtainedRenamingWeight, 13);
 		
 	}
@@ -45,9 +45,9 @@ public class UtilTest {
 	@Test
 	public void test_WeightPropertyReader_setLogical_weight(){
 		WeightPropertyReader object = WeightPropertyReader.makeReaderObject();
-		object.setLogical_weight(33);
+		object.setLogicalWeight(33);
 		
-		int obtainedLogicalWeight = object.getLogical_weight();
+		int obtainedLogicalWeight = object.getLogicalWeight();
 		assertEquals(obtainedLogicalWeight, 33);
 		
 	}
@@ -55,9 +55,9 @@ public class UtilTest {
 	@Test
 	public void test_WeightPropertyReader_setRefactoring_weight(){
 		WeightPropertyReader object = WeightPropertyReader.makeReaderObject();
-		object.setRefactoring_weight(23);
+		object.setRefactoringWeight(23);
 		
-		int obtainedLogicalWeight = object.getRefactoring_weight();
+		int obtainedLogicalWeight = object.getRefactoringWeight();
 		assertEquals(obtainedLogicalWeight, 23);
 		
 	}

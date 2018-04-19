@@ -44,12 +44,12 @@ public class WeightedComparisonStrategy implements DetectionStrategy {
                     logger.error("Weight properties could not be read properly");
                 }
 
-                int weightSum = (prop.getLogical_weight() + prop.getRefactoring_weight() + prop.getRenaming_weight());
+                int weightSum = (prop.getLogicalWeight() + prop.getRefactoringWeight() + prop.getRenamingWeight());
                 logger.info("Normalizing the polynomial result " + weightSum);
 
-                int sum =   (prop.getLogical_weight() * logicalMatch) +
-                        (prop.getRefactoring_weight() * refactoringMatch) +
-                        (prop.getRenaming_weight() * renamingMatch);
+                int sum =   (prop.getLogicalWeight() * logicalMatch) +
+                        (prop.getRefactoringWeight() * refactoringMatch) +
+                        (prop.getRenamingWeight() * renamingMatch);
                 int normalizedSum = sum/(weightSum == 0?1:weightSum);
 
                 reportList.add(new Report(sub1file.getName(), sub2file.getName(), normalizedSum, MATCHING_REMARK));
