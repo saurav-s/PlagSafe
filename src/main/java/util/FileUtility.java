@@ -7,10 +7,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.phasec.plagsafe.objects.FileModel;
-import com.phasec.plagsafe.objects.FileRecord;
-import com.phasec.plagsafe.objects.SubmissionRecord;
-import org.springframework.beans.factory.annotation.Value;
+import com.phasec.plagsafe.models.FileModel;
+import com.phasec.plagsafe.models.FileRecord;
+import com.phasec.plagsafe.models.SubmissionRecord;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtility {

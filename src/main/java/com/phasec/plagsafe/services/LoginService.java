@@ -1,9 +1,10 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
 /**
  * Login service
  */
-import com.phasec.plagsafe.objects.UserObject;
+import com.phasec.plagsafe.models.UserRepository;
+import com.phasec.plagsafe.models.UserObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

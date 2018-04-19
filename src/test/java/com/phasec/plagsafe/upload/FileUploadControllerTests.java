@@ -29,11 +29,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.google.gson.Gson;
-import com.phasec.plagsafe.ComparisonService;
-import com.phasec.plagsafe.FileUploadController;
-import com.phasec.plagsafe.StorageService;
-import com.phasec.plagsafe.StrategyType;
-import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.services.ComparisonService;
+import com.phasec.plagsafe.controllers.FileUploadController;
+import com.phasec.plagsafe.services.StorageService;
+import com.phasec.plagsafe.models.StrategyType;
+import com.phasec.plagsafe.models.Report;
 
 /**
  * test cases for RestUploadController

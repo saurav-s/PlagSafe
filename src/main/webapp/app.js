@@ -16,7 +16,7 @@ app.config(function($routeProvider,$windowProvider) {
 			}
 		},
 		templateUrl : 'views/upload.html'
-	}).when('/system', {
+	}).when('/services', {
 		templateUrl : 'views/system_stats.html'
 	});
 });

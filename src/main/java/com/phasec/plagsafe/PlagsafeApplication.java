@@ -2,6 +2,7 @@ package com.phasec.plagsafe;
 
 import javax.annotation.Resource;
 
+import com.phasec.plagsafe.services.StorageService;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.springframework.boot.CommandLineRunner;
@@ -11,13 +12,13 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.services.SystemStatisticsService;
 
 @SpringBootApplication
 public class PlagsafeApplication  implements CommandLineRunner{
 
 	@Resource
-	StorageService storageService;
+    StorageService storageService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PlagsafeApplication.class, args);

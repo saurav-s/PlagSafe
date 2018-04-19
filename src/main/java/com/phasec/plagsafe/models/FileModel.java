@@ -1,4 +1,4 @@
-package com.phasec.plagsafe.objects;
+package com.phasec.plagsafe.models;
 
 import java.io.File;
 

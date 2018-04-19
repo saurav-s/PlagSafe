@@ -1,9 +1,8 @@
 package com.phasec.plagsafe.util;
 
-import com.phasec.plagsafe.objects.FileModel;
-import com.phasec.plagsafe.objects.FileRecord;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
-import com.phasec.plagsafe.objects.SubmissionRecord;
+import com.phasec.plagsafe.models.FileModel;
+import com.phasec.plagsafe.models.FileRecord;
+import com.phasec.plagsafe.models.SubmissionRecord;
 import org.junit.Assert;
 import org.junit.Test;
 import util.FileUtility;

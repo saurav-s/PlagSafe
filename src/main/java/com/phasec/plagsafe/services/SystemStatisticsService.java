@@ -1,4 +1,4 @@
-package com.phasec.plagsafe.system;
+package com.phasec.plagsafe.services;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,11 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.phasec.plagsafe.objects.SystemUsageInfo;
+import com.phasec.plagsafe.models.SystemUsageInfo;
 
 /**
  * 
- * This class interacts with system usage information 
+ * This class interacts with services usage information
  *
  */
 @Service
@@ -29,10 +29,10 @@ public class SystemStatisticsService implements Serializable {
 	// serialized file location
 	private static final String FILE_PATH = "upload-dir/stats.ser";
 
-	// start date of the system
+	// start date of the services
 	private static String systemStartDate;
 
-	// previous use of the system
+	// previous use of the services
 	private static String systemLastUsed;
 
 
@@ -55,7 +55,7 @@ public class SystemStatisticsService implements Serializable {
 		systemLastUsed = getCurrentDateString();
 	}
 
-	// total number of times the system has run since the start date
+	// total number of times the services has run since the start date
 	private static int totalRuns;
 
 
@@ -112,7 +112,7 @@ public class SystemStatisticsService implements Serializable {
 		maxSystemLoad = Math.max(maxSystemLoad, currentLoad);
 	}
 
-	// number of times the system has crashed
+	// number of times the services has crashed
 	private static int systemFailures;
 
 
@@ -140,15 +140,17 @@ public class SystemStatisticsService implements Serializable {
 	 */
 
 	public static SystemStatisticsService initializeSystemStatistics() {
-		if (statsInstance == null)
+		if (statsInstance == null) {
+			logger.info("Creating a new stats object");
 			statsInstance = new SystemStatisticsService();
+		}
 		return statsInstance;
 	}
 
 
 
 	/**
-	 * to be used if the system stats need to be reset
+	 * to be used if the services stats need to be reset
 	 */
 	public void resetSystemStats() {
 		resetStats();
@@ -227,7 +229,7 @@ public class SystemStatisticsService implements Serializable {
 	@Override
 	public String toString() {
 		return "System started on:\t\t" + systemStartDate + "\n" + "System last run on:\t\t" + systemLastUsed + "\n"
-				+ "Total system runs\t\t" + totalRuns + "\n" + "Logical comparison strategy requests:\t\t"
+				+ "Total services runs\t\t" + totalRuns + "\n" + "Logical comparison strategy requests:\t\t"
 				+ logicalComparisonRequested + "\n" + "Renaming comparison strategy requests:\t\t"
 				+ renamingComparisonRequested + "\n" + "Refactoring comparison strategy requests:\t\t"
 				+ refactoringComparisonRequested + "\n" + "Weighted comparison strategy requests:\t\t"

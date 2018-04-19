@@ -1,4 +1,4 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
 /**
  * Provides a mechanism to send emails 

@@ -1,9 +1,9 @@
-package com.phasec.plagsafe.objects;
+package com.phasec.plagsafe.models;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.services.SystemStatisticsService;
 
 
 public class SystemStatisticsServiceTests {

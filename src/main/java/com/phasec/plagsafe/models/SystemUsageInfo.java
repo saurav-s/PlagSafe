@@ -1,7 +1,7 @@
-package com.phasec.plagsafe.objects;
+package com.phasec.plagsafe.models;
 
 /**
- * A model for system usage information
+ * A model for services usage information
  */
 public class SystemUsageInfo {
 	

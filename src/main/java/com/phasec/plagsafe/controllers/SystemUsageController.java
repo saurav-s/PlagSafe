@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.phasec.plagsafe.objects.SystemUsageInfo;
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.models.SystemUsageInfo;
+import com.phasec.plagsafe.services.SystemStatisticsService;
 
 
 @RestController
@@ -15,9 +15,8 @@ public class SystemUsageController {
 	private static Logger logger = LoggerFactory.getLogger(SystemUsageController.class);
 
 
-
 	/**
-	 * get controller method to receive the system stats request @return @throws
+	 * get controller method to receive the services stats request @return @throws
 	 */
 	@GetMapping("/api/system/usage")
 	public SystemUsageInfo getSystemUsageStatistics() {
@@ -32,7 +31,7 @@ public class SystemUsageController {
 
 		logger.info(systemStats.toString());
 
-		// returns system statistics
+		// returns services statistics
 		return systemStats;
 	}
 

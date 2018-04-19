@@ -1,4 +1,5 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.controllers;
+import com.phasec.plagsafe.services.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Controller for login functionality
  */
-import com.phasec.plagsafe.objects.UserObject;
+import com.phasec.plagsafe.models.UserObject;
 
 
 @RestController

@@ -1,4 +1,4 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.phasec.plagsafe.services.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -26,7 +27,7 @@ public class StorageServiceImpl implements StorageService {
 
 	Logger log = LoggerFactory.getLogger(this.getClass().getName());
 	
-	// root location where files will be stored on the system
+	// root location where files will be stored on the services
 	private final Path rootLocation = Paths.get("upload-dir");
 
 
@@ -123,7 +124,7 @@ public class StorageServiceImpl implements StorageService {
 
 
 	/**
-	 * delete all the files in the store system
+	 * delete all the files in the store services
 	 */
 	@Override
 	public void deleteAll() {

@@ -1,7 +1,7 @@
 package util;
 
 import com.google.gson.Gson;
-import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.models.Report;
 
 import java.util.List;
 

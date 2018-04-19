@@ -7,6 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.controllers.ClassSubmissionController;
+import com.phasec.plagsafe.services.ClassSubmissionService;
+import com.phasec.plagsafe.services.StorageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.models.Report;
 
 
 /**

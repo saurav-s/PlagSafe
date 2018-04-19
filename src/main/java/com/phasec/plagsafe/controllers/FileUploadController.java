@@ -1,4 +1,4 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.phasec.plagsafe.services.ComparisonService;
+import com.phasec.plagsafe.services.StorageService;
+import com.phasec.plagsafe.models.StrategyType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.google.gson.Gson;
-import com.phasec.plagsafe.objects.FileRecord;
-import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.models.FileRecord;
+import com.phasec.plagsafe.models.Report;
 
 
 /**
@@ -39,10 +42,10 @@ import com.phasec.plagsafe.objects.Report;
 public class FileUploadController {
 
 	@Autowired
-	StorageService storageService;
+    StorageService storageService;
 
 	@Autowired
-	ComparisonService comparisonService;
+    ComparisonService comparisonService;
 
 	private List<String> files = new ArrayList<>();
 	private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
@@ -60,7 +63,7 @@ public class FileUploadController {
 	 * @param fileList2 the second directory inside which all the files will be
 	 *            uploaded
 	 * @param strategy
-	 * @return a JSON string containing List of reports objects
+	 * @return a JSON string containing List of reports models
 	 */
 	@PostMapping("/uploadfile")
 	public String uploadFileMulti(@RequestParam("uploadfile1") MultipartFile[] fileList1,

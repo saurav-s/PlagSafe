@@ -2,9 +2,9 @@ package com.phasec.plagsafe.detector;
 
 import java.util.List;
 
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
+import com.phasec.plagsafe.services.SystemStatisticsService;
 
 public interface DetectionStrategy {
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2);

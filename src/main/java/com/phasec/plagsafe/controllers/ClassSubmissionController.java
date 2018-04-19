@@ -1,5 +1,6 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.controllers;
 
+import com.phasec.plagsafe.services.ClassSubmissionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.phasec.plagsafe.system.SystemStatisticsService;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class ClassSubmissionController {
      * @param submissions list of class submission files
      * @param paths their corresponding relative paths
      * @param strategy comparison strategy demanded
-     * @return a JSON string containing the list of report objects
+     * @return a JSON string containing the list of report models
      */
     @PostMapping("submissions")
     public String uploadClassSubmissions(@RequestParam("submissionFiles") MultipartFile[] submissions,
@@ -35,7 +34,7 @@ public class ClassSubmissionController {
                                          @RequestParam("strategy") String strategy)
     {
 
-        //update system stats
+        //update services stats
         submissionService.updateSystemStats(submissions, strategy);
 
         // pass the received info to a service for further processing and computations

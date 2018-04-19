@@ -3,11 +3,11 @@ package com.phasec.plagsafe.detector;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.services.SystemStatisticsService;
 import org.springframework.stereotype.Service;
 
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
 
 import util.LevenshteinDistanceGeneratorUtility;
 import util.SubmissionUtility;

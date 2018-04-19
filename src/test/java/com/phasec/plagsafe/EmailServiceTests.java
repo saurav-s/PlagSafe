@@ -1,6 +1,7 @@
 package com.phasec.plagsafe;
 
 
+import com.phasec.plagsafe.services.EmailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class EmailServiceTests {
 	
 	@Autowired
-	EmailService service;
+    EmailService service;
 	
 	
 	@Test

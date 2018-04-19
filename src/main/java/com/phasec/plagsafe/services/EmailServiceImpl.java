@@ -1,7 +1,8 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
 import java.util.List;
 
+import com.phasec.plagsafe.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;

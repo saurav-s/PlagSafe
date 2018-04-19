@@ -1,4 +1,4 @@
-package com.phasec.plagsafe.objects;
+package com.phasec.plagsafe.models;
 
 import static org.junit.Assert.assertEquals;
 

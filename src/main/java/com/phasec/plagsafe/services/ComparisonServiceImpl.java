@@ -1,16 +1,17 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.phasec.plagsafe.models.StrategyType;
 import org.springframework.stereotype.Service;
 
 import com.phasec.plagsafe.detector.DetectionEngine;
 import com.phasec.plagsafe.detector.Engine;
-import com.phasec.plagsafe.objects.FileRecord;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissionRecord;
+import com.phasec.plagsafe.models.FileRecord;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissionRecord;
 
 import util.FileUtility;
 

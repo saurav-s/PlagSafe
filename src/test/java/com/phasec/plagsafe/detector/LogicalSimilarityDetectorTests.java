@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.phasec.plagsafe.ComparisonService;
+import com.phasec.plagsafe.services.ComparisonService;
 import com.phasec.plagsafe.PlagsafeApplication;
-import com.phasec.plagsafe.StrategyType;
-import com.phasec.plagsafe.objects.FileModel;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissionRecord;
+import com.phasec.plagsafe.models.StrategyType;
+import com.phasec.plagsafe.models.FileModel;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissionRecord;
 
 
 @RunWith(SpringRunner.class)

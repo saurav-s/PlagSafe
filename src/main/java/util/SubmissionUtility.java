@@ -1,10 +1,10 @@
 package util;
 
-import com.phasec.plagsafe.StrategyType;
+import com.phasec.plagsafe.models.StrategyType;
 import com.phasec.plagsafe.antlr.AntlrDriver;
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
 import com.phasec.plagsafe.detector.*;
-import com.phasec.plagsafe.objects.FileModel;
+import com.phasec.plagsafe.models.FileModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +16,8 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.phasec.plagsafe.StrategyType.*;
-import static com.phasec.plagsafe.StrategyType.COMBINED;
+import static com.phasec.plagsafe.models.StrategyType.*;
+import static com.phasec.plagsafe.models.StrategyType.COMBINED;
 
 /**
  * This class implements the general utilities that are required with every submission

@@ -8,6 +8,9 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.models.StrategyType;
+import com.phasec.plagsafe.services.ClassSubmissionService;
+import com.phasec.plagsafe.services.ComparisonService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +20,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.phasec.plagsafe.objects.FileRecord;
-import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.models.FileRecord;
+import com.phasec.plagsafe.models.Report;
 
 
 /**
@@ -30,7 +33,7 @@ import com.phasec.plagsafe.objects.Report;
 public class ClassSubmissionServiceTests {
 
 	@Autowired
-	ClassSubmissionService submissionService;
+    ClassSubmissionService submissionService;
 
 	@MockBean
 	ComparisonService comparisonService;
@@ -90,19 +93,4 @@ public class ClassSubmissionServiceTests {
 		String responseMessage = submissionService.initializeAndCompare(submissions, paths, strategy);
 		assertEquals("\"Error occurred while uploading the file \"", responseMessage);
 	}
-
-
-
-	/**
-	 * Test for reformat File names
-	 */
-	@Test
-	public void test_reformatFileNames() {
-		List<Report> mockReportList = new ArrayList<>();
-		Report report1 = new Report("Today is a good day", "Today is Firday", 92, "Similarities detected");
-		mockReportList.add(report1);
-		submissionService.reformatFilenames(mockReportList);
-
-	}
-
 }

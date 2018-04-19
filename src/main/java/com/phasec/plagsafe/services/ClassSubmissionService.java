@@ -1,9 +1,9 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
+import com.phasec.plagsafe.models.StrategyType;
 import com.phasec.plagsafe.detector.*;
-import com.phasec.plagsafe.objects.FileRecord;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.models.FileRecord;
+import com.phasec.plagsafe.models.Report;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.*;
-
-import static com.phasec.plagsafe.StrategyType.*;
-import static com.phasec.plagsafe.StrategyType.COMBINED;
 
 @Service
 public class ClassSubmissionService {
@@ -203,16 +200,18 @@ public class ClassSubmissionService {
     }
 
     /**
-     * updates system stats
+     * updates services stats
      * @param submissions multipart file submissions received
      *
      */
     public void updateSystemStats(MultipartFile[] submissions, String strategy) {
         SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
         stats.loadSystemStats();
+
+        stats.updateSystemLastUsed();
         stats.incrementTotalRunsBy(1);
 
-        // increment system load based on python file count in the submission
+        // increment services load based on python file count in the submission
         int validCount = 0;
         for(MultipartFile submission : submissions) {
             if (FileUtility.validFileType(submission, validTypes)) {
@@ -220,7 +219,7 @@ public class ClassSubmissionService {
             }
         }
 
-        // update system load stats
+        // update services load stats
         stats.incrementTotalFilesComparedBy(validCount);
         stats.updateMaxLoad(validCount);
 

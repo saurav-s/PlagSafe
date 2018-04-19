@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 
+import com.phasec.plagsafe.services.StorageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class StorageServiceTests {
 
 	@Autowired
-	StorageService service;
+    StorageService service;
 
 
 

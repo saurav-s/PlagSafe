@@ -1,8 +1,8 @@
 package com.phasec.plagsafe.detector;
 
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
+import com.phasec.plagsafe.services.SystemStatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.SubmissionUtility;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.phasec.plagsafe.StrategyType.*;
+import static com.phasec.plagsafe.models.StrategyType.*;
 
 public class WeightedComparisonStrategy implements DetectionStrategy {
     private static Logger logger = LoggerFactory.getLogger(WeightedComparisonStrategy.class);
@@ -72,9 +72,9 @@ public class WeightedComparisonStrategy implements DetectionStrategy {
     }
 
     /**
-     * updates the system stat for weighted comparison request
+     * updates the services stat for weighted comparison request
      *
-     * @param stats system stats that needs updating
+     * @param stats services stats that needs updating
      */
     @Override
     public void updateRequestCount(SystemStatisticsService stats) {

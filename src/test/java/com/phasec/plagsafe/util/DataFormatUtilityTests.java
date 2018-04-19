@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.models.Report;
 
 import util.DataFormatUtility;
 

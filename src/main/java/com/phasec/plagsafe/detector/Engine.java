@@ -2,9 +2,9 @@ package com.phasec.plagsafe.detector;
 
 import java.util.List;
 
-import com.phasec.plagsafe.StrategyType;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissionRecord;
+import com.phasec.plagsafe.models.StrategyType;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissionRecord;
 
 /**
  * This is the interface to abstract the plagiarism detection run for all the submissions

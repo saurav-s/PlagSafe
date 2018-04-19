@@ -1,4 +1,4 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,7 +50,7 @@ public interface StorageService {
 
 
 	/**
-	 * delete all the files in the store system
+	 * delete all the files in the store services
 	 */
 	void deleteAll();
 

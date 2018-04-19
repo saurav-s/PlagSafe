@@ -1,10 +1,11 @@
-package com.phasec.plagsafe;
+package com.phasec.plagsafe.services;
 
 import java.util.List;
 
-import com.phasec.plagsafe.objects.FileRecord;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissionRecord;
+import com.phasec.plagsafe.models.StrategyType;
+import com.phasec.plagsafe.models.FileRecord;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissionRecord;
 
 /**
  * Interface for comparing files

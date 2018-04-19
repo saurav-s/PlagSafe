@@ -1,4 +1,4 @@
-package com.phasec.plagsafe.objects;
+package com.phasec.plagsafe.models;
 
 import com.phasec.plagsafe.detector.Submissible;
 import org.junit.Assert;

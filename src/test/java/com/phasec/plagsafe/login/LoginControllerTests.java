@@ -14,10 +14,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.phasec.plagsafe.LoginController;
-import com.phasec.plagsafe.LoginService;
-import com.phasec.plagsafe.StorageService;
-import com.phasec.plagsafe.objects.UserObject;
+import com.phasec.plagsafe.controllers.LoginController;
+import com.phasec.plagsafe.services.LoginService;
+import com.phasec.plagsafe.services.StorageService;
+import com.phasec.plagsafe.models.UserObject;
 
 /**
  * Tests for login controller class

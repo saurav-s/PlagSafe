@@ -13,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.phasec.plagsafe.PlagsafeApplication;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
 
 
 @RunWith(SpringRunner.class)
