@@ -26,7 +26,6 @@ public class SystemUsageController {
 		SystemStatisticsService service = SystemStatisticsService.initializeSystemStatistics();
 		// load the stats
 		SystemUsageInfo systemStats = service.loadSystemStats();
-		logger.info(systemStats.toString());
 
 		// returns services statistics
 		return systemStats;

@@ -26,12 +26,6 @@ import org.slf4j.LoggerFactory;
  */
 public class AntlrDriver {
 
-    private Logger log;
-
-    public AntlrDriver(){
-        log = LoggerFactory.getLogger(this.getClass().getName());
-    }
-
 	/**
 	 * Responsible for file reading operations
 	 * 

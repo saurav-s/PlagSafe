@@ -1,6 +1,5 @@
 package com.phasec.plagsafe.controllers;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -10,8 +9,6 @@ import java.util.stream.Collectors;
 import com.phasec.plagsafe.services.ClassSubmissionService;
 import com.phasec.plagsafe.services.ComparisonService;
 import com.phasec.plagsafe.services.StorageService;
-import com.phasec.plagsafe.models.StrategyType;
-import com.phasec.plagsafe.services.SystemStatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import com.google.gson.Gson;
-import com.phasec.plagsafe.models.FileRecord;
-import com.phasec.plagsafe.models.Report;
 import util.DataFormatUtility;
 
 

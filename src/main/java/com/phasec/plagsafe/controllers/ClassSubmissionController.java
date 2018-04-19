@@ -1,7 +1,6 @@
 package com.phasec.plagsafe.controllers;
 
 import com.phasec.plagsafe.services.ClassSubmissionService;
-import com.phasec.plagsafe.services.SystemStatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
