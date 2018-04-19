@@ -36,7 +36,7 @@ public class SubmissionUtility {
         STRATEGY_MAP.put(LOGICAL, new LogicalSimilarityDetectionStrategy());
         STRATEGY_MAP.put(RENAMING, new RenamingDetectionStrategy());
         STRATEGY_MAP.put(REFACTORING, new RefactoringDetectionStrategy());
-        STRATEGY_MAP.put(ALL, null);
+        STRATEGY_MAP.put(ALL, new AllComparisonStrategies());
         STRATEGY_MAP.put(COMBINED, null);
     }
 
@@ -51,7 +51,6 @@ public class SubmissionUtility {
         submission.setName(file.getFileName());
         submission.setCode(readFile(file.getFileData()));
         submission.setAst(generateAST(file.getFileData()));
-        logger.info(submission.toString());
         return submission;
     }
 

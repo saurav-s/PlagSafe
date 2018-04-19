@@ -12,6 +12,7 @@ import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
 import com.phasec.plagsafe.system.SystemStatisticsService;
 
+import util.SubmissionUtility;
 import util.WeightPropertyReader;
 
 public class SubmissionCompare implements SubmissionComparable {
@@ -21,25 +22,8 @@ public class SubmissionCompare implements SubmissionComparable {
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2, StrategyType comparisonStrategy) {
         List<Report> matchReportList = new ArrayList<>();
-		SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
-        switch(comparisonStrategy) {
-        		case RENAMING:
-        			matchReportList = compareRenaming(submission1, submission2);
-        			break;
-        		case LOGICAL:
-        			matchReportList = compareLogic(submission1, submission2);
-        			break;
-        		case REFACTORING:
-        			matchReportList = compareRefactoring(submission1, submission2);
-        			break;
-        		case ALL:
-        			matchReportList = compareAll(submission1, submission2);
-        			break;
-        		case COMBINED:
-        			matchReportList = compareCombined(submission1, submission2);
-        			break;
-        }
-        return matchReportList;
+		ComparisonContext context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(comparisonStrategy));
+        return context.compare(submission1, submission2);
     }
 
  
@@ -102,8 +86,8 @@ public class SubmissionCompare implements SubmissionComparable {
 		matchReportList.addAll(compareRefactoring(submission1, submission2));
 		return matchReportList;
 	}
-	
-	
+
+
 	/**
 	 * comparing for code refactoring
 	 * @param submission1
