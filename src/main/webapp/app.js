@@ -3,6 +3,8 @@ var app = angular.module('PlagsafeApp', [ 'ngRoute', 'ngFileUpload' ]);
 app.config(function($routeProvider,$windowProvider) {
 	$routeProvider.when('/', {
 		templateUrl : 'views/login.html'
+	}).when('/registration', {
+		templateUrl : 'views/registration.html',
 	}).when('/upload', {
 		resolve : {
 			"check" : function($location, $rootScope) {
@@ -24,6 +26,11 @@ app.config(function($routeProvider,$windowProvider) {
 app.controller(
 				'LoginController',
 				function($scope, $location, $rootScope, LoginService, $http, $window) {
+					
+					$scope.registerUser = function() {
+						$location.path('/registration');
+					}
+					
 					$scope.submit = function() {
 						var username = $scope.username;
 						var password = $scope.password;
@@ -35,7 +42,7 @@ app.controller(
 										function(value) {
 											var user = value.data;
 											if (user != undefined
-													&& user.userName !== undefined) {
+													&& user.email !== undefined) {
 												$rootScope.loggedIn = true;
 												$rootScope.userName = username
 												$window.localStorage.setItem("currentUser", username);
@@ -75,7 +82,7 @@ app.directive('fileModel', [ '$parse', function($parse) {
 
 app.controller('getFilesController', [ '$scope', '$http',
 		function($scope, $http) {
-			$scope.doGetFiles = function() {
+			$scope.doGetFiles = function($user) {
 				var url = "/api/getallfiles";
 				$http.get(url).then(function(response) {
 					$scope.lstFiles = response.data;
@@ -84,6 +91,33 @@ app.controller('getFilesController', [ '$scope', '$http',
 				});
 			};
 		} ]);
+
+
+app.controller('RegistrationController', [ '$scope', '$http','$rootScope','$timeout','$location',
+	function($scope, $http, $rootScope, $timeout, $location) {
+		$scope.showSucccessMessage = false;
+			$scope.doRegister = function($user) {
+				$http({
+					method : 'POST',
+					url : '/user/registration',
+					params : {
+						email : $user.email,
+						password : $user.password,
+						firstName : $user.firstName,
+						lastName : $user.lastName,
+						confirmEmail : $user.confirmEmail
+					},
+					headers : 'Accept:application/json'
+				}).then(function(response) {
+					$scope.showSucccessMessage = true;
+					$timeout();
+					$location.path('/');
+				});
+		};
+		
+		$timeout(function() {
+		}, 5000);
+	} ]);
 
 app.controller('UploadFileController', [
 		'$scope',
