@@ -12,7 +12,7 @@ public class SystemStatisticsServiceTests {
 	
 	@Before
 	public void setUp(){
-		instance = SystemStatisticsService.initializeSystemStatistics();
+		instance = SystemStatisticsService.getSystemStatInstance();
 	}
 	
 	@Test
