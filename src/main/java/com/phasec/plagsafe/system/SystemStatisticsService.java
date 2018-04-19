@@ -194,6 +194,7 @@ public class SystemStatisticsService implements Serializable {
 	public SystemUsageInfo loadSystemStats() {
 		ObjectInputStream input = null;
 		try (FileInputStream inputFile = new FileInputStream(FILE_PATH)) {
+			logger.info("stats location " + FILE_PATH);
 			input = new ObjectInputStream(inputFile);
 			statsInstance = (SystemStatisticsService) input.readObject();
 			return getCurrentSystemUsageInfo();
