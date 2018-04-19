@@ -19,7 +19,7 @@ public class ASTPrinter {
 	// member variable
 	private boolean ignoringWrappers = true;
 
-    public void ASTString(RuleContext ctx, StringBuilder sb) {
+    public void astString(RuleContext ctx, StringBuilder sb) {
         buildASTString(ctx, sb, 0);
     }
 

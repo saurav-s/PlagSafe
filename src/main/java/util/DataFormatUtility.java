@@ -6,6 +6,10 @@ import com.phasec.plagsafe.models.Report;
 import java.util.List;
 
 public class DataFormatUtility {
+
+    private DataFormatUtility() {
+
+    }
     /**
      * get the JSON format of reports
      *

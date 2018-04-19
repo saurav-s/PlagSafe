@@ -2,9 +2,6 @@ package util;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class WeightPropertyReader {
 
     private static WeightPropertyReader readerObject;
@@ -33,7 +30,7 @@ public class WeightPropertyReader {
      *
      * @throws IOException
      */
-    public void loadComparisonProperties() throws IOException {
+    public void loadComparisonProperties() {
         this.renamingWeight = 2;
         this.refactoringWeight = 3;
         this.logicalWeight = 4;
@@ -45,23 +42,23 @@ public class WeightPropertyReader {
         return renamingWeight;
     }
 
-    public void setRenamingWeight(int renaming_weight) {
-        this.renamingWeight = renaming_weight;
+    public void setRenamingWeight(int renamingWeight) {
+        this.renamingWeight = renamingWeight;
     }
 
     public int getRefactoringWeight() {
         return refactoringWeight;
     }
 
-    public void setRefactoringWeight(int refactoring_weight) {
-        this.refactoringWeight = refactoring_weight;
+    public void setRefactoringWeight(int refactoringWeight) {
+        this.refactoringWeight = refactoringWeight;
     }
 
     public int getLogicalWeight() {
         return logicalWeight;
     }
 
-    public void setLogicalWeight(int logical_weight) {
-        this.logicalWeight = logical_weight;
+    public void setLogicalWeight(int logicalWeight) {
+        this.logicalWeight = logicalWeight;
     }
 }

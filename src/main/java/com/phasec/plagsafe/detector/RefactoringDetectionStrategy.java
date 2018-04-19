@@ -77,8 +77,8 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 	 */
 
 	@Override
-	public void updateRequestCount(SystemStatisticsService stats) {
-		stats.incrementRefactoringComparisonRequested(1);
+	public void updateRequestCount() {
+		SystemStatisticsService.incrementRefactoringComparisonRequested(1);
 	}
 
 	/**

@@ -75,8 +75,8 @@ public class RenamingDetectionStrategy implements DetectionStrategy {
 	 */
 
 	@Override
-	public void updateRequestCount(SystemStatisticsService stats) {
-		stats.incrementRenamingComparisonRequestedRunsBy(1);
+	public void updateRequestCount() {
+		SystemStatisticsService.incrementRenamingComparisonRequestedRunsBy(1);
 	}
 
 

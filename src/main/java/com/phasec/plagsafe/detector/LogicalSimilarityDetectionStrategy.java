@@ -65,8 +65,8 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
      */
 
 	@Override
-	public void updateRequestCount(SystemStatisticsService stats) {
-        stats.incrementLogicalComparisonRequestedBy(1);
+	public void updateRequestCount() {
+		SystemStatisticsService.incrementLogicalComparisonRequestedBy(1);
 	}
 
 
@@ -83,11 +83,11 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
 		ASTPrinter astIterator = new ASTPrinter();
 
 		StringBuilder sb = new StringBuilder();
-		astIterator.ASTString(sub1file.getAst(), sb);
+		astIterator.astString(sub1file.getAst(), sb);
 		String ast1String = sb.toString();
 
 		sb = new StringBuilder();
-		astIterator.ASTString(sub2file.getAst(), sb);
+		astIterator.astString(sub2file.getAst(), sb);
 		String ast2String = sb.toString();
 		int renameCount = SubmissionUtility.editDistance(ast1String, ast2String);
 		int averageFileLength = SubmissionUtility.getTotalSubmissionFileLength(ast1String, ast2String);

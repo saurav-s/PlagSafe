@@ -10,20 +10,24 @@ import java.util.List;
  */
 public class NGramGeneratorUtility {
 
+	private NGramGeneratorUtility() {
+
+	}
+
 	/**
 	 * Generates a list of N-grams from the input string and N
 	 * @param str
-	 * @param N
+	 * @param n
 	 * @return List of n-grams
 	 */
-	public static List<String> getNGramList(String str, int N){
+	public static List<String> getNGramList(String str, int n){
 		
 		str = str.replaceAll("\\s+", "");
 		char [] arr = str.toCharArray();
 		List<String> strList = new ArrayList<>();
 		for(int i=0; i<arr.length; i++){
 			StringBuilder sb = new StringBuilder();
-			for(int j=0; j<N; j++){
+			for(int j=0; j<n; j++){
 				if(i+j>=arr.length){
 					break;
 				}

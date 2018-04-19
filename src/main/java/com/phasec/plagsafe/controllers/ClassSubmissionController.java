@@ -42,7 +42,7 @@ public class ClassSubmissionController {
             // return the comparison result string
             return submissionService.initializeAndCompare(submissions, paths, strategy);
         } catch (Exception e) {
-            logger.error("Error occurred while uploading the files" + e.getMessage());
+            logger.error("Error occurred while uploading the files");
             submissionService.failureStatsUpdate();
             return DataFormatUtility.getJsonString("Error occurred while uploading the files");
         }

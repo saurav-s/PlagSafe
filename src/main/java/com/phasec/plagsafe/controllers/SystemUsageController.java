@@ -14,21 +14,19 @@ public class SystemUsageController {
 
 	private static Logger logger = LoggerFactory.getLogger(SystemUsageController.class);
 
+	private SystemUsageController() {
+	}
 
 	/**
 	 * get controller method to receive the services stats request @return @throws
 	 */
 	@GetMapping("/api/system/usage")
-	public SystemUsageInfo getSystemUsageStatistics() {
+	public static SystemUsageInfo getSystemUsageStatistics() {
 		// log the request
 		logger.info("System stats requested");
-		// get an instance
-		SystemStatisticsService service = SystemStatisticsService.initializeSystemStatistics();
-		// load the stats
-		SystemUsageInfo systemStats = service.loadSystemStats();
 
-		// returns services statistics
-		return systemStats;
+		// load the stats
+		return SystemStatisticsService.loadSystemStats();
 	}
 
 }

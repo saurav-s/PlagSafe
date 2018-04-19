@@ -37,7 +37,7 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	private String getCurrentDateString() {
+	private static String getCurrentDateString() {
 		// Create an instance of SimpleDateFormat used for formatting
 		// the string representation of date (month/day/year)
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -50,17 +50,14 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void updateSystemLastUsed() {
-
+	public static void updateSystemLastUsed() {
 		systemLastUsed = getCurrentDateString();
 	}
 
 	// total number of times the services has run since the start date
 	private static int totalRuns;
 
-
-
-	public void incrementTotalRunsBy(int i) {
+	public static void incrementTotalRunsBy(int i) {
 		totalRuns += i;
 	}
 
@@ -72,66 +69,50 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void incrementLogicalComparisonRequestedBy(int i) {
+	public static void incrementLogicalComparisonRequestedBy(int i) {
 		logicalComparisonRequested += i;
 	}
 
-
-
-	public void incrementRenamingComparisonRequestedRunsBy(int i) {
+	public static void incrementRenamingComparisonRequestedRunsBy(int i) {
 		renamingComparisonRequested += i;
 	}
 
-
-
-	public void incrementRefactoringComparisonRequested(int i) {
+	public static void incrementRefactoringComparisonRequested(int i) {
 		refactoringComparisonRequested += i;
 	}
 
-
-
-	public void incrementWeightedComparisonRequestedRunsBy(int i) {
+	public static void incrementWeightedComparisonRequestedRunsBy(int i) {
 		weightedComparisonRequested += i;
 	}
 
 	// count of total number of files compared
 	private static int totalFilesCompared;
 
-
-
-	public void incrementTotalFilesComparedBy(int i) {
+	public static void incrementTotalFilesComparedBy(int i) {
 		totalFilesCompared += i;
 	}
 
 	// maximum number of files compared in a single run
 	private static int maxSystemLoad;
 
-
-
-	public void updateMaxLoad(int currentLoad) {
+	public static void updateMaxLoad(int currentLoad) {
 		maxSystemLoad = Math.max(maxSystemLoad, currentLoad);
 	}
 
 	// number of times the services has crashed
 	private static int systemFailures;
 
-
-
-	public void incrementSystemFailuresBy(int i) {
+	public static void incrementSystemFailuresBy(int i) {
 		systemFailures += i;
 	}
 
 	private static SystemStatisticsService statsInstance;
-
-
 
 	/**
 	 * de-serialize data usage data in this method
 	 */
 	private SystemStatisticsService() {
 	}
-
-
 
 	/**
 	 * method to make sure only one instance of the object gets passed
@@ -163,7 +144,7 @@ public class SystemStatisticsService implements Serializable {
 	 * resets all data members to counts to 0, and dates to today's date for the
 	 * data members
 	 */
-	private void resetStats() {
+	private static void resetStats() {
 		systemStartDate = getCurrentDateString();
 		systemLastUsed = getCurrentDateString();
 		totalRuns = 0;
@@ -181,34 +162,33 @@ public class SystemStatisticsService implements Serializable {
 	/**
 	 * Serializes this object
 	 */
-	public void serializeStats() {
+	public static void serializeStats() {
 		try (FileOutputStream outputFile = new FileOutputStream(FILE_PATH);
 				ObjectOutputStream out = new ObjectOutputStream(outputFile);) {
 			out.writeObject(statsInstance);
 
 		} catch (IOException e) {
-			logger.error("Object serialization exception " + e);
+			logger.error("Object serialization exception ", e);
 		}
 	}
 
 
-
-	public SystemUsageInfo loadSystemStats() {
+	/*
+	 * @return return system stats after loading
+	 */
+	public static SystemUsageInfo loadSystemStats() {
 		ObjectInputStream input = null;
 		try (FileInputStream inputFile = new FileInputStream(FILE_PATH)) {
-			logger.info("stats location " + FILE_PATH);
 			input = new ObjectInputStream(inputFile);
 			statsInstance = (SystemStatisticsService) input.readObject();
 			return getCurrentSystemUsageInfo();
 		} catch (IOException | ClassNotFoundException e) {
-			logger.error("Object deserialization exception " + e);
+			logger.error("Object deserialization exception ", e);
 			return new SystemUsageInfo();
-		} finally {
-			//logger.info("closing files in finally after closing");
 		}
 	}
 	
-	private SystemUsageInfo getCurrentSystemUsageInfo() {
+	private static SystemUsageInfo getCurrentSystemUsageInfo() {
 		SystemUsageInfo usageInfo = new SystemUsageInfo();
 		usageInfo.setLogicalComparisonRequested(logicalComparisonRequested);
 		usageInfo.setMaxSystemLoad(maxSystemLoad);
@@ -225,7 +205,10 @@ public class SystemStatisticsService implements Serializable {
 	}
 
 
-
+	/**
+	 * converts stats to string
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		return "System started on:\t\t" + systemStartDate + "\n" + "System last run on:\t\t" + systemLastUsed + "\n"
@@ -252,8 +235,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setTotalRuns(int totalRuns) {
-		this.totalRuns = totalRuns;
+	public static void setTotalRuns(int tr) {
+		totalRuns = tr;
 	}
 
 
@@ -264,8 +247,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setLogicalComparisonRequested(int logicalComparisonRequested) {
-		this.logicalComparisonRequested = logicalComparisonRequested;
+	public static void setLogicalComparisonRequested(int lcr) {
+		logicalComparisonRequested = lcr;
 	}
 
 
@@ -276,8 +259,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setRenamingComparisonRequested(int renamingComparisonRequested) {
-		this.renamingComparisonRequested = renamingComparisonRequested;
+	public static void setRenamingComparisonRequested(int rcr) {
+		renamingComparisonRequested = rcr;
 	}
 
 
@@ -288,8 +271,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setRefactoringComparisonRequested(int refactoringComparisonRequested) {
-		this.refactoringComparisonRequested = refactoringComparisonRequested;
+	public static void setRefactoringComparisonRequested(int rcr) {
+		refactoringComparisonRequested = rcr;
 	}
 
 
@@ -300,8 +283,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setWeightedComparisonRequested(int weightedComparisonRequested) {
-		this.weightedComparisonRequested = weightedComparisonRequested;
+	public static void setWeightedComparisonRequested(int wcr) {
+		weightedComparisonRequested = wcr;
 	}
 
 
@@ -312,8 +295,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setTotalFilesCompared(int totalFilesCompared) {
-		this.totalFilesCompared = totalFilesCompared;
+	public static void setTotalFilesCompared(int tfc) {
+		totalFilesCompared = tfc;
 	}
 
 
@@ -324,8 +307,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setMaxSystemLoad(int maxSystemLoad) {
-		this.maxSystemLoad = maxSystemLoad;
+	public static void setMaxSystemLoad(int msl) {
+		maxSystemLoad = msl;
 	}
 
 
@@ -336,8 +319,8 @@ public class SystemStatisticsService implements Serializable {
 
 
 
-	public void setSystemFailures(int systemFailures) {
-		this.systemFailures = systemFailures;
+	public static void setSystemFailures(int sf) {
+		systemFailures = sf;
 	}
 
 

@@ -29,19 +29,19 @@ public class SubmissionUtility {
 	private static Logger logger = LoggerFactory.getLogger(SubmissionUtility.class);
 
     // Static strategy map to switch go to different strategies
-    private static Map<StrategyType, DetectionStrategy> STRATEGY_MAP = new HashMap<>();
+    private static Map<StrategyType, DetectionStrategy> strategyMap = new HashMap<>();
 
     //adding known strategies to the map to be used by the application
     static {
-        STRATEGY_MAP.put(LOGICAL, new LogicalSimilarityDetectionStrategy());
-        STRATEGY_MAP.put(RENAMING, new RenamingDetectionStrategy());
-        STRATEGY_MAP.put(REFACTORING, new RefactoringDetectionStrategy());
-        STRATEGY_MAP.put(ALL, new AllComparisonStrategies());
-        STRATEGY_MAP.put(COMBINED, new WeightedComparisonStrategy());
+        strategyMap.put(LOGICAL, new LogicalSimilarityDetectionStrategy());
+        strategyMap.put(RENAMING, new RenamingDetectionStrategy());
+        strategyMap.put(REFACTORING, new RefactoringDetectionStrategy());
+        strategyMap.put(ALL, new AllComparisonStrategies());
+        strategyMap.put(COMBINED, new WeightedComparisonStrategy());
     }
 
     public static DetectionStrategy getDetectionStrategy(StrategyType key) {
-        return STRATEGY_MAP.get(key);
+        return strategyMap.get(key);
     }
 
 
@@ -68,7 +68,7 @@ public class SubmissionUtility {
         try(Scanner scanner = new Scanner(inputFile)) {
             text = scanner.useDelimiter("\\A").next();
         }catch (FileNotFoundException e){
-            logger.error("Error occurred while generating AST: " + e.getMessage());
+            logger.error("Error occurred while generating AST: ");
             return null;
         }
         return text;
@@ -86,7 +86,7 @@ public class SubmissionUtility {
             ast = antlrDriver.parseFile(submissionFile);
         }
         catch (IOException e) {
-            logger.error("Error occured while generating AST: " + e.getMessage());
+            logger.error("Error occured while generating AST");
             return null;
         }
 
@@ -100,28 +100,7 @@ public class SubmissionUtility {
      * @return count of changes to be made on the source string to get the target string
      */
     public static int editDistance(String source, String target) {
-        int [][]dp = new int [source.length()+1][target.length()+1];
-
-        dp[0][0]=0;
-        for(int i=1; i<dp.length; i++){
-            dp[i][0]=i;
-        }
-
-        for(int j=1; j<dp[0].length; j++){
-            dp[0][j]=j;
-        }
-
-        for(int i=1; i<dp.length; i++){
-            for(int j=1; j<dp[0].length; j++){
-                if(source.charAt(i-1)==target.charAt(j-1)){
-                    dp[i][j]=dp[i-1][j-1];
-                }
-                else{
-                    dp[i][j] = Math.min(dp[i-1][j-1], Math.min(dp[i-1][j], dp[i][j-1])) + 1;
-                }
-            }
-        }
-        return dp[dp.length-1][dp[0].length-1];
+        return LevenshteinDistanceGeneratorUtility.getLevenshteinDistance(source, target);
     }
 
     /**

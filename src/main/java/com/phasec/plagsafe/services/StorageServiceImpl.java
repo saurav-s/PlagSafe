@@ -42,7 +42,7 @@ public class StorageServiceImpl implements StorageService {
 		try {
 			Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
 		} catch (Exception e) {
-			log.error("StorageService.store() -> error while storing file. " + e.getMessage());
+			log.error("StorageService.store() -> error while storing file. ");
 		}
 	}
 
@@ -55,7 +55,7 @@ public class StorageServiceImpl implements StorageService {
 		    // copying the new file to the location
 		    Files.copy(file.getInputStream(), this.rootLocation.resolve(pathPrefix));
         } catch(Exception e) {
-		    log.error("StorageService.store() -> error while storing file. " + e.getMessage());
+		    log.error("StorageService.store() -> error while storing file. ");
         }
 	}
 
@@ -76,7 +76,7 @@ public class StorageServiceImpl implements StorageService {
 			validateResource(resource);
 			return path.toFile();
 		} catch (MalformedURLException e) {
-			log.error("StorageService.getFile() -> MalformedURL error while getting file. " + e.getMessage());
+			log.error("StorageService.getFile() -> MalformedURL error while getting file. ");
 			throw e;
 		}
 	}
@@ -116,7 +116,7 @@ public class StorageServiceImpl implements StorageService {
 			validateResource(resource);
 			return resource;
 		} catch (MalformedURLException e) {
-			log.error("StorageService.loadfile() -> MalformedURL error while storing file. " + e.getMessage());
+			log.error("StorageService.loadfile() -> MalformedURL error while storing file. ");
 			throw e;
 		}
 	}
@@ -141,7 +141,7 @@ public class StorageServiceImpl implements StorageService {
 		try {
 			Files.createDirectory(rootLocation);
 		} catch (IOException e) {
-			log.error("StorageService.store() -> IOException error while init." + e.getMessage());
+			log.error("StorageService.store() -> IOException error while init.");
 		}
 	}
 }

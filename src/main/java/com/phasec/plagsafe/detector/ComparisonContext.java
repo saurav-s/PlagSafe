@@ -48,5 +48,5 @@ public class ComparisonContext {
     /**
      * updates the request count of the strategy
      */
-    public void updateRequestCount(SystemStatisticsService stats) { strategy.updateRequestCount(stats); }
+    public void updateRequestCount() { strategy.updateRequestCount(); }
 }

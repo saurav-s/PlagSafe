@@ -52,12 +52,11 @@ public class AllComparisonStrategies implements DetectionStrategy{
     /**
      * update the stats for each of the strategies
      *
-     * @param stats stats to be updated
      */
     @Override
-    public void updateRequestCount(SystemStatisticsService stats) {
-        stats.incrementRenamingComparisonRequestedRunsBy(1);
-        stats.incrementRefactoringComparisonRequested(1);
-        stats.incrementLogicalComparisonRequestedBy(1);
+    public void updateRequestCount() {
+        SystemStatisticsService.incrementRenamingComparisonRequestedRunsBy(1);
+        SystemStatisticsService.incrementRefactoringComparisonRequested(1);
+        SystemStatisticsService.incrementLogicalComparisonRequestedBy(1);
     }
 }

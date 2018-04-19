@@ -1,6 +1,10 @@
 package util;
 
 public class LevenshteinDistanceGeneratorUtility {
+
+	private LevenshteinDistanceGeneratorUtility() {
+
+	}
 	
 	public static int getLevenshteinDistance(String str1, String str2) {
 

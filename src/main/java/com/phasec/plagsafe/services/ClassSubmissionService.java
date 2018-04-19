@@ -14,11 +14,11 @@ import util.DataFormatUtility;
 import util.FileUtility;
 import util.SubmissionUtility;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.*;
+import java.util.Map.*;
 
 @Service
 public class ClassSubmissionService {
@@ -60,7 +60,7 @@ public class ClassSubmissionService {
 
         } catch (Exception e) {
             // log the error
-            logger.error(FILE_UPLOAD_ERROR + e.getMessage());
+            logger.error(FILE_UPLOAD_ERROR, e.getMessage());
 
             // return upload error message
             return DataFormatUtility.getJsonString(FILE_UPLOAD_ERROR);
@@ -138,7 +138,7 @@ public class ClassSubmissionService {
         // divide list of files according to submissions
         Map<String, List<String>>  submissionMap = reorganizeSubmissionFiles(submissionFiles);
 
-        for(String submission : submissionMap.keySet()) {
+        for(Entry submission : submissionMap.entrySet()) {
             // make a record of files for this submission
             FileRecord record = makeRecordFiles(submissionMap.get(submission));
 
@@ -206,11 +206,11 @@ public class ClassSubmissionService {
      *
      */
     public void updateSystemStats(MultipartFile[] submissions, String strategy) {
-        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
-        stats.loadSystemStats();
 
-        stats.updateSystemLastUsed();
-        stats.incrementTotalRunsBy(1);
+        SystemStatisticsService.loadSystemStats();
+
+        SystemStatisticsService.updateSystemLastUsed();
+        SystemStatisticsService.incrementTotalRunsBy(1);
 
         // increment services load based on python file count in the submission
         int validCount = 0;
@@ -221,14 +221,14 @@ public class ClassSubmissionService {
         }
 
         // update services load stats
-        stats.incrementTotalFilesComparedBy(validCount);
-        stats.updateMaxLoad(validCount);
+        SystemStatisticsService.incrementTotalFilesComparedBy(validCount);
+        SystemStatisticsService.updateMaxLoad(validCount);
 
         // update strategy request load for the given strategy
         ComparisonContext context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(StrategyType.valueOf(strategy)));
-        context.updateRequestCount(stats);
+        context.updateRequestCount();
 
-        stats.serializeStats();
+        SystemStatisticsService.serializeStats();
     }
 
     /**
@@ -249,7 +249,7 @@ public class ClassSubmissionService {
         // adds the files to the submissions and paths from file list for submission 1
         int i = 0;
         for(MultipartFile file : fileList1) {
-            submissions[i] = fileList1[i];
+            submissions[i] = file;
             paths.add(i, path1List[i]);
             i++;
         }
@@ -257,7 +257,7 @@ public class ClassSubmissionService {
         //adds the files to the submissions and paths from file list for submission 2
         int j = 0;
         for(MultipartFile file : fileList2) {
-            submissions[i] = fileList2[j];
+            submissions[i] = file;
             paths.add(i, path2List[j]);
             j++; i++;
         }
@@ -274,13 +274,11 @@ public class ClassSubmissionService {
      * @return returns failure message
      */
     public void failureStatsUpdate() {
-        // update system failure stat
-        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
-        stats.loadSystemStats();
-        stats.incrementSystemFailuresBy(1);
+        SystemStatisticsService.loadSystemStats();
+        SystemStatisticsService.incrementSystemFailuresBy(1);
 
         //save updated value
-        stats.serializeStats();
+        SystemStatisticsService.serializeStats();
     }
 
 

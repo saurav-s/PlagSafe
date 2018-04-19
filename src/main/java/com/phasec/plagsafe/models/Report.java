@@ -78,6 +78,7 @@ public class Report implements Comparable<Report>{
 
 	@Override
 	public int compareTo(Report o) {
-		return (this.matchPercentage > o.matchPercentage) ? -1 : (this.matchPercentage == o.matchPercentage) ? 0 : 1;
+        int i = (this.matchPercentage == o.matchPercentage) ? 0 : 1;
+		return (this.matchPercentage > o.matchPercentage) ? -1 : i;
 	}
 }

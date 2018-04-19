@@ -75,7 +75,7 @@ public class FileUploadController {
 		try {
 		    return submissionService.makeClassSubmissionAndCompare(fileList1, path1List, fileList2, path2List, strategy);
 		} catch (Exception e) {
-			logger.error("Error occurred while uploading the files" + e.getMessage());
+			logger.error("Error occurred while uploading the files");
 			submissionService.failureStatsUpdate();
             return DataFormatUtility.getJsonString("Error occurred while uploading the files");
 		}
@@ -93,7 +93,7 @@ public class FileUploadController {
 			lstFiles = files.stream().map(fileName -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                     "getFile", fileName).build().toString()).collect(Collectors.toList());
 		} catch (Exception e) {
-			logger.error("Error occurred while getting the files: " + e.getMessage());
+			logger.error("Error occurred while getting the files: ");
 			throw e;
 		}
 

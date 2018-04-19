@@ -45,7 +45,6 @@ public class WeightedComparisonStrategy implements DetectionStrategy {
                 }
 
                 int weightSum = (prop.getLogicalWeight() + prop.getRefactoringWeight() + prop.getRenamingWeight());
-                logger.info("Normalizing the polynomial result " + weightSum);
 
                 int sum =   (prop.getLogicalWeight() * logicalMatch) +
                         (prop.getRefactoringWeight() * refactoringMatch) +
@@ -74,10 +73,9 @@ public class WeightedComparisonStrategy implements DetectionStrategy {
     /**
      * updates the services stat for weighted comparison request
      *
-     * @param stats services stats that needs updating
      */
     @Override
-    public void updateRequestCount(SystemStatisticsService stats) {
-        stats.incrementWeightedComparisonRequestedRunsBy(1);
+    public void updateRequestCount() {
+        SystemStatisticsService.incrementWeightedComparisonRequestedRunsBy(1);
     }
 }

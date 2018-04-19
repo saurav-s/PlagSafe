@@ -16,6 +16,9 @@ public class FileUtility {
 	
 	private static Logger logger = LoggerFactory.getLogger(FileUtility.class);
 
+	private FileUtility() {
+
+	}
 	/**
 	 * 
 	 * @param file
