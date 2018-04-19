@@ -21,6 +21,11 @@ public class EmailServiceTests {
 		service.sendMail("snkt087@gmail.com", "test2", "this is test message body");
 	}
 	
+	@Test
+	public void testSendAlertMailToAdmins(){
+		service.sendAlertMailToAdmins("Sample test message");
+	}
+	
 
 	
 	

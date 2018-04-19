@@ -17,12 +17,14 @@ public class UtilTest {
 	NGramGeneratorUtility nGramInstance;
 	SubmissionUtility subInstance;
 	WeightPropertyReader wpropInstance;
+	LevenshteinDistanceGeneratorUtility levInstance;
 	
 	@Before
 	public void setUp(){
 		nGramInstance = NGramGeneratorUtility.createInstance();
 		subInstance = SubmissionUtility.createInstance();
 		wpropInstance = WeightPropertyReader.createInstance();
+		levInstance = LevenshteinDistanceGeneratorUtility.createInstance();
 		
 	}
 	
