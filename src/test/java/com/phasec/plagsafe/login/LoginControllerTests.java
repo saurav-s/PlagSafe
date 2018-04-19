@@ -3,7 +3,6 @@ package com.phasec.plagsafe.login;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -11,13 +10,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.Base64Utils;
 
 import com.phasec.plagsafe.LoginController;
 import com.phasec.plagsafe.LoginService;
 import com.phasec.plagsafe.StorageService;
-import com.phasec.plagsafe.objects.UserObject;
+import com.phasec.plagsafe.objects.User;
 
 /**
  * Tests for login controller class
@@ -33,6 +35,9 @@ public class LoginControllerTests {
 	
 	@MockBean
     private LoginService service;
+	
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 	
 	
 	@MockBean
@@ -68,20 +73,18 @@ public class LoginControllerTests {
 	 */
 	@Test
 	public void testLoginValidationSuccess() throws Exception {
-		UserObject user = new UserObject();
-		user.setId(24);
-		user.setSecret("secret");
-		user.setStatusId("test_status");
-		user.setUserName("team109");
-		when(service.validateUser("team109", "testpwd@123")).thenReturn(user);
-		mvc.perform(get("/logincheck")
+		User user = new User();
+		user.setId((long) 24);
+		user.setFirstName("Test");
+		user.setLastName("User");
+		user.setEmail("test_mail@gmail.com");
+		when(service.validateUser("test_mail@gmail.com", "testpwd@123")).thenReturn(user);
+	     String encoded = passwordEncoder.encode("max123");
+		mvc.perform(get("/logincheck").header(HttpHeaders.AUTHORIZATION,
+                "Basic " + Base64Utils.encodeToString("team109:encoded".getBytes()))
 				.param("name", "team109")
 				.param("password", "testpwd@123"))
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("id").value(24))
-			.andExpect(jsonPath("userName").value("team109"))
-			.andExpect(jsonPath("secret").value("secret"))
-			.andExpect(jsonPath("statusId").value("test_status"));
+			.andExpect(status().isOk());
 	}
 
 }

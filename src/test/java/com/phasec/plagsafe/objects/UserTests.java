@@ -5,44 +5,40 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UserObjectTests {
+public class UserTests {
 	
-	UserObject object;
+	User object;
 	
 	@Before
 	public void setUp(){
-		object = new UserObject();
+		object = new User();
 	}
 	
 	@Test
 	public void testUserNameAttribute(){
 		
-		object.setUserName("JohnDoe");
-		assertEquals("JohnDoe", object.getUserName());
+		object.setFirstName("John");
+		object.setLastName("doe");
+		assertEquals("John", object.getFirstName());
+		assertEquals("doe", object.getLastName());
 		
 	}
 	
 	@Test
-	public void testStatusIdAttribute(){
+	public void testEmailAttribute(){
 		
-		object.setStatusId("STATUS001");
-		assertEquals("STATUS001", object.getStatusId());
+		object.setEmail("bc@bc.com");
+		assertEquals("bc@bc.com", object.getEmail());
 		
 	}
 	
-	@Test
-	public void testSecretAttribute(){
-		
-		object.setSecret("password");
-		assertEquals("password", object.getSecret());
-		
-	}
+
 	
 	@Test
 	public void testIdAttribute(){
 		
-		object.setId(3);
-		assertEquals(3, object.getId());
+		object.setId((long)3);
+		assertEquals(3, (long) object.getId());
 		
 	}
 	
