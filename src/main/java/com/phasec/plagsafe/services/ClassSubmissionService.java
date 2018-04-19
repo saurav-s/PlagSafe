@@ -14,6 +14,7 @@ import util.DataFormatUtility;
 import util.FileUtility;
 import util.SubmissionUtility;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
@@ -229,6 +230,59 @@ public class ClassSubmissionService {
 
         stats.serializeStats();
     }
+
+    /**
+     * transforms two submissions in a class submission
+     * @param fileList1 list of files in submission 1
+     * @param path1List list of paths of files in submission 1
+     * @param fileList2 list of files in submission 2
+     * @param path2List list of paths of files in submission 2
+     * @param strategy comparison strategy requested by the user
+     * @return returns the comparison result as a string
+     */
+    public String makeClassSubmissionAndCompare(MultipartFile[] fileList1, String[] path1List,
+                                                MultipartFile[] fileList2, String[] path2List,
+                                                String strategy) {
+        MultipartFile[] submissions = new MultipartFile[fileList1.length + fileList2.length];
+        List<String> paths = new ArrayList<>();
+
+        // adds the files to the submissions and paths from file list for submission 1
+        int i = 0;
+        for(MultipartFile file : fileList1) {
+            submissions[i] = fileList1[i];
+            paths.add(i, path1List[i]);
+            i++;
+        }
+
+        //adds the files to the submissions and paths from file list for submission 2
+        int j = 0;
+        for(MultipartFile file : fileList2) {
+            submissions[i] = fileList2[j];
+            paths.add(i, path2List[j]);
+            j++; i++;
+        }
+
+        // update system stats
+        updateSystemStats(submissions, strategy);
+
+        // return comparison report
+        return initializeAndCompare(submissions, paths, strategy);
+    }
+
+    /**
+     * updates system stats on failures
+     * @return returns failure message
+     */
+    public void failureStatsUpdate() {
+        // update system failure stat
+        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
+        stats.loadSystemStats();
+        stats.incrementSystemFailuresBy(1);
+
+        //save updated value
+        stats.serializeStats();
+    }
+
 
 
 }

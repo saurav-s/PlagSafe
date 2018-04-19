@@ -136,12 +136,26 @@ app.controller('UploadFileController', [
 				$scope.disableTwinUpload = true;
 				$scope.twinUploadProgress = 0;
 				$scope.showTwinUploadProgress = true;
+
+                var $pathsList1 = [];
+                for (var i = 0; i < $fileList1.length; i++) {
+                    var file = $fileList1[i];
+                    $pathsList1.push(file.webkitRelativePath);
+                }
+
+                var $pathsList2 = [];
+                for (var i = 0; i < $fileList2.length; i++) {
+                    var file = $fileList2[i];
+                    $pathsList2.push(file.webkitRelativePath);
+                }
+
 				Upload.upload({
 					url : '/api/uploadfile',
 					data : {
-						uploadfile1 : $fileList1,
-						uploadfile2 : $fileList2,
-
+						uploadFile1 : $fileList1,
+                        submission1Paths: $pathsList1,
+						uploadFile2 : $fileList2,
+                        submission2Paths: $pathsList2,
 						strategy : $scope.strategy
 					},
 					arrayKey : ''
