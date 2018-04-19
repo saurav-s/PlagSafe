@@ -27,7 +27,7 @@ public class SubmissionCompare implements SubmissionComparable {
     @Override
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2, StrategyType comparisonStrategy) {
         List<Report> matchReportList = new ArrayList<>();
-		ComparisonContext context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(comparisonStrategy));
+		ComparisonContext context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(comparisonStrategy));
         return context.compare(submission1, submission2);
     }
 }

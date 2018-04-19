@@ -26,14 +26,14 @@ public class AllComparisonStrategies implements DetectionStrategy{
     public List<Report> compare(SubmissibleRecord submission1, SubmissibleRecord submission2) {
         List<Report> matchReportList = new ArrayList<>();
 
-        ComparisonContext context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(LOGICAL));
+        ComparisonContext context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(LOGICAL));
         matchReportList.addAll(context.compare(submission1, submission2));
 
-        context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(REFACTORING));
+        context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(REFACTORING));
         matchReportList.addAll(context.compare(submission1, submission2));
 
 
-        context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(RENAMING));
+        context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(RENAMING));
         matchReportList.addAll(context.compare(submission1, submission2));
 
         return matchReportList;

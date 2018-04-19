@@ -225,7 +225,7 @@ public class ClassSubmissionService {
         stats.updateMaxLoad(validCount);
 
         // update strategy request load for the given strategy
-        ComparisonContext context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(StrategyType.valueOf(strategy)));
+        ComparisonContext context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(StrategyType.valueOf(strategy)));
         context.updateRequestCount(stats);
 
         stats.serializeStats();

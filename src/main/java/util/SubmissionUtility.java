@@ -29,7 +29,7 @@ public class SubmissionUtility {
 	private static Logger logger = LoggerFactory.getLogger(SubmissionUtility.class);
 
     // Static strategy map to switch go to different strategies
-    public static Map<StrategyType, DetectionStrategy> STRATEGY_MAP = new HashMap<>();
+    private static Map<StrategyType, DetectionStrategy> STRATEGY_MAP = new HashMap<>();
 
     //adding known strategies to the map to be used by the application
     static {
@@ -38,6 +38,10 @@ public class SubmissionUtility {
         STRATEGY_MAP.put(REFACTORING, new RefactoringDetectionStrategy());
         STRATEGY_MAP.put(ALL, new AllComparisonStrategies());
         STRATEGY_MAP.put(COMBINED, new WeightedComparisonStrategy());
+    }
+
+    public static DetectionStrategy getDetectionStrategy(StrategyType key) {
+        return STRATEGY_MAP.get(key);
     }
 
 

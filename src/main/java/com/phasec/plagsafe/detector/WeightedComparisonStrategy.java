@@ -26,15 +26,15 @@ public class WeightedComparisonStrategy implements DetectionStrategy {
         for(Submissible sub1file : submission1.getSubmissibles()) {
             for(Submissible sub2file : submission2.getSubmissibles()) {
                 // logical match
-                ComparisonContext context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(LOGICAL));
+                ComparisonContext context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(LOGICAL));
                 int logicalMatch = context.compare(sub1file, sub2file);
 
                 // renaming match
-                context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(RENAMING));
+                context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(RENAMING));
                 int renamingMatch = context.compare(sub1file, sub2file);
 
                 // refactoring match
-                context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(REFACTORING));
+                context = new ComparisonContext(SubmissionUtility.getDetectionStrategy(REFACTORING));
                 int refactoringMatch = context.compare(sub1file, sub2file);
 
                 WeightPropertyReader prop = WeightPropertyReader.makeReaderObject();
