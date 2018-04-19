@@ -37,7 +37,7 @@ public class SubmissionUtility {
         STRATEGY_MAP.put(RENAMING, new RenamingDetectionStrategy());
         STRATEGY_MAP.put(REFACTORING, new RefactoringDetectionStrategy());
         STRATEGY_MAP.put(ALL, new AllComparisonStrategies());
-        STRATEGY_MAP.put(COMBINED, null);
+        STRATEGY_MAP.put(COMBINED, new WeightedComparisonStrategy());
     }
 
 
