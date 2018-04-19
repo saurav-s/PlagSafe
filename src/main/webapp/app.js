@@ -144,8 +144,8 @@ app.controller('UploadFileController', [
                 }
 
                 var $pathsList2 = [];
-                for (var i = 0; i < $fileList2.length; i++) {
-                    var file = $fileList2[i];
+                for (i = 0; i < $fileList2.length; i++) {
+                    file = $fileList2[i];
                     $pathsList2.push(file.webkitRelativePath);
                 }
 
