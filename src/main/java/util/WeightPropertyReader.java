@@ -1,7 +1,5 @@
 package util;
 
-import java.io.IOException;
-
 public class WeightPropertyReader {
 
     private static WeightPropertyReader readerObject;

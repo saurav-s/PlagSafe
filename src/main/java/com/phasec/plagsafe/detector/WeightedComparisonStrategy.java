@@ -3,8 +3,6 @@ package com.phasec.plagsafe.detector;
 import com.phasec.plagsafe.models.Report;
 import com.phasec.plagsafe.models.SubmissibleRecord;
 import com.phasec.plagsafe.services.SystemStatisticsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import util.SubmissionUtility;
 import util.WeightPropertyReader;
 
