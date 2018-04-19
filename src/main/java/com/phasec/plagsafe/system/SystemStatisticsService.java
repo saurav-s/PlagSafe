@@ -38,7 +38,7 @@ public class SystemStatisticsService implements Serializable {
 	private static SystemStatisticsService statsInstance;
 
 	// serialized file location
-	private static final String FILE_PATH = "src/main/resources/stats.ser";
+	private static final String FILE_PATH = "upload-dir/stats.ser";
 
 	// start date of the system
 	private String systemStartDate;
