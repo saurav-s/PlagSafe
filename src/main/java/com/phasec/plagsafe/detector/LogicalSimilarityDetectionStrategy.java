@@ -3,6 +3,7 @@ package com.phasec.plagsafe.detector;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.system.SystemStatisticsService;
 import org.springframework.stereotype.Service;
 
 import com.phasec.plagsafe.antlr.ASTPrinter;
@@ -58,6 +59,15 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
 		return report.getMatchPercentage();
 	}
 
+    /**
+     * updates the logical comparison request count
+     *
+     */
+
+	@Override
+	public void updateRequestCount(SystemStatisticsService stats) {
+        stats.incrementLogicalComparisonRequestedBy(1);
+	}
 
 
 	/**

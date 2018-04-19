@@ -1,18 +1,23 @@
 package util;
 
+import com.phasec.plagsafe.StrategyType;
 import com.phasec.plagsafe.antlr.AntlrDriver;
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
-import com.phasec.plagsafe.detector.Submissible;
-import com.phasec.plagsafe.detector.Submission;
+import com.phasec.plagsafe.detector.*;
 import com.phasec.plagsafe.objects.FileModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.phasec.plagsafe.StrategyType.*;
+import static com.phasec.plagsafe.StrategyType.COMBINED;
 
 /**
  * This class implements the general utilities that are required with every submission
@@ -22,6 +27,20 @@ import org.slf4j.LoggerFactory;
 public class SubmissionUtility {
 
 	private static Logger logger = LoggerFactory.getLogger(SubmissionUtility.class);
+
+    // Static strategy map to switch go to different strategies
+    public static Map<StrategyType, DetectionStrategy> STRATEGY_MAP = new HashMap<>();
+
+    //adding known strategies to the map to be used by the application
+    static {
+        STRATEGY_MAP.put(LOGICAL, new LogicalSimilarityDetectionStrategy());
+        STRATEGY_MAP.put(RENAMING, new RenamingDetectionStrategy());
+        STRATEGY_MAP.put(REFACTORING, new RefactoringDetectionStrategy());
+        STRATEGY_MAP.put(ALL, null);
+        STRATEGY_MAP.put(COMBINED, null);
+    }
+
+
     /**
      *
      * @param file

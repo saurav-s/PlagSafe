@@ -35,10 +35,8 @@ public class ClassSubmissionController {
                                          @RequestParam("strategy") String strategy)
     {
 
-        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
-        stats.loadSystemStats();
-        stats.incrementTotalRunsBy(1);
-        stats.serializeStats();
+        //update system stats
+        submissionService.updateSystemStats(submissions, strategy);
 
         // pass the received info to a service for further processing and computations
         // return the comparison result string

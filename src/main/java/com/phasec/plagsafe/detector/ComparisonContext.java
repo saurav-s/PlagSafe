@@ -2,6 +2,7 @@ package com.phasec.plagsafe.detector;
 
 import com.phasec.plagsafe.objects.Report;
 import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.system.SystemStatisticsService;
 
 import java.util.List;
 
@@ -34,7 +35,18 @@ public class ComparisonContext {
         return strategy.compare(submission1, submission2);
     }
 
+    /**
+     * compares the two given files according to the strategy
+     * @param sub1file submission 1 file
+     * @param sub2file submission 2 file
+     * @return comparison score
+     */
     public int compare(Submissible sub1file, Submissible sub2file) {
         return strategy.compare(sub1file, sub2file);
     }
+
+    /**
+     * updates the request count of the strategy
+     */
+    public void updateRequestCount(SystemStatisticsService stats) { strategy.updateRequestCount(stats); }
 }

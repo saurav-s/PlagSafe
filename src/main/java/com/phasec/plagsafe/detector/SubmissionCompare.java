@@ -24,36 +24,18 @@ public class SubmissionCompare implements SubmissionComparable {
 		SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
         switch(comparisonStrategy) {
         		case RENAMING:
-
-					stats.loadSystemStats();
-					stats.incrementRenamingComparisonRequestedRunsBy(1);
-					stats.serializeStats();
         			matchReportList = compareRenaming(submission1, submission2);
         			break;
         		case LOGICAL:
-					stats.loadSystemStats();
-					stats.incrementLogicalComparisonRequestedBy(1);
-					stats.serializeStats();
         			matchReportList = compareLogic(submission1, submission2);
         			break;
         		case REFACTORING:
-					stats.loadSystemStats();
-					stats.incrementRefactoringComparisonRequested(1);
-					stats.serializeStats();
         			matchReportList = compareRefactoring(submission1, submission2);
         			break;
         		case ALL:
-					stats.loadSystemStats();
-					stats.incrementRenamingComparisonRequestedRunsBy(1);
-					stats.incrementLogicalComparisonRequestedBy(1);
-					stats.incrementRefactoringComparisonRequested(1);
-					stats.serializeStats();
         			matchReportList = compareAll(submission1, submission2);
         			break;
         		case COMBINED:
-					stats.loadSystemStats();
-					stats.incrementWeightedComparisonRequestedRunsBy(1);
-					stats.serializeStats();
         			matchReportList = compareCombined(submission1, submission2);
         			break;
         }

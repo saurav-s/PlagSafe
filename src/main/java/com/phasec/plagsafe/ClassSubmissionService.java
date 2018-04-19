@@ -1,7 +1,9 @@
 package com.phasec.plagsafe;
 
+import com.phasec.plagsafe.detector.*;
 import com.phasec.plagsafe.objects.FileRecord;
 import com.phasec.plagsafe.objects.Report;
+import com.phasec.plagsafe.system.SystemStatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import util.DataFormatUtility;
 import util.FileUtility;
+import util.SubmissionUtility;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.*;
+
+import static com.phasec.plagsafe.StrategyType.*;
+import static com.phasec.plagsafe.StrategyType.COMBINED;
 
 @Service
 public class ClassSubmissionService {
@@ -159,7 +165,6 @@ public class ClassSubmissionService {
         for(String submission : submissionFiles) {
             // get the file store locally
             File file = storageService.getFile(submission);
-            System.out.println(file.getName());
             // add the file to the record
             record.addFile(file);
         }
@@ -195,6 +200,35 @@ public class ClassSubmissionService {
         }
 
         return submissionMap;
+    }
+
+    /**
+     * updates system stats
+     * @param submissions multipart file submissions received
+     *
+     */
+    public void updateSystemStats(MultipartFile[] submissions, String strategy) {
+        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
+        stats.loadSystemStats();
+        stats.incrementTotalRunsBy(1);
+
+        // increment system load based on python file count in the submission
+        int validCount = 0;
+        for(MultipartFile submission : submissions) {
+            if (FileUtility.validFileType(submission, validTypes)) {
+                validCount++;
+            }
+        }
+
+        // update system load stats
+        stats.incrementTotalFilesComparedBy(validCount);
+        stats.updateMaxLoad(validCount);
+
+        // update strategy request load for the given strategy
+        ComparisonContext context = new ComparisonContext(SubmissionUtility.STRATEGY_MAP.get(StrategyType.valueOf(strategy)));
+        context.updateRequestCount(stats);
+
+        stats.serializeStats();
     }
 
 
