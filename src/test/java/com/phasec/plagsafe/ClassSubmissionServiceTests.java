@@ -43,6 +43,7 @@ public class ClassSubmissionServiceTests {
 	/**
 	 * Test for initialize and compare
 	 */
+	@Test
 	public void testInitializeAndCompare() {
 		Report report = new Report("test/team101/simple.py", "test/team102/simple.py", 100, "test_Remarks");
 		List<Report> reports = new ArrayList<>();
@@ -65,6 +66,25 @@ public class ClassSubmissionServiceTests {
 		assertEquals(
 				"[{\"sourceFile\":\"test/team101/simple.py\",\"targetFile\":\"test/team102/simple.py\",\"matchPercentage\":100,\"matchRemark\":\"test_Remarks\"}]",
 				responseMessage);
+	}
+	
+	@Test
+	public void testUpdateSystemStats(){
+		
+		MockMultipartFile firstFile = new MockMultipartFile("uploadfile1", "simple.py", "text/plain",
+				"some xml".getBytes());
+		MockMultipartFile secondFile = new MockMultipartFile("uploadfile2", "simple.py", " text/plain",
+				"some other type".getBytes());
+		MultipartFile[] submissions = new MultipartFile[2];
+		submissions[0] = firstFile;
+		submissions[1] = secondFile;
+		String strategy = "ALL";
+		
+		submissionService.updateSystemStats(submissions, strategy);
+		
+		
+		
+		
 	}
 
 
