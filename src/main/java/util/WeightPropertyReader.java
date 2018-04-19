@@ -27,8 +27,7 @@ public class WeightPropertyReader {
     }
 
     /**
-     *
-     * @throws IOException
+     * reads weight values
      */
     public void loadComparisonProperties() {
         this.renamingWeight = 2;

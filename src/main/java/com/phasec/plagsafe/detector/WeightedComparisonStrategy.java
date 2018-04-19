@@ -38,11 +38,7 @@ public class WeightedComparisonStrategy implements DetectionStrategy {
                 int refactoringMatch = context.compare(sub1file, sub2file);
 
                 WeightPropertyReader prop = WeightPropertyReader.makeReaderObject();
-                try {
-                    prop.loadComparisonProperties();
-                } catch(IOException e) {
-                    logger.error("Weight properties could not be read properly");
-                }
+                prop.loadComparisonProperties();
 
                 int weightSum = (prop.getLogicalWeight() + prop.getRefactoringWeight() + prop.getRenamingWeight());
 

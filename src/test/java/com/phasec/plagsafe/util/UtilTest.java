@@ -16,18 +16,14 @@ public class UtilTest {
 	
 	@Test
 	public void nGramGeneratorUtilityTest(){
-		
-		NGramGeneratorUtility object = new NGramGeneratorUtility();
-		List<String> res = object.getNGramList("Northeastern University", 3);
+		List<String> res = NGramGeneratorUtility.getNGramList("Northeastern University", 3);
 		assertNotNull(res);
 		
 	}
 	
 	@Test
 	public void levenshteinDistanceGeneratorUtilityTest(){
-		
-		LevenshteinDistanceGeneratorUtility object = new LevenshteinDistanceGeneratorUtility();
-		int lDistance = object.getLevenshteinDistance("pale", "bale");
+		int lDistance = LevenshteinDistanceGeneratorUtility.getLevenshteinDistance("pale", "bale");
 		assertEquals(1, lDistance);
 		
 	}
