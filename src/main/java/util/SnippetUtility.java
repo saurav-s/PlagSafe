@@ -11,6 +11,14 @@ public class SnippetUtility {
      * @param codeTwo second code
      * @return returns the list of ranges
      */
+	
+	private SnippetUtility(){
+		
+	}
+	
+	public static SnippetUtility createInstance(){
+		return new SnippetUtility();
+	}
     public static List<Integer> findSnippetRanges(String codeOne, String codeTwo) {
 
         int m = codeOne.length();
