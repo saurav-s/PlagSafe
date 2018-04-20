@@ -2,6 +2,7 @@ package com.phasec.plagsafe;
 
 import static org.junit.Assert.assertEquals;
 
+import com.phasec.plagsafe.models.StrategyType;
 import org.junit.Test;
 
 public class StrategyTypeEnumTests {

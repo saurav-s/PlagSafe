@@ -3,10 +3,11 @@ package com.phasec.plagsafe.detector;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.services.SystemStatisticsService;
 import org.springframework.stereotype.Service;
 
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
 
 import util.LevenshteinDistanceGeneratorUtility;
 import util.SubmissionUtility;
@@ -66,6 +67,18 @@ public class RenamingDetectionStrategy implements DetectionStrategy {
 	public int compare(Submissible sub1file, Submissible sub2file) {
 		return calculateRenamingMatch(sub1file, sub2file);
 	}
+
+
+	/**
+	 * updates the renaming comparison request count
+	 *
+	 */
+
+	@Override
+	public void updateRequestCount() {
+		SystemStatisticsService.incrementRenamingComparisonRequestedRunsBy(1);
+	}
+
 
 	/**
 	 * Given two files calculates the match percentage based on the renaming of

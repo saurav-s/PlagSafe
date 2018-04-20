@@ -18,9 +18,11 @@ app.config(function($routeProvider,$windowProvider) {
 			}
 		},
 		templateUrl : 'views/upload.html'
-	}).when('/system', {
+	}).when('/services', {
 		templateUrl : 'views/system_stats.html'
-	});
+	}).when('/similarity', {
+	    templateUrl : 'views/similarity.html'
+    });
 });
 
 app.controller(
@@ -126,7 +128,9 @@ app.controller('UploadFileController', [
 		'Upload',
 		'$timeout',
 		'$location',
-		function($scope, $http, Upload, $timeout, $location) {
+		'$window',
+		'$rootScope',
+		function($scope, $http, Upload, $timeout, $location, $window,$rootScope) {
 
 			$(document).ready(function(){
 			    $('[data-toggle="tooltip"]').tooltip();   
@@ -171,12 +175,26 @@ app.controller('UploadFileController', [
 				$scope.disableTwinUpload = true;
 				$scope.twinUploadProgress = 0;
 				$scope.showTwinUploadProgress = true;
+
+                var $pathsList1 = [];
+                for (var i = 0; i < $fileList1.length; i++) {
+                    var file = $fileList1[i];
+                    $pathsList1.push(file.webkitRelativePath);
+                }
+
+                var $pathsList2 = [];
+                for (i = 0; i < $fileList2.length; i++) {
+                    file = $fileList2[i];
+                    $pathsList2.push(file.webkitRelativePath);
+                }
+
 				Upload.upload({
 					url : '/api/uploadfile',
 					data : {
-						uploadfile1 : $fileList1,
-						uploadfile2 : $fileList2,
-
+						uploadFile1 : $fileList1,
+                        submission1Paths: $pathsList1,
+						uploadFile2 : $fileList2,
+                        submission2Paths: $pathsList2,
 						strategy : $scope.strategy
 					},
 					arrayKey : ''
@@ -204,6 +222,19 @@ app.controller('UploadFileController', [
 									parseInt(100.0 * evt.loaded / evt.total));
 						});
 			};
+
+			$scope.fetchSimilarities = function($fileOneName, $fileTwoName) {
+				console.log($fileOneName)
+                console.log($fileTwoName)
+                var url = '/match/snippet?firstFile=' + $fileOneName + '&secondFile=' + $fileTwoName
+
+                $http.get(url).then(function(response) {
+                    $rootScope.simData = response.data;
+                    $window.location = '#!/similarity';
+                }, function(response){
+
+                });
+			}
 
 			//upload function for class submission
 			$scope.uploadClassSubmission = function($fileList, $strategy) {

@@ -11,8 +11,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import com.phasec.plagsafe.antlr.generated.Python3Lexer;
 import com.phasec.plagsafe.antlr.generated.Python3Parser;
 import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Represents a standalone java class which acts as a driver for converting a
@@ -25,12 +23,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class AntlrDriver {
-
-    private Logger log;
-
-    public AntlrDriver(){
-        log = LoggerFactory.getLogger(this.getClass().getName());
-    }
 
 	/**
 	 * Responsible for file reading operations

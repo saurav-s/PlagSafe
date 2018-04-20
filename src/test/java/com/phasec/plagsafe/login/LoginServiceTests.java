@@ -2,9 +2,8 @@ package com.phasec.plagsafe.login;
 
 import static org.junit.Assert.assertEquals;
 
-import com.phasec.plagsafe.LoginService;
+import com.phasec.plagsafe.services.LoginService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

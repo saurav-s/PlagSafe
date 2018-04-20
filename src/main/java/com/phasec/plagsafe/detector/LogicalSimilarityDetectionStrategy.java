@@ -3,11 +3,12 @@ package com.phasec.plagsafe.detector;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.phasec.plagsafe.services.SystemStatisticsService;
 import org.springframework.stereotype.Service;
 
 import com.phasec.plagsafe.antlr.ASTPrinter;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
 
 import util.SubmissionUtility;
 
@@ -58,6 +59,15 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
 		return report.getMatchPercentage();
 	}
 
+    /**
+     * updates the logical comparison request count
+     *
+     */
+
+	@Override
+	public void updateRequestCount() {
+		SystemStatisticsService.incrementLogicalComparisonRequestedBy(1);
+	}
 
 
 	/**
@@ -73,11 +83,11 @@ public class LogicalSimilarityDetectionStrategy implements DetectionStrategy {
 		ASTPrinter astIterator = new ASTPrinter();
 
 		StringBuilder sb = new StringBuilder();
-		astIterator.ASTString(sub1file.getAst(), sb);
+		astIterator.astString(sub1file.getAst(), sb);
 		String ast1String = sb.toString();
 
 		sb = new StringBuilder();
-		astIterator.ASTString(sub2file.getAst(), sb);
+		astIterator.astString(sub2file.getAst(), sb);
 		String ast2String = sb.toString();
 		int renameCount = SubmissionUtility.editDistance(ast1String, ast2String);
 		int averageFileLength = SubmissionUtility.getTotalSubmissionFileLength(ast1String, ast2String);

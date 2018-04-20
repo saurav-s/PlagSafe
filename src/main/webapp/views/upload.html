@@ -224,10 +224,15 @@
 													<tbody>
 														<tr ng-repeat="rep in reports track by $index">
 															<th scope="row">{{$index}}</th>
-															<td>{{rep.sourceFile}}</td>
+															<td>{{rep.sourceFile}}<br>
+                                                                <button type="submit" class="btn btn-secondary"
+                                                                        ng-click="fetchSimilarities(rep.sourceFile,rep.targetFile)">
+                                                                    See Similarities</button>
+                                                            </td>
 															<td>{{rep.targetFile}}</td>
 															<td>{{rep.matchPercentage}}</td>
 															<td>{{rep.matchRemark}}</td>
+
 														</tr>
 													</tbody>
 												</table>
@@ -285,10 +290,9 @@
 		<!-- System statistics logic goes here-->
 
 		<div class="card list-group">
-			<div class="card-header text-white bg-dark">
+			<div class="card-header text-white bg-dark" ng-controller="SystemStatsController">
 				<h4 class="card-title">
-					<a data-toggle="collapse" data-target="#collapseStat">System
-						Statistics</a>
+					<a data-toggle="collapse" data-target="#collapseStat" ng-click="get_system_stats()">System Statistics</a>
 				</h4>
 			</div>
 			<div id="collapseStat" class="card-body collapse"
@@ -321,16 +325,20 @@
 									<td>{{stats.totalRuns}}</td>
 								</tr>
 								<tr>
-									<td scope="row">System Last Used On</td>
-									<td>{{stats.systemLastUsed}}</td>
-								</tr>
-								<tr>
 									<td scope="row">Logical Comparisons Requests</td>
 									<td>{{stats.logicalComparisonRequested}}</td>
 								</tr>
 								<tr>
 									<td scope="row">Renaming Comparisons Requests</td>
 									<td>{{stats.renamingComparisonRequested}}</td>
+								</tr>
+								<tr>
+									<td scope="row">Refactoring Comparisons Requests</td>
+									<td>{{stats.refactoringComparisonRequested}}</td>
+								</tr>
+								<tr>
+									<td scope="row">Weighted Comparisons Requests</td>
+									<td>{{stats.weightedComparisonRequested}}</td>
 								</tr>
 								<tr>
 									<td scope="row">Total Files Compared</td>

@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.phasec.plagsafe.services.SystemStatisticsService;
 import org.springframework.stereotype.Service;
 
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
 
 import util.NGramGeneratorUtility;
 
@@ -68,6 +69,16 @@ public class RefactoringDetectionStrategy implements DetectionStrategy {
 	@Override
 	public int compare(Submissible sub1, Submissible sub2) {
 		return getNGramSimilarityMeasure(sub1, sub2);
+	}
+
+	/**
+	 * updates the refactoring comparison request count
+	 *
+	 */
+
+	@Override
+	public void updateRequestCount() {
+		SystemStatisticsService.incrementRefactoringComparisonRequested(1);
 	}
 
 	/**

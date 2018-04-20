@@ -2,6 +2,7 @@ package com.phasec.plagsafe;
 
 import javax.annotation.Resource;
 
+import com.phasec.plagsafe.services.StorageService;
 import org.apache.catalina.Context;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.springframework.boot.CommandLineRunner;
@@ -12,19 +13,19 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.phasec.plagsafe.system.SystemStatisticsService;
+import com.phasec.plagsafe.services.SystemStatisticsService;
 
 @SpringBootApplication
 public class PlagsafeApplication  implements CommandLineRunner{
 
 	@Resource
-	StorageService storageService;
+    StorageService storageService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PlagsafeApplication.class, args);
 
         // get an instance
-        SystemStatisticsService stats = SystemStatisticsService.getSystemStatInstance();
+        SystemStatisticsService stats = SystemStatisticsService.initializeSystemStatistics();
 
         // load the stats
         stats.resetSystemStats();

@@ -2,6 +2,14 @@ package util;
 
 public class LevenshteinDistanceGeneratorUtility {
 	
+	public static LevenshteinDistanceGeneratorUtility createInstance(){
+		return new LevenshteinDistanceGeneratorUtility();
+	}
+
+	private LevenshteinDistanceGeneratorUtility() {
+
+	}
+	
 	public static int getLevenshteinDistance(String str1, String str2) {
 
 		int[][] dp = new int[str1.length() + 1][str2.length() + 1];

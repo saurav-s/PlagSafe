@@ -18,10 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.Base64Utils;
 
-import com.phasec.plagsafe.LoginService;
-import com.phasec.plagsafe.StorageService;
+
+import com.phasec.plagsafe.services.StorageService;
 import com.phasec.plagsafe.UserService;
-import com.phasec.plagsafe.objects.User;
 import com.phasec.plagsafe.system.UserRegistrationController;
 
 /**

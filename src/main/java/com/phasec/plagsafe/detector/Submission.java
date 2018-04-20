@@ -90,7 +90,7 @@ public class Submission implements Submissible {
 	/**
 	 * Setter method of the ast attribute
 	 * 
-	 * @param code: the ast corresponding to the code content of the Submission
+	 * @param ast: the ast corresponding to the code content of the Submission
 	 */
 	public void setAst(File_inputContext ast) {
 		this.ast = ast;

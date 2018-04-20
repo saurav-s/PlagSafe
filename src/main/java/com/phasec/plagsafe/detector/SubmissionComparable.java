@@ -1,8 +1,8 @@
 package com.phasec.plagsafe.detector;
 
-import com.phasec.plagsafe.StrategyType;
-import com.phasec.plagsafe.objects.Report;
-import com.phasec.plagsafe.objects.SubmissibleRecord;
+import com.phasec.plagsafe.models.StrategyType;
+import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SubmissibleRecord;
 
 import java.util.List;
 
