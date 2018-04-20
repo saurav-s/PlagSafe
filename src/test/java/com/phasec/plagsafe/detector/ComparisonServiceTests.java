@@ -40,7 +40,7 @@ public class ComparisonServiceTests {
 	 *  this test is to initialize with single submission
 	 */
 	@Test
-	public void testSingleSubmissionInitialization() {
+	public void testSingleSubmissionInitializationFail() {
 		List<SubmissionRecord> submissions = new ArrayList<>();
 
 		FileModel file = new FileModel();
@@ -51,8 +51,8 @@ public class ComparisonServiceTests {
 		fileList.add(file);
 		record.setFiles(fileList);
 		submissions.add(record);
-		comparisonService.submissionStub(submissions, StrategyType.ALL);
-		Assert.assertEquals(true, true);
+		List<Report> submissionStub = comparisonService.submissionStub(submissions, StrategyType.ALL);
+		Assert.assertEquals(0, submissionStub.size());
 	}
 
 
@@ -77,7 +77,7 @@ public class ComparisonServiceTests {
 		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.ALL);
 
 		assertNotNull(res);
-		assertEquals(res.size(), 3);
+		assertEquals(3, res.size());
 
 	}
 	

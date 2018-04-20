@@ -113,12 +113,13 @@ public class SnippetService {
      * @return
      */
 	private boolean processNonMatchingChar(String code, boolean tagStarted, StringBuilder sb, int index) {
+		boolean tagAlreadyStarted = tagStarted;
 		if(tagStarted) {
 			sb.append("</span>");
-			tagStarted = false;
+			tagAlreadyStarted = false;
 		}
 		sb.append(code.charAt(index));
-		return tagStarted;
+		return tagAlreadyStarted;
 	}
 
 	/**
@@ -130,14 +131,15 @@ public class SnippetService {
 	 * @return
 	 */
 	private boolean processMatchingChar(String code, boolean tagStarted, StringBuilder sb, int index) {
+		boolean tagAlreadyStarted = tagStarted;
 		if(!tagStarted) {
 			sb.append("<span style=\"background-color: #40b4f7;\">");
 			sb.append(code.charAt(index));
-			tagStarted = true;
+			tagAlreadyStarted = true;
 		}else {
 			sb.append(code.charAt(index));
 		}
-		return tagStarted;
+		return tagAlreadyStarted;
 	}
 
     /**
