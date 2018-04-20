@@ -8,7 +8,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.phasec.plagsafe.models.MatchSnippet;
 import com.phasec.plagsafe.models.Report;
+import com.phasec.plagsafe.models.SnippetFactory;
 
 import util.DataFormatUtility;
 
@@ -42,6 +44,13 @@ public class DataFormatUtilityTests {
 		String obtainedResult = DataFormatUtility.getJsonString(reportList);
 		assertNotNull(obtainedResult);
 		
+	}
+	
+	@Test
+	public void testGetJsonString(){
+		SnippetFactory factory = new SnippetFactory();
+		MatchSnippet instance = factory.getMatchSnippet("File1", "Code1", "File2", "Code2");
+		DataFormatUtility.getJsonString(instance);
 	}
 
 }

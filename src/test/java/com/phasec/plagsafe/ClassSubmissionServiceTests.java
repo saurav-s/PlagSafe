@@ -80,10 +80,7 @@ public class ClassSubmissionServiceTests {
 		String strategy = "ALL";
 		
 		submissionService.updateSystemStats(submissions, strategy);
-		
-		
-		
-		
+			
 	}
 
 
@@ -110,5 +107,10 @@ public class ClassSubmissionServiceTests {
 		String strategy = "ALL";
 		String responseMessage = submissionService.initializeAndCompare(submissions, paths, strategy);
 		assertEquals("\"Error occurred while uploading the file \"", responseMessage);
+	}
+	
+	@Test
+	public void testFailureStatsUpdate(){
+		submissionService.failureStatsUpdate();
 	}
 }
