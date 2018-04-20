@@ -67,8 +67,7 @@ public class SnippetService {
         try {
             SubmissionUtility util = new SubmissionUtility();
             File file = storageService.getFile(fileName);
-            String code = util.readFile(file);
-            return code;
+            return util.readFile(file);
 
         } catch (FileNotFoundException | MalformedURLException e) {
             logger.error("File not present in the system ", fileName);
