@@ -73,17 +73,6 @@ app.directive('fileModel', [ '$parse', function($parse) {
 	};
 } ]);
 
-app.controller('getFilesController', [ '$scope', '$http',
-		function($scope, $http) {
-			$scope.doGetFiles = function() {
-				var url = "/api/getallfiles";
-				$http.get(url).then(function(response) {
-					$scope.lstFiles = response.data;
-				}, function(response) {
-
-				});
-			};
-		} ]);
 
 app.controller('UploadFileController', [
 		'$scope',

@@ -1,23 +1,32 @@
 package util;
 
-import com.phasec.plagsafe.models.StrategyType;
-import com.phasec.plagsafe.antlr.AntlrDriver;
-import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
-import com.phasec.plagsafe.detector.*;
-import com.phasec.plagsafe.models.FileModel;
+import static com.phasec.plagsafe.models.StrategyType.ALL;
+import static com.phasec.plagsafe.models.StrategyType.COMBINED;
+import static com.phasec.plagsafe.models.StrategyType.LOGICAL;
+import static com.phasec.plagsafe.models.StrategyType.REFACTORING;
+import static com.phasec.plagsafe.models.StrategyType.RENAMING;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.phasec.plagsafe.models.StrategyType.*;
-import static com.phasec.plagsafe.models.StrategyType.COMBINED;
+import com.phasec.plagsafe.antlr.AntlrDriver;
+import com.phasec.plagsafe.antlr.generated.Python3Parser.File_inputContext;
+import com.phasec.plagsafe.detector.AllComparisonStrategies;
+import com.phasec.plagsafe.detector.DetectionStrategy;
+import com.phasec.plagsafe.detector.LogicalSimilarityDetectionStrategy;
+import com.phasec.plagsafe.detector.RefactoringDetectionStrategy;
+import com.phasec.plagsafe.detector.RenamingDetectionStrategy;
+import com.phasec.plagsafe.detector.Submissible;
+import com.phasec.plagsafe.detector.Submission;
+import com.phasec.plagsafe.detector.WeightedComparisonStrategy;
+import com.phasec.plagsafe.models.FileModel;
+import com.phasec.plagsafe.models.StrategyType;
 
 /**
  * This class implements the general utilities that are required with every submission
@@ -33,7 +42,7 @@ public class SubmissionUtility {
 	}
 
     // Static strategy map to switch go to different strategies
-    private static Map<StrategyType, DetectionStrategy> strategyMap = new HashMap<>();
+    private static EnumMap<StrategyType, DetectionStrategy> strategyMap = new EnumMap<>(StrategyType.class);
 
     //adding known strategies to the map to be used by the application
     static {

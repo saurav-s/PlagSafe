@@ -293,38 +293,7 @@
 			</div>
 		</div>
 
-		<!-- Download section logic goes here-->
 
-		<div class="card list-group">
-			<div class="card-header text-white bg-dark">
-				<h4 class="card-title">
-					<a data-toggle="collapse" data-target="#collapse">Downloads</a>
-				</h4>
-			</div>
-			<div id="collapse" class="card-body collapse"
-				data-parent="#parentAccordian">
-				<div class="card-text">
-					<div ng-controller="getFilesController">
-						<div>
-							<button type="button" class="btn btn-secondary btn-block"
-								ng-click="doGetFiles()">Get Files</button>
-						</div>
-						<hr />
-						<div class="col-sm-offset-2" ng-model="lstFiles">
-							<ul>
-								<li ng-repeat="file in lstFiles track by $index"><a
-									href='{{file}}'>{{file}}</a></li>
-							</ul>
-						</div>
-						<div ng-hide="lstFiles.length"
-							class="alert alert-info alert-dismissible fade show">
-							<span> <strong>No Files available for download</strong>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 
 		<!-- System statistics logic goes here-->

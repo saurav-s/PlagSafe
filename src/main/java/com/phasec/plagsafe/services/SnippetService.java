@@ -15,6 +15,11 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.List;
 
+/**
+ * Service class for snippet generation
+ * @author sanketsaurav
+ *
+ */
 @Service
 public class SnippetService {
     private static Logger logger = LoggerFactory.getLogger(SnippetService.class);
@@ -70,8 +75,7 @@ public class SnippetService {
 	 */
 	private String parseTags(String highlightedCodeOne) {
 		String startTagReplaced = highlightedCodeOne.replaceAll("&lt;", "<");
-        highlightedCodeOne = startTagReplaced.replaceAll("&gt;", ">");
-		return highlightedCodeOne;
+        return startTagReplaced.replaceAll("&gt;", ">");
 	}
     
     /**
@@ -86,30 +90,55 @@ public class SnippetService {
     		if(charIndexList!=null) {
     			for(int index = 0; index < code.length();index++) {
     				if(charIndexList.contains(index)) {
-    					if(!tagStarted) {
-    						sb.append("<span style=\"background-color: #40b4f7;\">");
-    						sb.append(code.charAt(index));
-    						tagStarted = true;
-    					}else {
-    						sb.append(code.charAt(index));
-    					}
+    					tagStarted = processMatchingChar(code, tagStarted, sb, index);
     				}else {
-    					if(tagStarted) {
-    						sb.append("</span>");
-    						tagStarted = false;
-    					}
-    					sb.append(code.charAt(index));
+    					tagStarted = processNonMatchingChar(code, tagStarted, sb, index);
     				} 
     			}
     			//in case all of the char matches
     			if(tagStarted) {
     				sb.append("</span>");
-    				tagStarted = false;
     			}
     		}
 			
     		return sb.toString();
     }
+
+    /**
+     * 
+     * @param code
+     * @param tagStarted
+     * @param sb
+     * @param index
+     * @return
+     */
+	private boolean processNonMatchingChar(String code, boolean tagStarted, StringBuilder sb, int index) {
+		if(tagStarted) {
+			sb.append("</span>");
+			tagStarted = false;
+		}
+		sb.append(code.charAt(index));
+		return tagStarted;
+	}
+
+	/**
+	 * 
+	 * @param code
+	 * @param tagStarted
+	 * @param sb
+	 * @param index
+	 * @return
+	 */
+	private boolean processMatchingChar(String code, boolean tagStarted, StringBuilder sb, int index) {
+		if(!tagStarted) {
+			sb.append("<span style=\"background-color: #40b4f7;\">");
+			sb.append(code.charAt(index));
+			tagStarted = true;
+		}else {
+			sb.append(code.charAt(index));
+		}
+		return tagStarted;
+	}
 
     /**
      * updates the ranges of the snippet where the similarities have been detected
