@@ -71,7 +71,6 @@ public class StorageServiceImpl implements StorageService {
 	@Override
 	public File getFile(String filename) throws FileNotFoundException, MalformedURLException {
 		try {
-			System.out.println("File name " + filename);
 			Path path = rootLocation.resolve(filename);
 			Resource resource = new UrlResource(path.toUri());
 			validateResource(resource);
