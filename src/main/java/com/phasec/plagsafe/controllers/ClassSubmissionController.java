@@ -46,7 +46,6 @@ public class ClassSubmissionController {
             submissionService.failureStatsUpdate();
             return DataFormatUtility.getJsonString("Error occurred while uploading the files");
         }
-
     }
 
 }

@@ -22,6 +22,14 @@ import com.phasec.plagsafe.models.SystemUsageInfo;
  * This class interacts with services usage information
  *
  */
+/**
+ * @author sanketsaurav
+ *
+ */
+/**
+ * @author sanketsaurav
+ *
+ */
 @Service
 public class SystemStatisticsService implements Serializable {
 
@@ -116,7 +124,7 @@ public class SystemStatisticsService implements Serializable {
 
 	/**
 	 * method to make sure only one instance of the object gets passed
-	 * 
+	 *
 	 * @return instance of this class
 	 */
 
@@ -164,7 +172,7 @@ public class SystemStatisticsService implements Serializable {
 	 */
 	public static void serializeStats() {
 		try (FileOutputStream outputFile = new FileOutputStream(FILE_PATH);
-				ObjectOutputStream out = new ObjectOutputStream(outputFile);) {
+			 ObjectOutputStream out = new ObjectOutputStream(outputFile);) {
 			out.writeObject(statsInstance);
 
 		} catch (IOException e) {
@@ -187,7 +195,7 @@ public class SystemStatisticsService implements Serializable {
 			return new SystemUsageInfo();
 		}
 	}
-	
+
 	private static SystemUsageInfo getCurrentSystemUsageInfo() {
 		SystemUsageInfo usageInfo = new SystemUsageInfo();
 		usageInfo.setLogicalComparisonRequested(logicalComparisonRequested);

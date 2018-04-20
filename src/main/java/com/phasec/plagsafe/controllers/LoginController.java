@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.phasec.plagsafe.objects.User;
+
 /**
  * Controller for login functionality
  */
-import com.phasec.plagsafe.models.UserObject;
+
 
 
 @RestController
@@ -41,9 +43,9 @@ public class LoginController {
      * @return the User
      */
     @RequestMapping(value="/logincheck", method = RequestMethod.GET)
-    public UserObject showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
+    public User showWelcomePage(ModelMap model, @RequestParam String name, @RequestParam String password){
         logger.info("User {} is trying to authenticate ",name);
-        UserObject validateUser = service.validateUser(name, password);
+        User validateUser = service.validateUser(name, password);
         logAuthActivity(name, validateUser);
         return validateUser;
     }
@@ -52,7 +54,7 @@ public class LoginController {
 	 * @param name
 	 * @param validateUser
 	 */
-	private void logAuthActivity(String name, UserObject validateUser) {
+	private void logAuthActivity(String name, User validateUser) {
 		if(validateUser == null) {
         		logger.warn("Authentication failure for user {}",name);
         }else {

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
@@ -23,7 +24,7 @@ public class LoginServiceTests {
 	
 	@Autowired
 	private LoginService service;
-
+	
 	//valid login
     private static final String VALID_USER_NAME = "team109";
     private static final String VALID_PASSWORD = "max123";
@@ -46,6 +47,7 @@ public class LoginServiceTests {
 
     @Test
     public void testLoginTestUserPositive() {
+    	
         boolean expectedResponse = service.validateUser(VALID_TEST_USER_NAME, VALID_TEST_USER_PASSWORD) != null;
         String message = "Login test for a valid admin test user with a valid password";
         Assert.assertTrue(message, expectedResponse);
