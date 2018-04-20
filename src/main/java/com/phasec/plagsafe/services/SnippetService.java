@@ -69,8 +69,8 @@ public class SnippetService {
 	 * @return
 	 */
 	private String parseTags(String highlightedCodeOne) {
-		highlightedCodeOne = highlightedCodeOne.replaceAll("&lt;", "<");
-        highlightedCodeOne = highlightedCodeOne.replaceAll("&gt;", ">");
+		String startTagReplaced = highlightedCodeOne.replaceAll("&lt;", "<");
+        highlightedCodeOne = startTagReplaced.replaceAll("&gt;", ">");
 		return highlightedCodeOne;
 	}
     
@@ -92,14 +92,22 @@ public class SnippetService {
     						tagStarted = true;
     					}else {
     						sb.append(code.charAt(index));
+    					}
+    				}else {
+    					if(tagStarted) {
     						sb.append("</span>");
     						tagStarted = false;
     					}
-    				}else {
     					sb.append(code.charAt(index));
     				} 
     			}
+    			//in case all of the char matches
+    			if(tagStarted) {
+    				sb.append("</span>");
+    				tagStarted = false;
+    			}
     		}
+			
     		return sb.toString();
     }
 
