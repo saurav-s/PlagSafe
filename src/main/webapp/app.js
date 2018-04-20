@@ -1,4 +1,4 @@
-var app = angular.module('PlagsafeApp', [ 'ngRoute', 'ngFileUpload' ]);
+var app = angular.module('PlagsafeApp', [ 'ngRoute', 'ngFileUpload','ngSanitize' ]);
 
 app.config(function($routeProvider,$windowProvider) {
 	$routeProvider.when('/', {
@@ -18,9 +18,7 @@ app.config(function($routeProvider,$windowProvider) {
 		templateUrl : 'views/upload.html'
 	}).when('/services', {
 		templateUrl : 'views/system_stats.html'
-	}).when('/similarity', {
-	    templateUrl : 'views/similarity.html'
-    });
+	});
 });
 
 app.controller(
@@ -95,8 +93,9 @@ app.controller('UploadFileController', [
 		'$location',
 		'$window',
 		'$rootScope',
-		function($scope, $http, Upload, $timeout, $location, $window,$rootScope) {
-
+		'$sce',
+		function($scope, $http, Upload, $timeout, $location, $window,$rootScope,$sce) {
+			$rootScope.tempSce = $sce;
 			$(document).ready(function(){
 			    $('[data-toggle="tooltip"]').tooltip();   
 			});
@@ -134,12 +133,14 @@ app.controller('UploadFileController', [
 			$scope.strategy = "ALL";
 			$scope.disableTwinUpload = true;
 			$scope.disableUpload = true;
+			$scope.showSimilarity=false;
 
 			//upload function for 2 submissions
 			$scope.uploadFile = function($fileList1, $fileList2, $strategy) {
 				$scope.disableTwinUpload = true;
 				$scope.twinUploadProgress = 0;
 				$scope.showTwinUploadProgress = true;
+				$scope.showSimilarity=false;
 
                 var $pathsList1 = [];
                 for (var i = 0; i < $fileList1.length; i++) {
@@ -169,6 +170,7 @@ app.controller('UploadFileController', [
 					$scope.showTwinUploadProgress = false;
 					$('#uploadCollapse1').collapse('hide');
 					$('#resultCollapse').collapse('show');
+					$('#similarityCollapse').collapse('hide');
 				}).then(
 						function(response) {
 							$scope.disableTwinUpload = false;
@@ -189,23 +191,28 @@ app.controller('UploadFileController', [
 			};
 
 			$scope.fetchSimilarities = function($fileOneName, $fileTwoName) {
-				console.log($fileOneName)
-                console.log($fileTwoName)
                 var url = '/match/snippet?firstFile=' + $fileOneName + '&secondFile=' + $fileTwoName
 
                 $http.get(url).then(function(response) {
                     $rootScope.simData = response.data;
-                    $window.location = '#!/similarity';
+                    $rootScope.similarity1 = $rootScope.tempSce.trustAsHtml($rootScope.simData.codeOne);
+                    $rootScope.similarity2 = $rootScope.tempSce.trustAsHtml($rootScope.simData.codeTwo);
+                    $scope.showSimilarity=true;
+					$('#resultCollapse').collapse('hide');
+					$('#similarityCollapse').collapse('show');
+					
                 }, function(response){
 
                 });
 			}
+			
 
 			//upload function for class submission
 			$scope.uploadClassSubmission = function($fileList, $strategy) {
 				$scope.disableUpload = true;
 				$scope.classUploadProgress = 0;
 				$scope.showClassUploadProgress = true;
+				$scope.showSimilarity=false;
 				var $pathsList = [];
 				for (var i = 0; i < $fileList.length; i++) {
 					var file = $fileList[i];
@@ -226,6 +233,7 @@ app.controller('UploadFileController', [
 					$scope.showClassUploadProgress = false;
 					$('#uploadCollapse2').collapse('hide');
 					$('#resultCollapse').collapse('show');
+					$('#similarityCollapse').collapse('hide');
 
 				}).then(
 						function(response) {

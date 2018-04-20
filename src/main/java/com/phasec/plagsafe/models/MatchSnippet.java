@@ -14,14 +14,13 @@ public class MatchSnippet {
     MatchSnippet(String fileOne, String codeOne, String fileTwo, String codeTwo) {
         this.fileNameOne = fileOne;
         this.fileNameTwo = fileTwo;
-        this.codeOne = "<span style=\"background-color: #FFFF00\">" + codeOne + "</span>";
-        this.codeOne = this.codeOne.replaceAll("&lt;", "<");
-        this.codeOne = this.codeOne.replaceAll("&gt;", ">");
-
-        this.codeTwo = codeTwo;
+        this.codeOne = codeOne;
+        this.codeOne = codeTwo;
         this.rangesForOne = new ArrayList<>();
         this.rangesForTwo = new ArrayList<>();
     }
+    
+
     public String getFileNameOne() {
         return fileNameOne;
     }

@@ -102,7 +102,7 @@ public class ComparisonServiceTests {
 		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.COMBINED);
 
 		assertNotNull(res);
-		assertEquals(res.size(), 1);
+		assertEquals(1,res.size());
 
 	}
 	
@@ -126,7 +126,7 @@ public class ComparisonServiceTests {
 		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.REFACTORING);
 
 		assertNotNull(res);
-		assertEquals(res.size(), 1);
+		assertEquals(1, res.size());
 
 	}
 	@Test
@@ -149,7 +149,7 @@ public class ComparisonServiceTests {
 		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.LOGICAL);
 
 		assertNotNull(res);
-		assertEquals(res.size(), 1);
+		assertEquals(1, res.size());
 
 	}
 	
@@ -173,7 +173,7 @@ public class ComparisonServiceTests {
 		List<Report> res = comparisonService.runComparisionForFiles(frList, StrategyType.RENAMING);
 
 		assertNotNull(res);
-		assertEquals(res.size(), 1);
+		assertEquals(1, res.size());
 
 	}
 }

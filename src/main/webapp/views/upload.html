@@ -208,7 +208,7 @@
 									</div>
 									<div id="resultCollapse"  
 										href="javascript:;" class="collapse">
-										<div class="card-text">
+										<div style="height: 418px; overflow-y:auto;" class="card-text">
 											<div class="table-responsive">
 												<table ng-show="reports.length"
 													class="table table-striped table-hover">
@@ -228,17 +228,57 @@
                                                                 <button type="submit" class="btn btn-secondary"
                                                                         ng-click="fetchSimilarities(rep.sourceFile,rep.targetFile)">
                                                                     See Similarities</button>
-                                                            </td>
+                                                            	</td>
 															<td>{{rep.targetFile}}</td>
 															<td>{{rep.matchPercentage}}</td>
 															<td>{{rep.matchRemark}}</td>
-
+	
 														</tr>
+														
 													</tbody>
 												</table>
 												<div ng-hide="reports.length"
 													class="alert alert-info alert-dismissible fade show">
 													<span> <strong>No Results to display</strong>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Similarity code goes here -->
+								<div class="card ">
+									<div class="card-header text-white bg-secondary">
+										<h4 class="card-title">
+											<a data-toggle="collapse" data-target="#similarityCollapse">Code Similarity</a>
+										</h4>
+									</div>
+									<div id="similarityCollapse"  
+										href="javascript:;" class="collapse">
+										<div class="card-text">
+											<h3 align="center">Code similarities</h3>
+											<div class="container-fluid">
+												<div ng-show="showSimilarity" class="row">
+													<div class="column" style="background-color: #aaa;">
+														<div>
+															<h4>{{simData.fileNameOne}}</h4>
+														</div>
+														<div>
+															<pre ng-bind-html="similarity1"></pre>
+														</div>
+													</div>
+													<div class="column" style="background-color: #bbb;">
+														<div>
+															<h4>{{simData.fileNameTwo}}</h4>
+														</div>
+														<div>
+															<pre ng-bind-html="similarity2"></pre>
+														</div>
+													</div>
+												</div>
+												<div ng-hide="showSimilarity"
+													class="alert alert-info alert-dismissible fade show">
+													<span> <strong>No Similarity to display</strong>
 													</span>
 												</div>
 											</div>
