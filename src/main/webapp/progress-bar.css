@@ -42,4 +42,19 @@ display: inline-block;
   }   
 [data-toggle="collapse"].collapsed:after {
   transform: rotate(0deg) ;
- } 
+ }
+
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 5%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

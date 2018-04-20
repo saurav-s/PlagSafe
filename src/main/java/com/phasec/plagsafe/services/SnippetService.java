@@ -26,7 +26,7 @@ public class SnippetService {
     StorageService storageService;
 
 
-    public String processSnippet(String fileOne, String fileTwo) {
+    public MatchSnippet processSnippet(String fileOne, String fileTwo) {
         String savedFileOne = changeToSavedFileFormat(fileOne);
         String savedFileTwo = changeToSavedFileFormat(fileTwo);
 
@@ -38,9 +38,14 @@ public class SnippetService {
 
         List<Integer> ranges = SnippetUtility.findSnippetRanges(codeOne, codeTwo);
         updateSnippetRange(ranges, snip);
-        return DataFormatUtility.getJsonString(snip);
+        return snip;
     }
 
+    /**
+     * updates the ranges of the snippet where the similarities have been detected
+     * @param ranges list of ranges
+     * @param snip snippet that needs updating
+     */
     private void updateSnippetRange(List<Integer> ranges, MatchSnippet snip) {
         int n = ranges.size();
         // add indices to the first list
