@@ -14,7 +14,10 @@ public class MatchSnippet {
     MatchSnippet(String fileOne, String codeOne, String fileTwo, String codeTwo) {
         this.fileNameOne = fileOne;
         this.fileNameTwo = fileTwo;
-        this.codeOne = codeOne;
+        this.codeOne = "<span style=\"background-color: #FFFF00\">" + codeOne + "</span>";
+        this.codeOne = this.codeOne.replaceAll("&lt;", "<");
+        this.codeOne = this.codeOne.replaceAll("&gt;", ">");
+
         this.codeTwo = codeTwo;
         this.rangesForOne = new ArrayList<>();
         this.rangesForTwo = new ArrayList<>();

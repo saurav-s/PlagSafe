@@ -18,7 +18,9 @@ app.config(function($routeProvider,$windowProvider) {
 		templateUrl : 'views/upload.html'
 	}).when('/services', {
 		templateUrl : 'views/system_stats.html'
-	});
+	}).when('/similarity', {
+	    templateUrl : 'views/similarity.html'
+    });
 });
 
 app.controller(
@@ -91,7 +93,9 @@ app.controller('UploadFileController', [
 		'Upload',
 		'$timeout',
 		'$location',
-		function($scope, $http, Upload, $timeout, $location) {
+		'$window',
+		'$rootScope',
+		function($scope, $http, Upload, $timeout, $location, $window,$rootScope) {
 
 			$(document).ready(function(){
 			    $('[data-toggle="tooltip"]').tooltip();   
@@ -190,9 +194,8 @@ app.controller('UploadFileController', [
                 var url = '/match/snippet?firstFile=' + $fileOneName + '&secondFile=' + $fileTwoName
 
                 $http.get(url).then(function(response) {
-                    $location.path = '/snippet.html'
-                    console.log(response.data)
-                    $scope.results = response.data;
+                    $rootScope.simData = response.data;
+                    $window.location = '#!/similarity';
                 }, function(response){
 
                 });
