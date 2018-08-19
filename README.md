@@ -9,7 +9,7 @@ Tridiv Nandi</br>
 
 
 1. Link to the live System<br />
-[Plagsafe - A plagiarism detector by team 109](http://ec2-13-58-210-51.us-east-2.compute.amazonaws.com:8080)<br />
+[Plagsafe - A plagiarism detector by team 109](https://plagsafe.herokuapp.com)<br />
 [Jenkins](https://plagsafe.herokuapp.com/) (username: team109 password: maximum123)<br />
 
 2. Links to YouTube videos<br />
