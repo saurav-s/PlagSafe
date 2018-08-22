@@ -18,7 +18,7 @@ Tridiv Nandi</br>
 [Final Presentation](https://youtu.be/1WfJTs-QnyE)<br />
 
 3. Project Overview<br/>
-Plagsage is an online plagiarism detection tool which targets source code written in python to detect plagiarism in them.<br/>
+Plagsafe is an online plagiarism detection tool which targets source code written in python to detect plagiarism in them.<br/>
 It is deployed on AWS, link provided above, and provides the user to check plagiarised content for the following types of plagiarism:<br/>
 * Renaming detection
 * Refactoring detection
